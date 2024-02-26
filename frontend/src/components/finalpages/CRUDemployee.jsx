@@ -10,6 +10,7 @@ const CRUDemployee = () => {
         setOpenEmployee(true);
         Setemployee({
           name: '',
+          classification:'',
     department: '',
     status: '',
     work_status: '',
@@ -27,6 +28,7 @@ const CRUDemployee = () => {
       const navigate = useNavigate();
   const [employee, Setemployee] = useState({
     name: '',
+    classification:'',
     department: '',
     status: '',
     work_status: '',
@@ -76,17 +78,21 @@ const CRUDemployee = () => {
       alert('Error updating employee:', error);
     }
   };
+  // const [isDeleted, setIsDeleted] = useState(false);
 
-  const deleteEmployee = async (selectedEmployee) => {
-    try {
-      const response = await axios.delete(`http://localhost:3002/employees/${selectedEmployee.id}`);
-      alert("Deleted successfully.")
-      closeModal();
-      navigate(0);  
-    } catch (error) {
-      console.error('Error deleting user:', error);
-    }
-  };
+  //   const handleDelete = () => {
+  //       setIsDeleted(true);
+  //   };
+  // const deleteEmployee = async (selectedEmployee) => {
+  //   try {
+  //     const response = await axios.delete(`http://localhost:3002/employees/${selectedEmployee.id}`);
+  //     alert("Deleted successfully.")
+  //     closeModal();
+  //     navigate(0);  
+  //   } catch (error) {
+  //     console.error('Error deleting user:', error);
+  //   }
+  // };
 
   const [searchTerm, setSearchTerm] = useState('');
       const [searchResults, setSearchResults] = useState([]);
@@ -108,6 +114,7 @@ const CRUDemployee = () => {
         if (selectedEmployee) {
           Setemployee({
             name: selectedEmployee.name,
+            classification: selectedEmployee.classification,
             department: selectedEmployee.department,
             status: selectedEmployee.status,
             work_status: selectedEmployee.work_status
@@ -179,6 +186,9 @@ const CRUDemployee = () => {
               <h3>
                {employees.department}
               </h3>
+              <h5>
+               {employees.classification}
+              </h5>
               <h4>
                 {employees.status}
               </h4>
@@ -205,18 +215,54 @@ const CRUDemployee = () => {
 
                         </input>
                     </div>
-                    <div className="department">
-                        <label htmlFor="department">
-                            Department
-                        </label>
-                        <select id="department" name="department" required className="inputroom" value={employee.department} onChange={handleChange} >
-                            <option value="">Select Department</option>
-                            <option value="SBIT">School of Business and Information Technology (SBIT)</option>
-                            <option value="SARFRAID">School of Fine Arts, Architecture and Interior Design (SARFRAID)</option>
-                            <option value="SHTM">School of Hospitality and Tourism Management (SHTM)</option>
-                            <option value="SSLATE">School of Sciences, Liberal Arts and Teacher Education (SSLATE)</option>
-                        </select>
-                    </div>
+                    <div className="classification">
+    <label htmlFor="classification">
+        Employee Classification:
+    </label>
+    <select
+        id="classification"
+        name="classification"
+        required
+        className="inputroom"
+        value={employee.classification}
+        onChange={handleChange}
+    >
+        <option value="">Select Department</option>
+        <option value="Academic Non Teaching Personnel">Academic Non Teaching Personnel</option>
+        <option value="Non Teaching Personnel">Non Teaching Personnel</option>
+        <option value="General Maintenance">General Maintenance</option>
+        <option value="Teaching Personnel">Teaching Personnel</option>
+    </select>
+</div>
+<div className="department">
+    <label htmlFor="department">
+        Department
+    </label>
+    <select
+        disabled={!employee.classification || (employee.classification !== 'Teaching Personnel')}
+        id="department"
+        name="department"
+        required
+        className="inputroom"
+        value={employee.department}
+        onChange={handleChange}
+    >
+        <option value="">Select Department</option>
+        <option value="School of Business and Information Technology">
+            School of Business and Information Technology (SBIT)
+        </option>
+        <option value="School of Fine Arts, Architecture and Interior Design">
+            School of Fine Arts, Architecture and Interior Design (SARFAID)
+        </option>
+        <option value="School of Hospitality and Tourism Management">
+            School of Hospitality and Tourism Management (SHTM)
+        </option>
+        <option value="School of Sciences, Liberal Arts and Teacher Education">
+            School of Sciences, Liberal Arts and Teacher Education (SSLATE)
+        </option>
+    </select>
+</div>
+
                     <div className="status">
                         <label htmlFor="status">
                             Status
@@ -270,12 +316,12 @@ const CRUDemployee = () => {
                         <label htmlFor="department">
                             Department
                         </label>
-                        <select id="department" name="department" required className="inputroom"  value={employee.department} onChange={handleChange}>
+                        <select disabled={employee.classification !== 'Teaching Personnel'} id="department" name="department" required className="inputroom"  value={employee.department} onChange={handleChange}>
                             <option value="">Select Department</option>
-                            <option value="SBIT">School of Business and Information Technology (SBIT)</option>
-                            <option value="SARFRAID">School of Fine Arts, Architecture and Interior Design (SARFRAID)</option>
-                            <option value="SHTM">School of Hospitality and Tourism Management (SHTM)</option>
-                            <option value="SSLATE">School of Sciences, Liberal Arts and Teacher Education (SSLATE)</option>
+                            <option value="School of Business and Information Technology">School of Business and Information Technology (SBIT)</option>
+                            <option value="School of Fine Arts, Architecture and Interior Design">School of Fine Arts, Architecture and Interior Design (SARFAID)</option>
+                            <option value="School of Hospitality and Tourism Management">School of Hospitality and Tourism Management (SHTM)</option>
+                            <option value="School of Sciences, Liberal Arts and Teacher Education">School of Sciences, Liberal Arts and Teacher Education (SSLATE)</option>
                         </select>
                     </div>
                     <div className="work_status" >
@@ -289,8 +335,20 @@ const CRUDemployee = () => {
                         </select>
                     </div>
                     </div>
-                    
-                    
+                    <div className="top">
+                    <div className="classification">
+                        <label htmlFor="classification">
+                            Employee Classification : 
+                        </label>
+                        <select id="classification" name="classification" required className="inputroom" value={employee.classification} onChange={handleChange} >
+                            <option value="">Select Department</option>
+                            <option value="Academic Non Teaching Personnel">Academic Non Teaching Personnel</option>
+                            <option value="Non Teaching Personnel">Non Teaching Personnel</option>
+                            <option value="General Maintenance">General Maintenance</option>
+                            <option value="Teaching Personnel">Teaching Personnel</option>
+                        </select>
+                    </div>
+                    </div>
                     <div className="buttons">
                         <button className='log' onClick={() => updateEmployee(selectedEmployee)}>
                             Update Employee Information

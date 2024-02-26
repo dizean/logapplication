@@ -254,9 +254,9 @@ const CRUDrooms = () => {
                         <button className='log' onClick={() => updateRoom(selectedRoom)}>
                             Update Room Information
                         </button>
-                        <button className='log' onClick={() => deleteRoom(selectedRoom)}>
+                        {/* <button className='log' onClick={() => deleteRoom(selectedRoom)}>
                             Delete Room Information
-                        </button>
+                        </button> */}
                         <button className='cancel' onClick={closeModal}>
                             Cancel
                         </button>

@@ -64,7 +64,7 @@
   gap: 10px;
   text-align: center;
 }
-.department,.status,.work_status{
+.department,.status,.work_status ,.classification{
   display: flex;
   flex-direction: column;
   padding: 10px 25px;
@@ -124,7 +124,7 @@
   align-items: center;
   
 }
-.top .name,.status,.department,.work_status,.location{
+.top .name,.status,.department,.work_status,.location,.classification{
   width: 50%;
   text-align: left;
 }

@@ -25,15 +25,17 @@ const db = mysql.createConnection({
 router.post('/', (req, res) => {
     const {
       name,
+      classification,
       department,
       status,
       work_status
     } = req.body;
     const sql =
-      'INSERT INTO tbl_employees ( name, department, status, work_status) VALUES (?, ?, ?, ?)';
+      'INSERT INTO tbl_employees ( name, classification, department, status, work_status) VALUES (?, ?, ?, ?, ?)';
     db.query(
       sql,
       [  name,
+        classification,
         department,
         status,
         work_status],
@@ -45,6 +47,7 @@ router.post('/', (req, res) => {
           res.json({
             id: results.insertId,
             name,
+            classification,
             department,
             status,
             work_status
@@ -73,14 +76,15 @@ router.post('/', (req, res) => {
     const employeeid = req.params.id;
     const {
         name,
+        classification,
         department,
         status,
         work_status
       } = req.body;
   
     db.query(
-      'UPDATE tbl_employees SET name = ?, department = ?, status = ?, work_status = ? WHERE id = ?',
-      [name, department, status, work_status, employeeid],
+      'UPDATE tbl_employees SET name = ?, classification=?, department = ?, status = ?, work_status = ? WHERE id = ?',
+      [name, classification, department, status, work_status, employeeid],
       (err, results) => {
         if (err) {
           console.error('Error updating data:', err);
