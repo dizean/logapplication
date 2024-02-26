@@ -1,0 +1,75 @@
+.signin-container {
+  display: flex;
+  justify-content: space-between;
+  height: 100vh;
+}
+
+.left-column-signin {
+  flex: 1;
+  padding: 20px;
+  margin: 5% 0;
+  margin-left: 7%;
+  margin-right: -7%;
+  font-family: 'Poppins', sans-serif;
+  text-align: left;
+}
+
+.logo-container-signin img {
+  width: 100px; 
+}
+
+.input-container-signin {
+  margin-top: 20px;
+  padding-bottom: 20px;
+}
+
+.input-container-signin input {
+  border-radius: 5px;
+  padding: 10px;
+  width: 330px;
+  border: 1px solid rgb(189, 189, 189);
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+  display: flex;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.loginlink-signin {
+  padding-top: 40px;
+}
+.loginlink-signin span{
+  color: #065AD8;
+}
+
+button {
+  background-color: #065AD8;
+  color: white;
+  padding: 10px;
+  border: none;
+  margin: 0 auto;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 350px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+}
+
+.left-column-signin h1 {
+  font-weight: 500;
+}
+
+.left-column-signin p {
+  font-size: 14px;
+  width: 70%;
+  margin-top: -10px;
+  color: rgb(92, 92, 92);
+  padding-bottom: 30px;
+}
+
+.right-column-signin {
+  flex: 1;
+  background-size: cover;
+  background-position: center;
+  background-image: url('../../../images/Signup-login-img.svg');
+}

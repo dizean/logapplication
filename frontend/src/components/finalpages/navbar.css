@@ -1,0 +1,24 @@
+.navbar{
+    width: 100%;
+}
+.nav{
+    background-color: blue;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    opacity: .8;
+}
+.d-left{
+    width: 25%;
+}
+.d-left img{
+    width: 100%;
+}
+.d-right a{
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    background-color: rgb(255, 255, 255);
+    padding: 10px 50px;
+    border-radius: 10px;
+}

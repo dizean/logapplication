@@ -1,0 +1,71 @@
+.sidebar {
+    width: 200px;
+    height: 100vh;
+    background-color: white;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    padding-top: 20px;
+    font-family: 'Poppins', sans-serif;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+  }
+  .logo-container-sidebar img {
+    max-width: 130px;
+    margin-left: 10px;
+    margin-top: 20px;
+  }
+  
+  .label {
+    margin-left: 10px;
+    font-size: 10px;
+  }
+  
+  .links-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+    margin-left: 10px;
+  }
+  
+  .logo-container-sidebar:hover img {
+    transform: scale(1); 
+  }
+
+  .icon-container img {
+    width: 20px;
+    height: 20px;
+    opacity: 60%;
+  }
+  
+  a {
+    text-decoration: none;
+    color: rgb(100, 100, 100);
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    font-weight: 400;
+    font-size: 15px;
+    transition: ease 1s;
+  }
+  
+  .book:hover, .signout:hover, .addroom:hover, .visitor:hover, .key:hover {
+    transform: scale(1.05);
+    transition: ease 1s;
+  }
+  
+  .icon-container {
+    margin-right: 10px;
+  }
+  
+  .logout-container {
+    margin-top: auto; 
+    margin-left: 10px;
+    margin-bottom: 30px;
+  }
+  .logout-container img{
+    margin-top: 7px;
+  }
