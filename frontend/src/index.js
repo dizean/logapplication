@@ -19,9 +19,7 @@ import ViewLogVisitors from './components/finalpages/ViewVisitorslog';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <>
-
-  {/* test ni jal */}
-  {/* testi Jal2 */}
+{/* test push */}
   <UserProvider>
   <React.StrictMode>
     <Router>
