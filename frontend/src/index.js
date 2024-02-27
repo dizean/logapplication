@@ -20,7 +20,6 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <>
   {/* thisss */}
-  {/* test 2 */}
   <UserProvider>
   <React.StrictMode>
     <Router>
