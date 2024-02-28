@@ -284,7 +284,7 @@ const handleInputChange = (e) => {
                     
                     <div className="buttons">
                         <button className='log' onClick={handleBorrow}>
-                            Add Room
+                            Borrow
                         </button>
                         <button className='cancel' onClick={closeModal}>
                             Cancel
@@ -313,7 +313,7 @@ const handleInputChange = (e) => {
                     
                     <div className="buttons">
                         <button className='log' onClick={handleReturn}>
-                            Add Room
+                           Return
                         </button>
                         <button className='cancel' onClick={closeModal}>
                             Cancel

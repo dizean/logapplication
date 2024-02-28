@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import NavHome from "./Navbar";
 import { Link, useNavigate } from "react-router-dom";
-import "../finalpages/logemployee.css";
+import "../../App.css";
 import roomy from "../../images/Room.png";
 import locate from "../../images/loc.png";
 import status from "../../images/status.png";
@@ -257,7 +257,7 @@ const CRUDrooms = () => {
       {UpdateRoom && selectedRoom && (
         <>
           <div className="modal-background"></div>
-          <div className="update">
+          <div id="update" className="update">
             <div className="updateform">
               <h1>Room Details</h1>
               <div className="top">
@@ -291,7 +291,7 @@ const CRUDrooms = () => {
                   
                   </div>
                    <br/>
-                  <label htmlFor="name">Name</label>
+                  <label htmlFor="name">Location</label>
                   <br/>
 
                   <input

@@ -191,7 +191,7 @@ const LogEmployee = () => {
           <input
             type="text"
             className="search"
-            placeholder="Search by Room name or number ;"
+            placeholder="Search by name of employee"
             value={searchTerm}
             onChange={handleInputChange}
           />

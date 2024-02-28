@@ -102,7 +102,7 @@ const ViewLogEmployee = () => {
                     <input
                     type="text"
                     className='search'
-                    placeholder="Search by Room name or number ;"
+                    placeholder="Search by Employee name "
                     value={searchTerm}
                     onChange={handleInputChange}
                 />

@@ -39,19 +39,17 @@ input::placeholder {
     transform: rotate(360deg);
   }
 }
-
 .visitform{
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  background-color: #ffffff;
+  border-radius: 15px;
+  padding: 20px;
 }
 .modalvisit h1{
   margin: 0;
   text-align: center;
 }
 .name,.room,.purpose,.place{
+  gap: 20px;
   display: flex;
   flex-direction: column;
   padding: 10px 25px;
@@ -60,9 +58,14 @@ input::placeholder {
 }
 
 .name{
-
   display: flex;
-  justify-content: center;
+}
+.name label{
+  text-align: left;
+}
+.name input{
+  width: 480px;
+  padding: 5px;
 }
 .department,.status,.work_status ,.classification{
   display: flex;
@@ -102,21 +105,17 @@ input::placeholder {
   height: 50px;
   border-radius: 20px;
 }
-
-.update{
-  width: 50%;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 25px;
-  border: solid 1px;
-  border-color: rgb(56, 56, 67);
-  backdrop-filter: blur(115px);
+#update{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .updateform{
   width: 100%;
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
 }
 .updateform h1{
@@ -125,7 +124,7 @@ input::placeholder {
 .top{
   width: 100%;
   display: flex;
-  align-items: center;
+  justify-content: center;
   
 }
 .top .name,.status,.department,.work_status,.location,.classification{
@@ -153,7 +152,6 @@ input::placeholder {
 }
 .styled-table {
   width: 100%;
-  padding: 10px 10px;
 }
 .styled-table th,
 .styled-table td {

@@ -192,25 +192,36 @@ border-radius: 1rem;
 
 
 .modalvisit{
-    width: 589px;
-    height: 850px;
+    width: 100%;
+    height: 100%;
     position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     border-radius: 25px;
-
-   
-    background-color: #ffffff;
+    background-color: rgba(0, 0, 0, 0.5); /* Change the opacity value or color as needed */
+    backdrop-filter: blur(10px);
   }
-
   .visitform-img{
 
     display: flex;
     justify-content: center;
   
   }
-
+.form-name{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    width: 500px;
+    gap: 10px;
+}
+.form-name input{
+    width: 480px;
+}
   .visitform-img img{
 
     width: 150px;

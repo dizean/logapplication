@@ -97,7 +97,7 @@ const ViewLogVisitors = () => {
                     <input
                     type="text"
                     className='search'
-                    placeholder="Search by Room name or number ;"
+                    placeholder="Search by Visitor name"
                     value={searchTerm}
                     onChange={handleInputChange}
                 />

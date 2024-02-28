@@ -18,7 +18,7 @@
 
 .data-grid{
     width: 14%;
-    height: 350px;
+    /* height: 350px; */
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -113,19 +113,3 @@
 
   }
 
-
-.updateform{
-
-   
-    display: flex;
-    /* justify-content: center;
-    align-items: center;
-    flex-direction: column; */
-}
-.form-const{
-
-    display: flex;
-    /* align-items: start;
-    justify-content: center; */
-    flex-direction: column;
-}
