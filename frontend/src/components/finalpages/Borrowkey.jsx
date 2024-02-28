@@ -4,6 +4,9 @@ import NavHome from './Navbar';
 import { Link , useNavigate} from 'react-router-dom';
 import '../finalpages/logemployee.css';
 import { useUser } from '../jsx/userContext';
+import roomy from '../../images/Room.png';
+import locate from '../../images/loc.png'
+import status from '../../images/status.png'
 const BorrowKey = () => {
   const navigate = useNavigate();
   const { user } = useUser();
@@ -197,15 +200,55 @@ const handleInputChange = (e) => {
             <div className='data-container'>
             {searchResults.map((room) => (
             <div className="data-grid" key={room.id}>
-             <h2>
-             {room.room}
-              </h2>
-              <h3>
-               {room.status}
-              </h3>
-              <h4>
-                {room.location}
-              </h4>
+
+                <div className="data-parent">
+                <div className="personIcon">
+                  <img src={roomy} />
+                </div>
+
+                <div className="employee-content">
+                  <div className="employee-name">
+                  <p>Room Number:</p>
+                  </div>
+                  <div className="employee-data">
+                    <h3>{room.room}</h3>
+                  </div>
+                </div>
+              </div>
+
+
+              <div className="data-parent">
+                <div className="personIcon">
+                  <img src={status} />
+                </div>
+
+                <div className="employee-content">
+                  <div className="employee-name">
+                  <p>Availability Status:</p>
+                  </div>
+                  <div className="employee-data">
+                    <h3>{room.status}</h3>
+                  </div>
+                </div>
+              </div>
+
+              <div className="data-parent">
+                <div className="personIcon">
+                  <img src={locate} />
+                </div>
+
+                <div className="employee-content">
+                  <div className="employee-name">
+                  <p>Building Location:</p>
+                  </div>
+                  <div className="employee-data">
+                    <h3>{room.location}</h3>
+                  </div>
+                </div>
+              </div>
+         
+              
+          
               <div className='log-buttons'>
                 <button
                 onClick={() => handleBorrowOpen(room)}

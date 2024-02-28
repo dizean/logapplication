@@ -5,7 +5,7 @@ import { useUser } from '../../jsx/userContext';
 import './Signup.css';
 import imagePaths from '../imagepath';
 import { Link } from 'react-router-dom';
-
+import lccb from '../../../images/lccb.png'
 const Signup = () => {
   const navigate = useNavigate();
   // const { loginUser } = useUser();
@@ -38,7 +38,7 @@ const Signup = () => {
         <div className="signup-container">
       <form className="left-column" onSubmit={handleSubmit}>
         <div className="logo-container">
-          <img src={imagePaths.logo} alt="Logo" />
+          <img src={lccb} alt="Logo" />
         </div>
         <h1>Create your account</h1>
         <p>Join our community and experience the power of seamless security with LogFlow!</p>
