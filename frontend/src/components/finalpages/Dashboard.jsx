@@ -4,6 +4,8 @@ import './dashboard.css'
 import { Link, useNavigate } from "react-router-dom";
 import LOGO from '../../images/lcc-logo.png';
 import { useUser } from '../jsx/userContext';
+
+import iconemploy from '../../images/icon-employ.png';
 const DashBoard = () => {
     const { user } = useUser();
     const [openVisit, setOpenvisit] = useState(false);
@@ -61,10 +63,27 @@ const DashBoard = () => {
             </div>
            </div>
            <div className='dash'>
+            
             <div className='employee'>
-            <div className="title">
-                
-            </div>
+
+                    <div className="icon-employee-cont">
+                        <div className="icon-employ">
+                            <img src={iconemploy}/>
+                        </div>
+
+                        <div className="employ-title-desc">
+
+                            <div className="title-employ">
+                            <h1>Employee<br></br>Management</h1>
+                            </div>
+                            <div className="title-desc">
+                            <p>Supporting employees through oversight, tracking, and tasks like attendance monitoring, performance evaluation, and record-keeping.</p>
+                            </div>
+                            
+                           
+                        </div>
+                    </div>
+          
             <div className='links'>
                 <div className='log'>
                     
@@ -94,6 +113,9 @@ const DashBoard = () => {
                 </div>
             </div>
             </div>
+
+
+
             <div className='rooms'>
             <div className="title">
                 

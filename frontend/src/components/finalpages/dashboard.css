@@ -33,26 +33,56 @@
     color: white;
 }
 .dash{
-    width: 80%;
+
     margin: 10px auto;
     display: flex;
     justify-content: space-around;
     gap: 20px;
 }
 
-.dash .employee, .rooms, .visitor{
-    width: 100%;
+.employee, .rooms, .visitor{
     display: flex;
     flex-direction: column;
-    align-items: center;
+
     /* background-color: rgba(255, 255, 255, 0.596); */
 }
-.employee .title{
-    background-image: url(../../images/users.png);
-    background-size: 60%;
-    background-position: center;
-    background-repeat: no-repeat;
+
+.employee, .rooms, .visitor {
+
+width: 573px;
+height: 674px;
+background-color: aliceblue;
+
+
 }
+
+.icon-employ{
+
+    display: flex;
+    align-items: center;
+    background-color: #e7e7e7;
+    justify-content: center;
+    width: 159px;
+    height: 159px;
+    border-radius: 1rem;
+    border-color: 2px #0140B1;
+}
+
+.icon-employee-cont{
+
+    display: flex;
+    margin: 5%;
+  
+}
+
+.employ-title-desc{
+
+    margin-left: 5%;
+    
+    font-size: px;
+    font-family: 'Lato';
+}
+
 .rooms .title{
     background-image: url(../../images/door-key.png);
     background-size: 60%;
