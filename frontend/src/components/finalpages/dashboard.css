@@ -1,6 +1,11 @@
 .dashboard{
     width: 100%;
 }
+
+Link{
+
+text-decoration: none;
+}
 .dashboard::before {
     content: '';
     position: fixed;
@@ -40,12 +45,7 @@
     gap: 20px;
 }
 
-.employee, .rooms, .visitor{
-    display: flex;
-    flex-direction: column;
 
-    /* background-color: rgba(255, 255, 255, 0.596); */
-}
 
 .employee, .rooms, .visitor {
 
@@ -54,6 +54,11 @@ height: 674px;
 background-color: aliceblue;
 
 
+}
+
+.employee{
+
+        
 }
 
 .icon-employ{
@@ -65,21 +70,71 @@ background-color: aliceblue;
     width: 159px;
     height: 159px;
     border-radius: 1rem;
-    border-color: 2px #0140B1;
+    border: 2px solid #2077E7;
 }
+
+
+.nav-links-container{
+    
+    margin-top: 10% ;
+   display: grid;
+   align-items: center;
+   justify-content: center;
+ 
+   width: 100%;
+   
+}
+
+.click-btn{
+
+    width: 400px;
+    height: 80px;
+}
+.BUTTONS{
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+}
+.btn-containers{
+    display: block;
+    align-items: center;
+    justify-content: center;
+    
+}
+/* .btn-links{
+
+    width: 400px;
+    height: 80px;
+    margin: 5%;
+} */
 
 .icon-employee-cont{
 
     display: flex;
-    margin: 5%;
-  
+    align-items: center;
+ 
+    margin: 0% 0% 0% 2%;
+    width: 520px;
+   
+    padding: 1%;
+   
+    
 }
 
+
+.title-desc{
+
+    font-size: 15px;
+    width: 300px;
+}
 .employ-title-desc{
 
     margin-left: 5%;
-    
-    font-size: px;
+    width: 200px;
+/* background-color: aqua; */
     font-family: 'Lato';
 }
 

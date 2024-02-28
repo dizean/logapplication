@@ -58,10 +58,12 @@ const DashBoard = () => {
             </div>
             <div className='d-right'>
                 <Link to='/'>
-                Sign out
+                Dick out
                 </Link>
             </div>
            </div>
+
+
            <div className='dash'>
             
             <div className='employee'>
@@ -83,8 +85,39 @@ const DashBoard = () => {
                            
                         </div>
                     </div>
+
+
+                        <div className="nav-links-container">
+
+                            <div className="BUTTONS">
+                            <Link to='/LogEmployee'>
+                    <button className='click-btn'>
+                    Log Employee
+                    </button>
+                    </Link>
+                    <Link to='/CRUDEmployees'>
+                    <button className='click-btn'>
+                    Create Dick Pic Click Here!
+                    </button>
+                    </Link>
+                   
+
+
+
+  <Link to='/ViewEmployeeLog'>
+                <button className='click-btn'>
+                        View Employees Log
+                    </button>
+                    </Link>
+                            </div>
+                       
+
+
+                    
+                        </div>
+                    
           
-            <div className='links'>
+            {/* <div className='links'>
                 <div className='log'>
                     
                     <Link to='/LogEmployee'>
@@ -111,7 +144,7 @@ const DashBoard = () => {
                     </Link>
                     
                 </div>
-            </div>
+            </div> */}
             </div>
 
 
