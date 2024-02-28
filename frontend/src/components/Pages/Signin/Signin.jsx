@@ -43,7 +43,7 @@ const Signin = () => {
           <img src={lccb} alt="Logo" />
         </div>
         <h1 className='text-sign'>Log in to your account</h1>
-        <p>Welcome back! Experience the power of seamless security with LogFlow.</p>
+        <p>Welcome back! Experience the power of seamless security.</p>
         <div className="input-container-signin">
           <div className="input-field-signin">
           <input type="text" name="username" placeholder='Username' value={admin.username} onChange={handleChange} />

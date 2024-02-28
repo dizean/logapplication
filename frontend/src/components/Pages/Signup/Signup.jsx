@@ -41,7 +41,7 @@ const Signup = () => {
           <img src={lccb} alt="Logo" />
         </div>
         <h1>Create your account</h1>
-        <p>Join our community and experience the power of seamless security with LogFlow!</p>
+        <p>Please create an account to get started.</p>
         <div className="input-container">
           <div className="input-field">
           <input type="text" name="username" placeholder='Username' value={admin.username} onChange={handleChange} />
