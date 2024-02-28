@@ -1,6 +1,8 @@
 .dashboard{
     width: 100%;
 }
+
+
 .dashboard::before {
     content: '';
     position: fixed;
@@ -8,14 +10,15 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url(../../images/Site-Thumbnail.webp);
+    /* background-image: url(../../images/Site-Thumbnail.webp); */
     background-repeat: no-repeat;
+    background-color: #ffffff;
     background-size: cover;
     opacity: 0.5;
     z-index: -1;
   }
 .dashnav{
-    background-color: blue;
+    background-color: #013fe8;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -29,8 +32,15 @@
     width: 100%;
     filter: brightness(1.5);
 }
-.d-right a{
+
+
+.d-right {
+    font-weight: 500;
     color: white;
+    background-color: #ffffff;
+    width: 227px;
+    height: 67px;
+    border-radius: 0.682rem;
 }
 .dash{
 
@@ -40,20 +50,21 @@
     gap: 20px;
 }
 
-.employee, .rooms, .visitor{
-    display: flex;
-    flex-direction: column;
 
-    /* background-color: rgba(255, 255, 255, 0.596); */
-}
 
 .employee, .rooms, .visitor {
 
 width: 573px;
 height: 674px;
-background-color: aliceblue;
+background-color: rgb(234, 245, 255);
+border-radius: 1rem;
 
 
+}
+
+.employee{
+
+        
 }
 
 .icon-employ{
@@ -65,21 +76,71 @@ background-color: aliceblue;
     width: 159px;
     height: 159px;
     border-radius: 1rem;
-    border-color: 2px #0140B1;
+    border: 2px solid #2077E7;
 }
+
+
+.nav-links-container{
+    
+    margin-top: 10% ;
+   display: grid;
+   align-items: center;
+   justify-content: center;
+ 
+   width: 100%;
+   
+}
+
+.click-btn{
+
+    width: 400px;
+    height: 80px;
+}
+.BUTTONS{
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+}
+.btn-containers{
+    display: block;
+    align-items: center;
+    justify-content: center;
+    
+}
+/* .btn-links{
+
+    width: 400px;
+    height: 80px;
+    margin: 5%;
+} */
 
 .icon-employee-cont{
 
     display: flex;
-    margin: 5%;
-  
+    align-items: center;
+ 
+    margin: 0% 0% 0% 2%;
+    width: 520px;
+   
+    padding: 1%;
+   
+    
 }
 
+
+.title-desc{
+
+    font-size: 15px;
+    width: 300px;
+}
 .employ-title-desc{
 
     margin-left: 5%;
-    
-    font-size: px;
+    width: 200px;
+/* background-color: aqua; */
     font-family: 'Lato';
 }
 
@@ -107,19 +168,69 @@ background-color: aliceblue;
     margin: 0;
     padding: 0;
 }
-.links {
+
+
+.dash-right{
+
+    width: 227px;
+    height: 67px;
+    background-color: #ffffff;
+    border-radius: 0.525rem;
+}
+
+.SignOutBtn, .dash-right{
+
     display: flex;
-    flex-direction: column;
+    align-items: center;
     justify-content: center;
-    text-align: center;
-    margin: 20px 0;
-    gap: 20px;
-    color: white;
+  
+    text-decoration: none;
+    color: #1d1d1f;
+    font-size: 24px;
+    margin-right: 0.5%;
 }
-.dash .links button{
-    padding: 20px 10px ;
-    width: 200px;
-    color: rgb(0, 0, 0);
-    background-color: white;
-    border: solid black 1px;
-}
+
+
+.modalvisit{
+    width: 589px;
+    height: 850px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 25px;
+
+   
+    background-color: #ffffff;
+  }
+
+  .visitform-img{
+
+    display: flex;
+    justify-content: center;
+  
+  }
+
+  .visitform-img img{
+
+    width: 150px;
+    height: 150px;
+    margin-top:15%;
+
+    object-fit: contain;
+  }
+
+  .frm-title{
+
+    margin-bottom: 5%;
+  }
+
+  .modal-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Change the opacity value or color as needed */
+    backdrop-filter: blur(10px); /* This will add a blur effect, adjust as needed */
+  }

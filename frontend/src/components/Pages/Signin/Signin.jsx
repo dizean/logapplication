@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './Signin.css';
 import imagePaths from '../imagepath';
+import lccb from '../../../images/lccb.png'
 import { Link } from 'react-router-dom';
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
@@ -39,7 +40,7 @@ const Signin = () => {
     <div className="signin-container">
       <form className="left-column-signin" onSubmit={handleSubmit}>
         <div className="logo-container-signin">
-          <img src={imagePaths.logo} alt="Logo" />
+          <img src={lccb} alt="Logo" />
         </div>
         <h1 className='text-sign'>Log in to your account</h1>
         <p>Welcome back! Experience the power of seamless security with LogFlow.</p>

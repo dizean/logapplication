@@ -11,11 +11,11 @@ const NavHome = () => {
             <div className='d-left'>
                 <img src={LOGO}/>
             </div>
-            <div className='d-right'>
-                <Link to='/Dashboard'>
-                Back to Home
-                </Link>
-            </div>
+           
+            <Link to="/Dashboard" style={{ textDecoration: 'none' }}>
+          <div className="dash-right" >Back To </div>
+          </Link>
+         
            </div>
         </div>
     )

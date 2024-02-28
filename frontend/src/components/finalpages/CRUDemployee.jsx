@@ -2,7 +2,10 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import NavHome from './Navbar';
 import { Link ,useNavigate} from 'react-router-dom';
-import '../finalpages/logemployee.css'
+import "../finalpages/logemployee.css";
+import person from "../../images/person.png";
+import classification from "../../images/classification.png";
+import status from "../../images/status.png";
 const CRUDemployee = () => {
     const [UpdateEmployee, setUpdateEMployee] = useState(false);
     const [openEmployee, setOpenEmployee] = useState(false);
@@ -180,18 +183,69 @@ const CRUDemployee = () => {
             <div className='data-container'>
             {searchResults.map((employees) => (
             <div className="data-grid">
-             <h2>
-             {employees.name}
-              </h2>
-              <h3>
-               {employees.department}
-              </h3>
-              <h5>
-               {employees.classification}
-              </h5>
-              <h4>
+
+                <div className="data-parent">
+                <div className="personIcon">
+                  <img src={person} />
+                </div>
+
+                <div className="employee-content">
+                  <div className="employee-name">
+                  <p>Employee Name:</p>
+                  </div>
+                  <div className="employee-data">
+                    <h3>{employees.name}</h3>
+                  </div>
+                </div>
+
+                
+              </div>
+              
+
+              <div className="data-parent">
+                <div className="personIcon">
+                  <img src={classification} />
+                </div>
+
+                <div className="employee-content">
+                  <div className="employee-name">
+                  <p>Employee Classification:</p>
+                  </div>
+                  <div className="employee-data">
+                    <h3 className='fit-text'>{employees.classification}</h3>
+                  </div>
+                </div>
+
+                
+              </div>
+
+              <div className="data-parent">
+                <div className="personIcon">
+                  <img src={status} />
+                </div>
+
+                <div className="employee-content">
+                  <div className="employee-name">
+                  <p>Status:</p>
+                  </div>
+                  <div className="employee-data">
+                  <h4>
                 {employees.status}
               </h4>
+                  </div>
+                </div>
+
+                
+              </div>
+
+              <div className="dept">
+              <h5 >
+               {employees.department}
+              </h5>
+              </div>
+           
+             
+             
               <div className='log-buttons'>
                 <button onClick={() => openUpdateEmployee(employees)}>
                   Update
@@ -201,6 +255,7 @@ const CRUDemployee = () => {
             ))}
             </div>
             </div>
+            
             {openEmployee &&
             (
                 <>
@@ -285,13 +340,86 @@ const CRUDemployee = () => {
             </div>
                 </>
             )}
+            
             {UpdateEmployee && selectedEmployee &&
             (
                 <>
+                 <div className="modal-background"></div>
                 <div className="update">
+                  
                 <div className='updateform'>
                     <h1>Employee Details</h1>
-                    <div className="top">
+
+                    <div className="fillup-form">
+
+                    
+                    <div className="form-name">
+                    <label htmlFor="name">
+                           Name
+                        </label>
+                        <input type='text' name='name' value={employee.name} onChange={handleChange}>
+
+                        </input>
+                    </div>
+                    
+
+                    <div className="form-stat">
+                    <label htmlFor="status">
+                            Status:
+                        </label>
+                        <br/>
+                        <select id="status" name="status" required className="inputroom"value={employee.status} onChange={handleChange} >
+                            <option value="">Select Status</option>
+                            <option value="Full Time">Full Time</option>
+                            <option value="Part Time">Part Time</option>
+                        </select>
+                    </div>
+
+
+                    <div className="department-form">
+                    <label htmlFor="department">
+                            Department:
+                        </label>
+                        <br/>
+                        <select disabled={employee.classification !== 'Teaching Personnel'} id="department" name="department" required className="inputroom"  value={employee.department} onChange={handleChange}>
+                            <option value="">Select Department</option>
+                            <option value="School of Business and Information Technology">School of Business and Information Technology (SBIT)</option>
+                            <option value="School of Fine Arts, Architecture and Interior Design">School of Fine Arts, Architecture and Interior Design (SARFAID)</option>
+                            <option value="School of Hospitality and Tourism Management">School of Hospitality and Tourism Management (SHTM)</option>
+                            <option value="School of Sciences, Liberal Arts and Teacher Education">School of Sciences, Liberal Arts and Teacher Education (SSLATE)</option>
+                        </select>
+                    </div>
+
+
+                    <div className="workstat-form">
+                    <label htmlFor="work_status">
+                            Work Status:
+                        </label>
+                        <br/>
+                        <select id="work_status" name="work_status" required className="inputroom" value={employee.work_status} onChange={handleChange}>
+                            <option value="">Select Status</option>
+                            <option value="Active">Active</option>
+                            <option value="Inactive">Inactive</option>
+                        </select>
+                    </div>
+
+                    <div className="classification-form">
+                    <label htmlFor="classification">
+                            Employee Classification : 
+                        </label>
+                        <br></br>
+                        <select id="classification" name="classification" required className="inputroom" value={employee.classification} onChange={handleChange} >
+                            <option value="">Select Department</option>
+                            <option value="Academic Non Teaching Personnel">Academic Non Teaching Personnel</option>
+                            <option value="Non Teaching Personnel">Non Teaching Personnel</option>
+                            <option value="General Maintenance">General Maintenance</option>
+                            <option value="Teaching Personnel">Teaching Personnel</option>
+                        </select>
+                    </div>
+
+                    </div>
+
+                    {/* <div className="top">
                     <div className="name">
                         <label htmlFor="name">
                            Name
@@ -348,7 +476,7 @@ const CRUDemployee = () => {
                             <option value="Teaching Personnel">Teaching Personnel</option>
                         </select>
                     </div>
-                    </div>
+                    </div> */}
                     <div className="buttons">
                         <button className='log' onClick={() => updateEmployee(selectedEmployee)}>
                             Update Employee Information
