@@ -42,6 +42,7 @@ const DashBoard = () => {
         purpose: "",
         place: "",
       });
+      alert("Visitor log recorded.")
       closeModal();
     } catch (error) {
       alert("error");

@@ -13,7 +13,7 @@ const NavHome = () => {
             </div>
            
             <Link to="/Dashboard" style={{ textDecoration: 'none' }}>
-          <div className="dash-right" >Back To </div>
+          <div className="dash-right" >Back To Main</div>
           </Link>
          
            </div>

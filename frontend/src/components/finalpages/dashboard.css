@@ -43,10 +43,12 @@
     border-radius: 0.682rem;
 }
 .dash{
-
+    overflow: hidden;
+    height: 90vh;
     margin: 10px auto;
     display: flex;
     justify-content: space-around;
+    align-items: center;
     gap: 20px;
 }
 
@@ -71,7 +73,6 @@ border-radius: 1rem;
 
     display: flex;
     align-items: center;
-    background-color: #e7e7e7;
     justify-content: center;
     width: 159px;
     height: 159px;
@@ -92,12 +93,12 @@ border-radius: 1rem;
 }
 
 .click-btn{
-    font-size: 15px;
+    text-transform: uppercase;
+    font-size: 19px;
     width: 400px;
     height: 80px;
 }
 .BUTTONS{
-
     display: flex;
     align-items: center;
     justify-content: center;
@@ -125,12 +126,10 @@ border-radius: 1rem;
 .icon-employee-cont{
 
     display: flex;
-    align-items: center;
  
-    margin: 0% 0% 0% 2%;
     width: 520px;
    
-    padding: 1%;
+    padding: 20px 15px;
    
     
 }
@@ -142,7 +141,7 @@ border-radius: 1rem;
     width: 300px;
 }
 .employ-title-desc{
-
+    margin-top: -30px;
     margin-left: 5%;
     width: 200px;
 /* background-color: aqua; */
