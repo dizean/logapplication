@@ -92,7 +92,7 @@ border-radius: 1rem;
 }
 
 .click-btn{
-
+    font-size: 15px;
     width: 400px;
     height: 80px;
 }
@@ -116,7 +116,12 @@ border-radius: 1rem;
     height: 80px;
     margin: 5%;
 } */
-
+.dashboard h1{
+    font-size: 45px;
+}
+.dashboard p{
+    font-size: 15px;
+}
 .icon-employee-cont{
 
     display: flex;
@@ -232,8 +237,7 @@ border-radius: 1rem;
   }
 
   .frm-title{
-
-    margin-bottom: 5%;
+    gap: 10px;
   }
 
   .modal-background {

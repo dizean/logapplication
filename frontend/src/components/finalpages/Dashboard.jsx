@@ -146,7 +146,7 @@ const DashBoard = () => {
             <div className="employ-title-desc">
               <div className="title-employ">
                 <h1>
-                  Room<br></br>Management
+                  Keys<br></br>Management
                 </h1>
               </div>
               <div className="title-desc">
