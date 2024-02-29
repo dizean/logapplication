@@ -102,7 +102,7 @@ const DashBoard = () => {
               </Link>
 
               <Link to="/ViewEmployeeLog">
-                <button className="click-btn">View Employees Log</button>
+                <button className="click-btn">Employees Log</button>
               </Link>
             </div>
           </div>
@@ -169,7 +169,7 @@ const DashBoard = () => {
               </Link>
 
               <Link to='/Visitorslog'>
-                <button className="click-btn">View Visitors Log</button>
+                <button className="click-btn">Room Borrowers/Returners Log</button>
               </Link>
             </div>
           </div>
@@ -205,7 +205,7 @@ const DashBoard = () => {
               </Link>
 
               <Link to="/Visitorslog">
-                <button className="click-btn">View Visitors Log</button>
+                <button className="click-btn">Visitors Log</button>
               </Link>
             
             </div>
