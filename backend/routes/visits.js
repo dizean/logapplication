@@ -29,10 +29,11 @@ router.post('/', (req, res) => {
       purpose,
       place,
       time,
+      gate,
       admin_assigned
     } = req.body;
     const sql =
-      'INSERT INTO tbl_visitors (date, name, purpose, place, time, admin_assigned) VALUES (?,?, ?, ?, ?, ?)';
+      'INSERT INTO tbl_visitors (date, name, purpose, place, time, gate, admin_assigned) VALUES (?,?, ?, ?, ?, ?,?)';
     db.query(
       sql,
       [ date,
@@ -40,6 +41,7 @@ router.post('/', (req, res) => {
         purpose,
         place,
         time,
+        gate,
         admin_assigned],
       (err, results) => {
         if (err) {
@@ -53,6 +55,7 @@ router.post('/', (req, res) => {
             purpose,
             place,
             time,
+            gate,
             admin_assigned
           });
         }

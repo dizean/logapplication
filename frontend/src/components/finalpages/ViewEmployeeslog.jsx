@@ -5,6 +5,9 @@ import { Link } from 'react-router-dom';
 import '../finalpages/viewemployee.css';
 import { useUser } from '../jsx/userContext';
 import ReactHTMLTableToExcel from 'react-html-table-to-excel';
+import { DateRangePicker } from 'react-date-range';
+import 'react-date-range/dist/styles.css'; // main style file
+import 'react-date-range/dist/theme/default.css'; // theme css file
 const ViewLogEmployee = () => {
     const { user } = useUser(); 
     const [employee, setEmployee] = useState({
@@ -18,6 +21,8 @@ const ViewLogEmployee = () => {
       const [searchResults, setSearchResults] = useState([]);
       const [showEmployees, setshowEmployees] = useState(true);
       const [employeeData, setEmployeeData] = useState([]);
+      const [startDate,setStartDate]= useState(new Date());
+      const [endDate,setEndDate]= useState(new Date());
       useEffect(() => {
         const fetchData = async () => {
           try { 
@@ -32,6 +37,23 @@ const ViewLogEmployee = () => {
         };
         fetchData();
       }, []);
+      const handleSelect = async (date) => {
+        const response = await axios.get('http://localhost:3002/employee/');
+        const filtered = response.data.filter((employee) => {
+          const employeeDate = new Date(employee.date).toISOString().split('T')[0];
+          return employeeDate >= date.selection.startDate.toISOString().split('T')[0] &&
+          employeeDate <= date.selection.endDate.toISOString().split('T')[0];
+        });
+        setStartDate(date.selection.startDate);
+        setEndDate(date.selection.endDate);
+        setSearchResults(filtered);
+      };
+    
+      const selectionRange = {
+        startDate: startDate,
+        endDate: endDate,
+        key: 'selection',
+      };
       
       const handleSearch = async () => {
         try {
@@ -39,7 +61,7 @@ const ViewLogEmployee = () => {
       
           const today = new Date().toISOString().split('T')[0];
       
-          // Filter results based on search term and date
+          // filter date
           const filteredResults = response.data.filter(employee => {
             if (searchTerm) {
               return employee.date === today;
@@ -114,6 +136,7 @@ const ViewLogEmployee = () => {
                     filename={"Employee Log, Date - " + today}
                     sheet="tablexls"
                     buttonText="Download as XLS"/>
+                    <DateRangePicker ranges={[selectionRange]} onChange={handleSelect} />
             <div className="data-grid">
             <table id= "tableemplo" className="styled-table">
                         <thead>

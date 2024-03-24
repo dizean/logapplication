@@ -9,6 +9,7 @@ import iconemploy from "../../images/icon-employ.png";
 import iconkey from "../../images/ph_key.png";
 import iconvisit from "../../images/Visitor.png";
 import visitImg from "../../images/FormIcon.png"
+
 const DashBoard = () => {
   const { user } = useUser();
   const [openVisit, setOpenvisit] = useState(false);
@@ -23,6 +24,7 @@ const DashBoard = () => {
     name: "",
     purpose: "",
     place: "",
+    gate:""
   });
 
   // add visitor record
@@ -41,6 +43,7 @@ const DashBoard = () => {
         name: "",
         purpose: "",
         place: "",
+        gate:"",
       });
       alert("Visitor log recorded.")
       closeModal();
@@ -169,7 +172,7 @@ const DashBoard = () => {
                 </button>
               </Link>
 
-              <Link to='/Visitorslog'>
+              <Link to='/Borrowlog'>
                 <button className="click-btn">Room Borrowers/Returners Log</button>
               </Link>
             </div>
@@ -261,6 +264,16 @@ const DashBoard = () => {
                   required
                 ></input>
               </div>
+              <div className="gate">
+                        <label htmlFor="gate">
+                                Gate
+                        </label>
+                        <select id="gate" name="gate" required className="inputroom" value={visits.gate} onChange={handleChange} >
+                            <option value="">Select Gate</option>
+                            <option value="Galo Gate">Galo Gate</option>
+                            <option value="Rizal Gate">Rizal Gate</option>
+                        </select>
+                    </div>  
             
 
             <div className="form-buttons">

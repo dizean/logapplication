@@ -5,18 +5,30 @@ import { Link } from 'react-router-dom';
 import '../finalpages/viewemployee.css';
 import { useUser } from '../jsx/userContext';
 import ReactHTMLTableToExcel from 'react-html-table-to-excel';
+import { DateRangePicker } from 'react-date-range';
+import 'react-date-range/dist/styles.css'; // main style file
+import 'react-date-range/dist/theme/default.css'; // theme css file
+
 const ViewLogVisitors = () => {
     const { user } = useUser(); 
     const [visits, Setvisits] = useState({
         date: '',
         name: '',
         purpose: '',
-        place:''
+        place:'',
+        gate:''
       });
       const [searchTerm, setSearchTerm] = useState('');
       const [searchResults, setSearchResults] = useState([]);
       const [showVisitors, setshowVisitors] = useState(true);
       const [visitorsData, setVisitorsData] = useState([]);
+      const [selectedGate, setSelectedGate] = useState('');
+      const [startDate,setStartDate]= useState(new Date());
+      const [endDate,setEndDate]= useState(new Date());
+      // const [gateStore, setGateStore] = useState([]);
+      // const [dateStore, setDateStore] = useState([]);
+      const [filteredData, setFilteredData] = useState([]);
+      
       useEffect(() => {
         const fetchData = async () => {
           try { 
@@ -31,7 +43,47 @@ const ViewLogVisitors = () => {
         };
         fetchData();
       }, []);
-      
+      const handleFilterByGate = async () => {
+        // const response = await axios.get('http://localhost:3002/visits/');
+        if (!filteredData.length)
+        {
+          if (selectedGate === '') { 
+            setSearchResults(visitorsData); 
+          } else {
+            setSearchResults(visitorsData.filter((visit) => visit.gate === selectedGate));
+            console.log('firstconditionni')
+          }
+        }
+        else{
+          const filteredGate = filteredData.filter(visits => visits.gate === selectedGate);
+          if (selectedGate === '') { 
+            setSearchResults(visitorsData); 
+          } else {
+            console.log('secondcondition')
+            setSearchResults(filteredGate);
+          }
+        }
+       
+      };
+
+      const handleSelect = async (date) => {
+        const response = await axios.get('http://localhost:3002/visits/');
+        const filtered = response.data.filter((visits) => {
+          const visitDate = new Date(visits.date).toISOString().split('T')[0];
+          return visitDate >= date.selection.startDate.toISOString().split('T')[0] &&
+            visitDate <= date.selection.endDate.toISOString().split('T')[0];
+        });
+        setStartDate(date.selection.startDate);
+        setEndDate(date.selection.endDate);
+        setFilteredData(filtered);
+        setSearchResults(filtered);
+      };
+    
+      const selectionRange = {
+        startDate: startDate,
+        endDate: endDate,
+        key: 'selection',
+      };
       const handleSearch = async () => {
         try {
           const response = await axios.post(`http://localhost:3002/visits/search`, { searchTerm });
@@ -76,6 +128,7 @@ const ViewLogVisitors = () => {
       const handleChange = (e) => {
         Setvisits({ ...visits, [e.target.name]: e.target.value });
       };
+      
       const today = new Date().toISOString().split('T')[0];
     return (
         <div className='viemployeelog'>
@@ -109,6 +162,19 @@ const ViewLogVisitors = () => {
                     filename={"Visitors Log, Date - " + today}
                     sheet="tablexls"
                     buttonText="Download as XLS"/>
+                   <div className="gate">
+                        <label htmlFor="gate">
+                                Gate
+                        </label>
+                        <select id="gate" name="gate" required className="inputroom" value={selectedGate}  onChange={(e) => setSelectedGate(e.target.value)}>
+                            <option value="">Select Gate</option>
+                            <option value="Galo Gate">Galo Gate</option>
+                            <option value="Rizal Gate">Rizal Gate</option>
+                        </select>
+                        <button onClick={handleFilterByGate}>Filter By Gate</button>
+                    </div>
+                    <DateRangePicker ranges={[selectionRange]} onChange={handleSelect} />
+                    <input ></input>
             <div className="data-grid">
             <table id= "tableemplo" className="styled-table">
                         <thead>
@@ -117,17 +183,21 @@ const ViewLogVisitors = () => {
                             <th>Name</th>
                             <th>Purpose</th>
                             <th>Place to Visit</th>
+                            <th>Gate</th>
                             </tr>
                         </thead>
                         <tbody>
-                        {searchResults.map((visits, index) => (
-                            <tr key={index}>
+                        {searchResults.map((visits,index)=>{
+                            return(
+                                <tr key={index}>
                                 <td>{visits.date}</td>
                                 <td>{visits.name}</td>
                                 <td>{visits.purpose}</td>
                                 <td>{visits.place}</td>
-                            </tr>
-                            ))}
+                                <td>{visits.gate}</td>
+                    </tr>
+                );
+              })}
                         </tbody>
                         </table>
             </div>

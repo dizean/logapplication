@@ -266,7 +266,7 @@ const CRUDemployee = () => {
                         <label htmlFor="name">
                             Name
                         </label>
-                        <input type='text' name='name' value={employee.name} onChange={handleChange}>
+                        <input type='text' name='name' required value={employee.name} onChange={handleChange}>
 
                         </input>
                     </div>

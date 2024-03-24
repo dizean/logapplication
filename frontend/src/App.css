@@ -156,6 +156,7 @@ input::placeholder {
   padding: 15px;
   font-size: 15px;
   margin: 15px 0;
+  background-color: #940a0a;
 }
 .table-data {
   width: 100%;

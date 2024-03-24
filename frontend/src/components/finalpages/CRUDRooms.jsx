@@ -228,6 +228,7 @@ const CRUDrooms = () => {
                 <input
                   type="text"
                   name="room"
+                  required
                   value={room.room}
                   onChange={handleChange}
                 ></input>
@@ -236,6 +237,7 @@ const CRUDrooms = () => {
                 <label htmlFor="name">Location</label>
                 <input
                   type="text"
+                  required
                   name="location"
                   value={room.location}
                   onChange={handleChange}

@@ -277,7 +277,7 @@ const handleInputChange = (e) => {
                            Name
                         </label>
                         <input type='text' name='name_borrower' value={borrow.name_borrower}
-                         onChange={handleChange}>
+                         onChange={handleChange} required>
 
                         </input>
                     </div>
@@ -306,7 +306,7 @@ const handleInputChange = (e) => {
                         </label>
                         <input type='text' name='name_returner'
             value={borrow.name_returner}
-            onChange={handleChange}>
+            onChange={handleChange} required>
 
                         </input>
                     </div>
