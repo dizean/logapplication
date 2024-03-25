@@ -68,15 +68,20 @@ const ViewLogVisitors = () => {
 
       const handleSelect = async (date) => {
         const response = await axios.get('http://localhost:3002/visits/');
-        const filtered = response.data.filter((visits) => {
-          const visitDate = new Date(visits.date).toISOString().split('T')[0];
-          return visitDate >= date.selection.startDate.toISOString().split('T')[0] &&
-            visitDate <= date.selection.endDate.toISOString().split('T')[0];
-        });
-        setStartDate(date.selection.startDate);
-        setEndDate(date.selection.endDate);
-        setFilteredData(filtered);
-        setSearchResults(filtered);
+        const filtered = response.data.filter((visit) => {
+        const visitDate = new Date(visit.date);
+        visitDate.setHours(0, 0, 0, 0);
+        const selectedStartDate = new Date(date.selection.startDate);
+        selectedStartDate.setHours(0, 0, 0, 0); 
+        const selectedEndDate = new Date(date.selection.endDate);
+        selectedEndDate.setHours(23, 59, 59, 999); 
+        return visitDate >= selectedStartDate && visitDate <= selectedEndDate;
+    });
+
+    setStartDate(date.selection.startDate);
+    setEndDate(date.selection.endDate);
+    setFilteredData(filtered);
+    setSearchResults(filtered);
       };
     
       const selectionRange = {

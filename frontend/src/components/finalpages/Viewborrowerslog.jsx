@@ -3,29 +3,30 @@ import axios from 'axios';
 import NavHome from './Navbar';
 import { Link } from 'react-router-dom';
 import '../finalpages/viewemployee.css';
-import { useUser } from '../jsx/userContext';
+// import { useUser } from '../jsx/userContext';
 import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 import { DateRangePicker } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 const ViewLogBorrowers = () => {
-    const { user } = useUser(); 
-    const [borrow, setBorrow] = useState({
-        room_id: '',
-        room:'',
-        date: '',
-        name_borrower: '',
-        time_borrowed: '',
-        name_returner: '',
-        time_returned: '',
-        status: '',
-      });
+    // const { user } = useUser(); 
+    // const [borrow, setBorrow] = useState({
+    //     room_id: '',
+    //     room:'',
+    //     date: '',
+    //     name_borrower: '',
+    //     time_borrowed: '',
+    //     name_returner: '',
+    //     time_returned: '',
+    //     status: '',
+    //   });
         const [searchTerm, setSearchTerm] = useState('');
         const [searchResults, setSearchResults] = useState([]);
-        const [showBorrowers, setshowBorrowers] = useState(true);
+        const [showBorrowers, setshowBorrowers] = useState(true); 
         const [borrowerData, setBorrowerData] = useState([]);
         const [startDate,setStartDate]= useState(new Date());
         const [endDate,setEndDate]= useState(new Date());
+        const [filteredData, setFilteredData] = useState([]);
         useEffect(() => {
           const fetchData = async () => {
             try { 
@@ -44,13 +45,19 @@ const ViewLogBorrowers = () => {
         const handleSelect = async (date) => {
           const response = await axios.get('http://localhost:3002/borrow/');
           const filtered = response.data.filter((borrow) => {
-            const borrowDate = new Date(borrow.date).toISOString().split('T')[0];
-            return borrowDate >= date.selection.startDate.toISOString().split('T')[0] &&
-            borrowDate <= date.selection.endDate.toISOString().split('T')[0];
+            const borrowDate = new Date(borrow.date);
+            borrowDate.setHours(0, 0, 0, 0); 
+            const selectedStartDate = new Date(date.selection.startDate);
+            selectedStartDate.setHours(0, 0, 0, 0); 
+            const selectedEndDate = new Date(date.selection.endDate);
+            selectedEndDate.setHours(23, 59, 59, 999);
+            return borrowDate >= selectedStartDate && borrowDate <= selectedEndDate;
           });
+          
           setStartDate(date.selection.startDate);
           setEndDate(date.selection.endDate);
           setSearchResults(filtered);
+          setFilteredData(filtered);
         };
       
         const selectionRange = {
@@ -61,30 +68,55 @@ const ViewLogBorrowers = () => {
         
         const handleSearch = async () => {
           try {
-            const response = await axios.post(`http://localhost:3002/borrow/search`, { searchTerm });
-            const today = new Date().toISOString().split('T')[0];
-            const filteredResults = response.data.filter(borrow => {
-              if (searchTerm) {
-                return borrow.date === today;
-              } else {
-                return borrow.date === today;
-              }
-            });
-        
-            setSearchResults(filteredResults);
-            setshowBorrowers(false);
-          } catch (error) {
+            if (!filteredData.length){
+              const response = await axios.post(`http://localhost:3002/borrow/search`, { searchTerm });
+              const today = new Date().toISOString().split('T')[0];
+              const filteredResults = response.data.filter(borrow => {
+                if (searchTerm) {
+                  return borrow.date === today;
+                } else {
+                  return borrow.date === today;
+                }
+              });
+          
+              setSearchResults(filteredResults);
+              setshowBorrowers(false);
+            }
+            else{
+              const roomfiltered = filteredData.filter(rooms => rooms.room === searchTerm)
+              // const response = await axios.post(`http://localhost:3002/borrow/search`, { searchTerm });
+              // const filteredResults = response.data.filter(borrow => {
+              //   if (searchTerm) {
+              //     return borrow.date === today;
+              //   } else {
+              //     return borrow.date === today;
+              //   }
+              // });
+              
+                console.log('secondcondition')
+                setSearchResults(roomfiltered);
+                setshowBorrowers(false);
+           
+          } }catch (error) {
             console.error('Error searching users:', error);
           }
         };
         
         const handleResetSearch = async () => {
           try {
+            if (!filteredData.length){
             const response = await axios.get('http://localhost:3002/borrow/');
             const today = new Date().toISOString().split('T')[0];
-            const filteredData = response.data.filter(borrow => borrow.date === today);
-            setSearchResults(filteredData);
+            const filteredResults = response.data.filter(borrow => borrow.date === today);
+            setSearchResults(filteredResults);
             setshowBorrowers(true);
+            }
+            else{
+              const roomfiltered = filteredData.filter(rooms => rooms.room === searchTerm);
+              console.log('secondcondition')
+              setSearchResults(roomfiltered);
+              setshowBorrowers(false);
+            }
           } catch (error) {
             console.error('Error fetching all users:', error);
           }
@@ -95,13 +127,14 @@ const ViewLogBorrowers = () => {
         
           if (value === '') {
             handleResetSearch();
+            setSearchResults(filteredData)
           } else {
             handleSearch();
           }
         };
-        const handleChange = (e) => {
-          setBorrow({ ...borrow, [e.target.name]: e.target.value });
-        };
+        // const handleChange = (e) => {
+        //   setBorrow({ ...borrow, [e.target.name]: e.target.value });
+        // };
         const today = new Date().toISOString().split('T')[0];
     return (
         <div className='viemployeelog'>

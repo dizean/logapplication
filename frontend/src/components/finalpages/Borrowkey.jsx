@@ -278,7 +278,6 @@ const handleInputChange = (e) => {
                         </label>
                         <input type='text' name='name_borrower' value={borrow.name_borrower}
                          onChange={handleChange} required>
-
                         </input>
                     </div>
                     
