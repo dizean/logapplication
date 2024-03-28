@@ -28,6 +28,11 @@ const ViewLogVisitors = () => {
       // const [gateStore, setGateStore] = useState([]);
       // const [dateStore, setDateStore] = useState([]);
       const [filteredData, setFilteredData] = useState([]);
+      const [userSelections, setUserSelections] = useState({
+        selectedGateV: '',
+        selectedDateV:'',
+      });
+    
       
       useEffect(() => {
         const fetchData = async () => {
@@ -64,7 +69,9 @@ const ViewLogVisitors = () => {
           } else {
             console.log('secondcondition')
             setSearchResults(filteredGate);
+            setUserSelections({...userSelections,selectedGateV: filteredGate});
             setSearchTerm('');
+            console.log({...userSelections,selectedGateV: filteredGate});
           }
         }
        
@@ -86,6 +93,8 @@ const ViewLogVisitors = () => {
     setEndDate(date.selection.endDate);
     setFilteredData(filtered);
     setSearchResults(filtered);
+    setUserSelections({...userSelections,selectedDateV: filtered});
+    console.log({...userSelections,selectedDateV: filtered});
     setSelectedGate('');
     setSearchTerm('');
       };
@@ -95,37 +104,40 @@ const ViewLogVisitors = () => {
         endDate: endDate,
         key: 'selection',
       };
-      const handleSearch = async (value) => {
-        try {
-          if (!filteredData.length){
-          const response = await axios.post(`http://localhost:3002/visits/search`, { searchTerm });
-          const today = new Date().toISOString().split('T')[0];
-          const filteredResults = response.data.filter(visits => {
-            if (searchTerm) {
-              return visits.date === today;
-            } else {
-              return visits.date === today;
-            }
-          });
-          setSearchResults(filteredResults);
-          setshowVisitors(false);
+        const handleSearch = async (value) => {
+          console.log(userSelections);
+          try {
+            if (!userSelections.selectedDateV.length || !userSelections.selectedGateV.length){
+            const response = await axios.post(`http://localhost:3002/visits/search`, { searchTerm });
+            const today = new Date().toISOString().split('T')[0];
+            const filteredResults = response.data.filter(visits => {
+              if (searchTerm) {
+                return visits.date === today;
+              } else {
+                return visits.date === today;
+              }
+            });
+            setSearchResults(filteredResults);
+            setshowVisitors(false);
+          }
+          else{
+            const visitorFilter = userSelections.selectedGateV.filter(visits =>
+              visits.name.toUpperCase().includes(searchTerm.toUpperCase())
+            );
+              setSearchResults(visitorFilter);
+              console.log('sa search ni '+ value);
+              console.log(visitorFilter);
+              console.log(searchResults);
+              console.log(userSelections);
         }
-        else{
-          const visitorFilter = filteredData.filter(visits =>
-            visits.name.toUpperCase().includes(searchTerm.toUpperCase())
-          );
-            setSearchResults(visitorFilter);
-            console.log('sa search ni '+ value);
-            console.log(visitorFilter);
-      }
-        } catch (error) {
-          console.error('Error searching users:', error);
-        }
-      };
+          } catch (error) {
+            console.error('Error searching users:', error);
+          }
+        };
       
       const handleResetSearch = async () => {
         try {
-          if (!filteredData.length){
+          if (!userSelections.selectedDateV.length || !userSelections.selectedGateV.length){
           const response = await axios.get('http://localhost:3002/visits/');
           const today = new Date().toISOString().split('T')[0];
           const filteredData = response.data.filter(visits => visits.date === today);
@@ -133,12 +145,14 @@ const ViewLogVisitors = () => {
           setshowVisitors(true);
           }
           else{
-            const visitorFilter = filteredData.filter(visits =>
+            const visitorFilter = userSelections.selectedGateV.filter(visits =>
               visits.name.toUpperCase().includes(searchTerm.toUpperCase())
             );
             console.log('secondcondition')
             setSearchResults(visitorFilter);
             setshowVisitors(false);
+            console.log(visitorFilter);
+            console.log(userSelections);
           }
         } catch (error) {
           console.error('Error fetching all users:', error);
@@ -151,7 +165,7 @@ const ViewLogVisitors = () => {
         console.log('sa handle ni  '+ value);
         if (value === '') {
           handleResetSearch();
-          setSearchResults(filteredData)
+          setSearchResults(userSelections.selectedGateV);
         } else {
           handleSearch(value);
         }
