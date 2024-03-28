@@ -287,6 +287,7 @@ const CRUDemployee = () => {
         <option value="Non Teaching Personnel">Non Teaching Personnel</option>
         <option value="General Maintenance">General Maintenance</option>
         <option value="Teaching Personnel">Teaching Personnel</option>
+        <option value="Administrator">Administrator</option>
     </select>
 </div>
 <div className="department">
@@ -414,6 +415,7 @@ const CRUDemployee = () => {
                             <option value="Non Teaching Personnel">Non Teaching Personnel</option>
                             <option value="General Maintenance">General Maintenance</option>
                             <option value="Teaching Personnel">Teaching Personnel</option>
+                            <option value="Administrator">Administrator</option>
                         </select>
                     </div>
 

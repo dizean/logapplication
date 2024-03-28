@@ -49,8 +49,10 @@ const ViewLogVisitors = () => {
         {
           if (selectedGate === '') { 
             setSearchResults(visitorsData); 
+            setSearchTerm('');
           } else {
             setSearchResults(visitorsData.filter((visit) => visit.gate === selectedGate));
+            setSearchTerm('');
             console.log('firstconditionni')
           }
         }
@@ -58,9 +60,11 @@ const ViewLogVisitors = () => {
           const filteredGate = filteredData.filter(visits => visits.gate === selectedGate);
           if (selectedGate === '') { 
             setSearchResults(visitorsData); 
+            setSearchTerm('');
           } else {
             console.log('secondcondition')
             setSearchResults(filteredGate);
+            setSearchTerm('');
           }
         }
        
@@ -82,6 +86,8 @@ const ViewLogVisitors = () => {
     setEndDate(date.selection.endDate);
     setFilteredData(filtered);
     setSearchResults(filtered);
+    setSelectedGate('');
+    setSearchTerm('');
       };
     
       const selectionRange = {
@@ -89,8 +95,9 @@ const ViewLogVisitors = () => {
         endDate: endDate,
         key: 'selection',
       };
-      const handleSearch = async () => {
+      const handleSearch = async (value) => {
         try {
+          if (!filteredData.length){
           const response = await axios.post(`http://localhost:3002/visits/search`, { searchTerm });
           const today = new Date().toISOString().split('T')[0];
           const filteredResults = response.data.filter(visits => {
@@ -100,9 +107,17 @@ const ViewLogVisitors = () => {
               return visits.date === today;
             }
           });
-      
           setSearchResults(filteredResults);
           setshowVisitors(false);
+        }
+        else{
+          const visitorFilter = filteredData.filter(visits =>
+            visits.name.toUpperCase().includes(searchTerm.toUpperCase())
+          );
+            setSearchResults(visitorFilter);
+            console.log('sa search ni '+ value);
+            console.log(visitorFilter);
+      }
         } catch (error) {
           console.error('Error searching users:', error);
         }
@@ -110,11 +125,21 @@ const ViewLogVisitors = () => {
       
       const handleResetSearch = async () => {
         try {
+          if (!filteredData.length){
           const response = await axios.get('http://localhost:3002/visits/');
           const today = new Date().toISOString().split('T')[0];
           const filteredData = response.data.filter(visits => visits.date === today);
           setSearchResults(filteredData);
           setshowVisitors(true);
+          }
+          else{
+            const visitorFilter = filteredData.filter(visits =>
+              visits.name.toUpperCase().includes(searchTerm.toUpperCase())
+            );
+            console.log('secondcondition')
+            setSearchResults(visitorFilter);
+            setshowVisitors(false);
+          }
         } catch (error) {
           console.error('Error fetching all users:', error);
         }
@@ -123,11 +148,12 @@ const ViewLogVisitors = () => {
       const handleInputChange = (e) => {
         const value = e.target.value;
         setSearchTerm(value);
-      
+        console.log('sa handle ni  '+ value);
         if (value === '') {
           handleResetSearch();
+          setSearchResults(filteredData)
         } else {
-          handleSearch();
+          handleSearch(value);
         }
       };
       const handleChange = (e) => {

@@ -58,6 +58,7 @@ const ViewLogBorrowers = () => {
           setEndDate(date.selection.endDate);
           setSearchResults(filtered);
           setFilteredData(filtered);
+          setSearchTerm('');
         };
       
         const selectionRange = {
@@ -66,7 +67,7 @@ const ViewLogBorrowers = () => {
           key: 'selection',
         };
         
-        const handleSearch = async () => {
+        const handleSearch = async (value) => {
           try {
             if (!filteredData.length){
               const response = await axios.post(`http://localhost:3002/borrow/search`, { searchTerm });
@@ -78,25 +79,19 @@ const ViewLogBorrowers = () => {
                   return borrow.date === today;
                 }
               });
-          
               setSearchResults(filteredResults);
-              setshowBorrowers(false);
             }
             else{
-              const roomfiltered = filteredData.filter(rooms => rooms.room === searchTerm)
-              // const response = await axios.post(`http://localhost:3002/borrow/search`, { searchTerm });
-              // const filteredResults = response.data.filter(borrow => {
-              //   if (searchTerm) {
-              //     return borrow.date === today;
-              //   } else {
-              //     return borrow.date === today;
-              //   }
-              // });
+              const roomfiltered = filteredData.filter(rooms =>
+                rooms.room.toUpperCase().includes(searchTerm.toUpperCase())
+              );
+              // const roomfiltered = filteredData.filter(rooms =>
+              //   rooms.room.toUpperCase() === searchTerm.toUpperCase()
+              // );
               
-                console.log('secondcondition')
                 setSearchResults(roomfiltered);
-                setshowBorrowers(false);
-           
+                console.log('sa search ni '+ value);
+                console.log(roomfiltered);
           } }catch (error) {
             console.error('Error searching users:', error);
           }
@@ -124,17 +119,14 @@ const ViewLogBorrowers = () => {
         const handleInputChange = (e) => {
           const value = e.target.value;
           setSearchTerm(value);
-        
+          console.log('sa handle ni  '+ value);
           if (value === '') {
             handleResetSearch();
             setSearchResults(filteredData)
           } else {
-            handleSearch();
+            handleSearch(value);
           }
         };
-        // const handleChange = (e) => {
-        //   setBorrow({ ...borrow, [e.target.name]: e.target.value });
-        // };
         const today = new Date().toISOString().split('T')[0];
     return (
         <div className='viemployeelog'>

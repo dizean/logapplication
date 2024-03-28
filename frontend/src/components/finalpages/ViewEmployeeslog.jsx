@@ -23,6 +23,8 @@ const ViewLogEmployee = () => {
       const [employeeData, setEmployeeData] = useState([]);
       const [startDate,setStartDate]= useState(new Date());
       const [endDate,setEndDate]= useState(new Date());
+      const [filteredData, setFilteredData] = useState([]);
+      const [filteredSearch, setFilteredSearch] = useState([]);
       useEffect(() => {
         const fetchData = async () => {
           try { 
@@ -39,21 +41,22 @@ const ViewLogEmployee = () => {
       }, []);
       const handleSelect = async (date) => {
         const response = await axios.get('http://localhost:3002/employee/');
+        const filtered = response.data.filter((visit) => {
+        const visitDate = new Date(visit.date);
+        visitDate.setHours(0, 0, 0, 0); 
+        const selectedStartDate = new Date(date.selection.startDate);
+        selectedStartDate.setHours(0, 0, 0, 0); 
+        const selectedEndDate = new Date(date.selection.endDate);
+        selectedEndDate.setHours(23, 59, 59, 999); 
+        return visitDate >= selectedStartDate && visitDate <= selectedEndDate;
+      });
 
-    const filtered = response.data.filter((visit) => {
-      const visitDate = new Date(visit.date);
-      visitDate.setHours(0, 0, 0, 0); 
-      const selectedStartDate = new Date(date.selection.startDate);
-      selectedStartDate.setHours(0, 0, 0, 0); 
-      const selectedEndDate = new Date(date.selection.endDate);
-      selectedEndDate.setHours(23, 59, 59, 999); 
-      return visitDate >= selectedStartDate && visitDate <= selectedEndDate;
-    });
-
-    setStartDate(date.selection.startDate);
-    setEndDate(date.selection.endDate);
-    setSearchResults(filtered);
-      };
+      setStartDate(date.selection.startDate);
+      setEndDate(date.selection.endDate);
+      setSearchResults(filtered);
+      setFilteredData(filtered);
+      setSearchTerm('');
+        };
     
       const selectionRange = {
         startDate: startDate,
@@ -61,12 +64,11 @@ const ViewLogEmployee = () => {
         key: 'selection',
       };
       
-      const handleSearch = async () => {
+      const handleSearch = async (value) => {
         try {
+          if (!filteredData.length){
           const response = await axios.post(`http://localhost:3002/employee/search`, { searchTerm });
-      
           const today = new Date().toISOString().split('T')[0];
-      
           // filter date
           const filteredResults = response.data.filter(employee => {
             if (searchTerm) {
@@ -77,20 +79,40 @@ const ViewLogEmployee = () => {
           });
       
           setSearchResults(filteredResults);
-          setshowEmployees(false);
+        }
+        else{
+          const employeefiltered = filteredData.filter(employee =>
+            employee.name.toUpperCase().includes(searchTerm.toUpperCase())
+          );
+          // const roomfiltered = filteredData.filter(rooms =>
+          //   rooms.room.toUpperCase() === searchTerm.toUpperCase()
+          // );
+          
+            setSearchResults(employeefiltered);
+            setFilteredSearch(employeefiltered);
+            console.log('sa search ni '+ value);
+            console.log(employeefiltered);
+      }
         } catch (error) {
           console.error('Error searching users:', error);
         }
       };
-      
       const handleResetSearch = async () => {
         try {
+          if (!filteredData.length){
           const response = await axios.get('http://localhost:3002/employee/');
           const today = new Date().toISOString().split('T')[0];
-          const filteredData = response.data.filter(employee => employee.date === today);
+          const filteredResults = response.data.filter(employee => employee.date === today);
       
-          setSearchResults(filteredData);
-          setshowEmployees(true);
+          setSearchResults(filteredResults);
+          setshowEmployees(false);
+          }
+          else{
+            const employeefiltered = filteredData.filter(employee => employee.name === searchTerm);
+            console.log('secondcondition')
+            setSearchResults(employeefiltered);
+            setshowEmployees(false);
+          }
         } catch (error) {
           console.error('Error fetching all users:', error);
         }
@@ -99,11 +121,12 @@ const ViewLogEmployee = () => {
       const handleInputChange = (e) => {
         const value = e.target.value;
         setSearchTerm(value);
-      
+        console.log('sa handle ni  '+ value);
         if (value === '') {
           handleResetSearch();
+          setSearchResults(filteredData);
         } else {
-          handleSearch();
+          handleSearch(value);
         }
       };
       const handleChange = (e) => {
