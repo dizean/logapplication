@@ -9,29 +9,34 @@ import keypic from '../../images/ph_key.png';
 import addvisicion from '../../images/employees.png';
 const Home = () =>{
     const { user } = useUser();
-    const [isAddVisitor, setisAddVisitor] = useState(false);
-    const openAddVisitor= () => {
-        setisAddVisitor(true);
+    const navigate = useNavigate();
+    const [isLoginVisitor, setisLoginVisitor] = useState(false);
+    const [isLogoutVisitor, setiisLogoutVisitor] = useState(false);
+    const openLoginVisitor= () => {
+        setisLoginVisitor(true);
+    };
+    const openLogoutVisitor= () => {
+        setiisLogoutVisitor(true);
     };
     const closeModal = () => {
-        setisAddVisitor(false);
+        setisLoginVisitor(false);
+        setiisLogoutVisitor(false);
     }
     const [visits, Setvisits] = useState({
     date: "",
     name: "",
     purpose: "",
     place: "",
+    time_out:"",
     gate:""
   });
-
-  // add visitor record
-    const handleSubmit = async (e) => {
+    const handleLoginVisitor = async (e) => {
         e.preventDefault();
         try {
         const response = await axios.post("http://localhost:3002/visits/", {
             ...visits,
             date: new Date().toISOString().split("T")[0],
-            time: new Date().toLocaleTimeString(),
+            time_in: new Date().toLocaleTimeString(),
             admin_assigned: user.username,
         });
         console.log(response.data);
@@ -49,6 +54,25 @@ const Home = () =>{
         console.error("data data:", error);
         }
     };
+    const [selectedVisitor, setSelectedVisitor] = useState(null);
+    const handleLogoutVisitor = async (selectedVisitor) => {
+        setSelectedVisitor(selectedVisitor);
+        Setvisits(selectedVisitor);
+        console.log(visits);
+        try {
+        const response = await axios.put("http://localhost:3002/visits/", 
+        visits
+        );
+        console.log(response.data);
+        alert("Visitor logged out.")
+        navigate(0);
+        closeModal();
+        } catch (error) {
+        alert("error");
+        console.error("data data:", error);
+        }
+    };
+
 
     const handleChange = (e) => {
         Setvisits({ ...visits, [e.target.name]: e.target.value });
@@ -135,17 +159,17 @@ const Home = () =>{
                 </div>
             </div>
             <div className='p-5 flex flex-col gap-y-5 text-xl'>
-                <button onClick={openAddVisitor} className="hover:bg-blue-500 text-white w-11/12 py-9 mx-auto bg-blue-700 rounded-lg">Log Visitor</button>
-            {/* <Link to="/" className='flex'>
-                <button className="click-btn text-white  w-11/12 py-9 mx-auto bg-blue-500 rounded-lg ">Employee Records</button>
-            </Link> */}
+                <button onClick={openLoginVisitor} className="hover:bg-blue-500 text-white w-11/12 py-9 mx-auto bg-blue-700 rounded-lg">Log in Visitor</button>
+                <Link to="/logoutvisitor" className='flex'>
+                <button className="hover:bg-blue-500 text-white w-11/12 py-9 mx-auto bg-blue-700 rounded-lg">Log out Visitor</button>
+            </Link>
             <Link to="/visitorslog" className='flex'>
                 <button className="hover:bg-blue-500 text-white w-11/12 py-9 mx-auto bg-blue-700 rounded-lg">Visitor`s Log</button>
             </Link>
             </div>
         </div>
    </main>
-   {( isAddVisitor &&
+   {( isLoginVisitor &&
    <div className='w-full h-full fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white bg-opacity-80 '>
     <div className='w-1/3 bg-blue-400 p-10 rounded-lg fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 '>
         <div>
@@ -222,7 +246,7 @@ const Home = () =>{
         </div>
         
         <div className='w-full flex gap-3 py-7 text-white text-xl'>
-                <button onClick={handleSubmit} className='bg-blue-700 w-1/2 py-5 rounded-lg'>
+                <button onClick={handleLoginVisitor} className='bg-blue-700 w-1/2 py-5 rounded-lg'>
                  Log Visitor
                 </button>
                 <button onClick={closeModal} className='bg-red-700 w-1/2 rounded-lg disabled:bg-red-700'>

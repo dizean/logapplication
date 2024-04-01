@@ -14,6 +14,7 @@ import EmployeesLog from './components/EmployeesLog/Employeeslog';
 import RoomList from './components/Roomslist/Roomslist';
 import BorrowReturnKey from './components/BorrowReturnKey/BorrowReturnKey';
 import KeysLog from './components/KeysLog/Keyslog';
+import LogoutVisitor from './components/LogoutVisitor/LogoutVisitor';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -31,8 +32,8 @@ root.render(
         <Route path="/borrowreturn" element={<BorrowReturnKey />} />
         <Route path="/roomlist" element={<RoomList />} />
         <Route path="/keyslog" element={<KeysLog />} />
+        <Route path="/logoutvisitor" element={<LogoutVisitor />} />
         <Route path="/visitorslog" element={<Visitorslog />} />
-
       </Routes>
     </Router>
   </React.StrictMode>

@@ -28,19 +28,21 @@ router.post('/', (req, res) => {
       name,
       purpose,
       place,
-      time,
+      time_in,
+      time_out,
       gate,
       admin_assigned
     } = req.body;
     const sql =
-      'INSERT INTO tbl_visitors (date, name, purpose, place, time, gate, admin_assigned) VALUES (?,?, ?, ?, ?, ?,?)';
+      'INSERT INTO tbl_visitors (date, name, purpose, place, time_in, time_out, gate, admin_assigned) VALUES (?,?, ?, ?,?, ?, ?,?)';
     db.query(
       sql,
       [ date,
         name,
         purpose,
         place,
-        time,
+        time_in,
+        time_out,
         gate,
         admin_assigned],
       (err, results) => {
@@ -54,7 +56,8 @@ router.post('/', (req, res) => {
             name,
             purpose,
             place,
-            time,
+            time_in,
+            time_out,
             gate,
             admin_assigned
           });
@@ -62,6 +65,28 @@ router.post('/', (req, res) => {
       }
     );
   });
+  router.put('/:id', (req, res) => {
+    const visitorid = req.params.id;
+    const { date, name, purpose, place, time_in, time_out, gate, admin_assigned } = req.body;
+  
+    // Prepare the SQL statement with placeholders
+    const sql = `UPDATE tbl_visitors SET date = ?, name = ?, purpose = ?, place = ?, time_in = ?, time_out = ?, gate = ?, admin_assigned = ? WHERE id = ?`;
+  
+    // Prepare the statement with parameter binding
+    db.query(sql, [date, name, purpose, place, time_in, time_out, gate, admin_assigned, visitorid], (err, results) => {
+      if (err) {
+        console.error('Error updating data:', err);
+        res.status(500).send('Internal Server Error');
+      } else {
+        if (results.affectedRows === 0) {
+          res.status(404).json({ error: 'Visitor record not found' });
+        } else {
+          res.json({ id: visitorid, message: 'Visitor record updated successfully' });
+        }
+      }
+    });
+  });
+  
   
 
   router.post('/search', (req, res) => {
@@ -79,11 +104,11 @@ router.post('/', (req, res) => {
   }); 
 //   router.put('/:id', (req, res) => {
 //     const visitid = req.params.id;
-//     const { room_id, booked_date, booker_name, from_time, until_time, status, admin_assigned } = req.body;
+//     const { room_id, booked_date, booker_name, from_time_in, until_time_in, status, admin_assigned } = req.body;
   
 //     db.query(
-//       'UPDATE tbl_booking SET room_id = ?, booked_date = ?, booker_name = ?, from_time = ?, until_time = ?, status = ?, admin_assigned = ? WHERE id = ?',
-//       [room_id, booked_date, booker_name, from_time, until_time, status, admin_assigned, bookingId],
+//       'UPDATE tbl_booking SET room_id = ?, booked_date = ?, booker_name = ?, from_time_in = ?, until_time_in = ?, status = ?, admin_assigned = ? WHERE id = ?',
+//       [room_id, booked_date, booker_name, from_time_in, until_time_in, status, admin_assigned, bookingId],
 //       (err, results) => {
 //         if (err) {
 //           console.error('Error updating data:', err);

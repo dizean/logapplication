@@ -241,6 +241,8 @@ const Visitorslog = () =>{
         <th>Name</th>
         <th>Purpose</th>
         <th>Place of Visit</th>
+        <th>Time In</th>
+        <th>Time Out</th>
         <th>Gate</th>              
         </tr>
     </thead>
@@ -252,6 +254,8 @@ const Visitorslog = () =>{
             <td>{visits.name}</td>
             <td>{visits.purpose}</td>
             <td>{visits.place}</td>
+            <td>{visits.time_in}</td>
+            <td>{visits.time_out}</td>
             <td>{visits.gate}</td>
         </tr>
     );
