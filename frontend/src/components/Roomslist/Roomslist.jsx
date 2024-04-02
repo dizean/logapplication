@@ -151,7 +151,7 @@ const RoomList = () =>{
               <button onClick={openAddRoom} className='hover:bg-blue-500 text-white px-10 py-4 mx-auto bg-blue-700 rounded-lg text-xl'>Add a room</button>
         </log>
    </search>
-   <main className='w-full flex flex-wrap justify-center p-4 py-16 gap-x-[2rem] gap-y-8 '>
+   <main className='w-full flex flex-wrap justify-center p-4 py-16 gap-x-[.5rem] gap-y-8 '>
    {searchResults.map((room) => (
     <div key={room.id} className='bg-slate-200 w-1/6 flex flex-col p-5 gap-2 rounded-xl'>
         <div className='flex gap-4 justify-center items-center h-24'>
@@ -159,7 +159,7 @@ const RoomList = () =>{
                 <img src={keyicon} className='w-2/3' alt="" />
             </div>
             <div className='w-2/3 flex flex-col gap-y-2 '>
-                <h1 className='text-2xl'>Room</h1>
+                <h1 className='text-xl'>Room</h1>
                 <p className='text-2xl font-semibold'>{room.room}</p>
             </div>
         </div>
@@ -168,8 +168,8 @@ const RoomList = () =>{
                 <img src={statusicon} className='w-2/3' alt="" />
             </div>
             <div className='w-2/3 flex flex-col gap-y-2 '>
-                <h1 className='text-2xl'>Status</h1>
-                <p className='text-2xl font-bold'>{room.status}</p>
+                <h1 className='text-xl'>Status</h1>
+                <p className='text-2xl font-semibold'>{room.status}</p>
             </div>
         </div>
         <div className='flex gap-4 justify-center items-center h-32' >
@@ -177,7 +177,7 @@ const RoomList = () =>{
                 <img src={locationicon} className='w-2/3' alt="" />
             </div>
             <div className='w-2/3 flex flex-col gap-y-2 '>
-                <h1 className='text-2xl'>Location</h1>
+                <h1 className='text-xl'>Location</h1>
                 <p className='text-2xl font-semibold'>{room.location}</p>
             </div>
         </div>

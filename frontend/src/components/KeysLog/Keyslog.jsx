@@ -8,7 +8,7 @@ import { DateRangePicker } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 const KeysLog = () =>{
-        // const { user } = useUser(); 
+        // const { user } = useUser();
         const [searchTerm, setSearchTerm] = useState('');
         const [searchResults, setSearchResults] = useState([]);
         const [showBorrowers, setshowBorrowers] = useState(true); 
@@ -16,6 +16,7 @@ const KeysLog = () =>{
         const [startDate,setStartDate]= useState(new Date());
         const [endDate,setEndDate]= useState(new Date());
         const [filteredData, setFilteredData] = useState([]);
+        const [filteredSearch, setFilteredSearch] = useState([]);
         useEffect(() => {
           const fetchData = async () => {
             try { 
@@ -42,7 +43,6 @@ const KeysLog = () =>{
             selectedEndDate.setHours(23, 59, 59, 999);
             return borrowDate >= selectedStartDate && borrowDate <= selectedEndDate;
           });
-          
           setStartDate(date.selection.startDate);
           setEndDate(date.selection.endDate);
           setSearchResults(filtered);
@@ -82,8 +82,9 @@ const KeysLog = () =>{
               // );
               
                 setSearchResults(roomfiltered);
+                setFilteredSearch(roomfiltered);
                 console.log('sa search ni '+ value);
-                console.log(roomfiltered);
+                console.log("Result"+roomfiltered);
           } }catch (error) {
             console.error('Error searching users:', error);
           }

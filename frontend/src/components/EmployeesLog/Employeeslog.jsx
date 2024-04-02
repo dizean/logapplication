@@ -10,13 +10,6 @@ import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 const EmployeesLog = () =>{
     const { user } = useUser(); 
-    const [employee, setEmployee] = useState({
-      date: '',
-      name: '',
-      time_in: '',
-      time_out: '',
-      admin_assigned: ''
-    });
       const [searchTerm, setSearchTerm] = useState('');
       const [searchResults, setSearchResults] = useState([]);
       const [showEmployees, setshowEmployees] = useState(true);
@@ -51,7 +44,6 @@ const EmployeesLog = () =>{
         selectedEndDate.setHours(23, 59, 59, 999); 
         return visitDate >= selectedStartDate && visitDate <= selectedEndDate;
       });
-      setIsDatePickerOpen(false)
       setStartDate(date.selection.startDate);
       setEndDate(date.selection.endDate);
       setSearchResults(filtered);
@@ -133,9 +125,6 @@ const EmployeesLog = () =>{
           handleSearch(value);
         }
       };
-      const handleChange = (e) => {
-        setEmployee({ ...employee, [e.target.name]: e.target.value });
-      };
       const today = new Date().toISOString().split('T')[0];
     return(
    <body className='h-screen w-screen relative'>
@@ -197,7 +186,7 @@ const EmployeesLog = () =>{
     </thead>
     <tbody className='bg-green-300'>
     {searchResults.map((employee, index) => (
-        <tr className='text-2xl h-20'>
+        <tr key={index} className='text-2xl h-20'>
             <td>{employee.date}</td>
             <td>{employee.name}</td>
             <td>{employee.time_in}</td>
