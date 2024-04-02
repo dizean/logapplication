@@ -182,7 +182,7 @@ const KeysLog = () =>{
     </thead>
     <tbody className='bg-green-300'>
     {searchResults.map((borrow, index) => (
-        <tr key={index} className='text-2xl h-20'>
+        <tr className='text-2xl h-20'>
             <td>{borrow.room}</td>
             <td>{borrow.date}</td>
             <td>{borrow.name_borrower}</td>
