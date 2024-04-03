@@ -48,7 +48,6 @@ const KeysLog = () =>{
           setSearchResults(filtered);
           setFilteredData(filtered);
           setSearchTerm('');
-         setIsDatePickerOpen(false);
       };
     
         const selectionRange = {
@@ -56,6 +55,9 @@ const KeysLog = () =>{
           endDate: endDate,
           key: 'selection',
         };
+        const closeDatepicker = () =>{
+          setIsDatePickerOpen(false);
+        }
       const toggleDatePicker = () => {
         setIsDatePickerOpen(!isDatePickerOpen);
       };
@@ -151,11 +153,16 @@ const KeysLog = () =>{
                    <img src={calendaricon} className='h-full object-contain p-2 bg-blue-400 hover:bg-blue-300 hover:mix-blend-overlay rounded-xl '  alt="" />
                     </button>
                     {isDatePickerOpen && (
-                    <DateRangePicker
+                      <div className='z-10 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center w-1/3 bg-orange-300 rounded-lg'>
+                        <button 
+                        className='bg-blue-700 hover:bg-blue-500 py-5 text-2xl w-full text-white rounded-tr-lg rounded-tl-lg '
+                        onClick={closeDatepicker}>Close</button>
+                      <DateRangePicker
                     ranges={[selectionRange]}
                     onChange={handleSelect}
-                    className='z-10 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 '
                   />
+                      </div>
+                    
                     )}
     </div>
         <log className='w-1/3 gap-4 flex justify-end'>

@@ -87,13 +87,12 @@ const Visitorslog = () =>{
     });
     setStartDate(date.selection.startDate);
     setEndDate(date.selection.endDate);
+    console.log(endDate);
     setFilteredData(filtered);
     setSearchResults(filtered);
     setUserSelections({...userSelections,selectedDateV: filtered});
-    console.log({...userSelections,selectedDateV: filtered});
     setSelectedGate('');
     setSearchTerm('');
-    setIsDatePickerOpen(false);
       };
 
     const selectionRange = {
@@ -101,7 +100,9 @@ const Visitorslog = () =>{
         endDate: endDate,
         key: 'selection',
       };
-
+      const closeDatepicker = () =>{
+        setIsDatePickerOpen(false);
+      }
     const toggleDatePicker = () => {
         setIsDatePickerOpen(!isDatePickerOpen);
       };
@@ -229,11 +230,16 @@ const Visitorslog = () =>{
                    <img src={calendaricon} className='h-full object-contain p-2 bg-blue-400 hover:bg-blue-300 hover:mix-blend-overlay rounded-xl '  alt="" />
                     </button>
                     {isDatePickerOpen && (
-                    <DateRangePicker
+                      <div className='z-10 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center w-1/3 bg-orange-300 rounded-lg'>
+                        <button 
+                        className='bg-blue-700 hover:bg-blue-500 py-5 text-2xl w-full text-white rounded-tr-lg rounded-tl-lg '
+                        onClick={closeDatepicker}>Close</button>
+                      <DateRangePicker
                     ranges={[selectionRange]}
                     onChange={handleSelect}
-                    className='z-10 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 '
                   />
+                      </div>
+                    
                     )}
       </div>
     </div>
@@ -251,13 +257,13 @@ const Visitorslog = () =>{
    <table id= "tableemplo" className='text-left w-full border-separate border border-slate-200'>
     <thead className='bg-blue-700 text-left text-white sticky top-0 z-9'>
         <tr className='h-24 text-3xl'>
-        <th>Date of Visit</th>
-        <th>Name</th>
-        <th>Purpose</th>
-        <th>Place of Visit</th>
-        <th>Time In</th>
-        <th>Time Out</th>
-        <th>Gate</th>              
+        <th className='w-1/12'>Date of Visit</th>
+        <th className='w-3/12'>Name</th>
+        <th className='w-3/12'>Purpose</th>
+        <th className='w-2/12'>Place of Visit</th>
+        <th className='w-1/12'>Time In</th>
+        <th className='w-1/12'>Time Out</th>
+        <th className='w-2/12'>Gate</th>              
         </tr>
     </thead>
     <tbody className='bg-green-300'>

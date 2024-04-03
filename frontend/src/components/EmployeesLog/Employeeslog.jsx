@@ -49,7 +49,6 @@ const EmployeesLog = () =>{
       setSearchResults(filtered);
       setFilteredData(filtered);
       setSearchTerm('');
-      setIsDatePickerOpen(false);
         };
     
       const selectionRange = {
@@ -57,6 +56,9 @@ const EmployeesLog = () =>{
         endDate: endDate,
         key: 'selection',
       };
+      const closeDatepicker = () =>{
+        setIsDatePickerOpen(false);
+      }
       const toggleDatePicker = () => {
         setIsDatePickerOpen(!isDatePickerOpen);
       };
@@ -156,11 +158,16 @@ const EmployeesLog = () =>{
                    <img src={calendaricon} className='h-full object-contain p-2 bg-blue-400 hover:bg-blue-300 hover:mix-blend-overlay rounded-xl '  alt="" />
                     </button>
                     {isDatePickerOpen && (
-                    <DateRangePicker
+                      <div className='z-10 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center w-1/3 bg-orange-300 rounded-lg'>
+                        <button 
+                        className='bg-blue-700 hover:bg-blue-500 py-5 text-2xl w-full text-white rounded-tr-lg rounded-tl-lg '
+                        onClick={closeDatepicker}>Close</button>
+                      <DateRangePicker
                     ranges={[selectionRange]}
                     onChange={handleSelect}
-                    className='z-10 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 '
                   />
+                      </div>
+                    
                     )}
     </div>
         <log className='w-1/3 gap-4 flex justify-end'>
@@ -177,11 +184,11 @@ const EmployeesLog = () =>{
    <main className='w-full px-5 my-5 overflow-scroll h-[60vh]'>
    <table id="tableemplo" className='text-left w-full border-separate border border-slate-200'>
     <thead className='bg-blue-700 text-left text-white sticky top-0 z-9'>
-        <tr className='h-24 text-3xl'>
-        <th>Date</th>
-        <th>Name</th>
-        <th>Logged in</th>
-        <th>Logged out</th>               
+        <tr className='h-24 text-3xl bg-orange-300'>
+        <th className='w-1/4'>Date</th>
+        <th className='w-1/4'>Name</th>
+        <th className='w-1/4'>Logged in</th>
+        <th className='w-1/4'>Logged out</th>               
         </tr>
     </thead>
     <tbody className='bg-green-300'>
