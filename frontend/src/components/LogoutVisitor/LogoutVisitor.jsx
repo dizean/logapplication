@@ -123,37 +123,37 @@ const LogoutVisitor = () =>{
             </Link>
         </log>
    </search>
-   <main className='w-full flex flex-wrap justify-center py-10  gap-x-[4rem] gap-y-8 '>
+   <main className='w-full flex flex-wrap justify-center py-16  gap-x-[.5rem] gap-y-8 '>
    {searchResults.map((visitor) => (
-    <div className='bg-slate-200 w-1/5 flex flex-col p-5 gap-2 rounded-xl'>
-        <div className='flex gap-4 justify-center items-center h-36'>
+    <div className='bg-slate-200 w-1/6 flex flex-col p-5 gap-2 rounded-xl'>
+        <div className='flex gap-4 justify-center items-center h-2/3'>
             <div className='flex justify-center w-1/3'>
                 <img src={employeeicon} className='w-full' alt="" />
             </div>
             <div className='w-2/3 flex flex-col gap-y-2 '>
-                <h1 className='text-2xl font-semibold'>Visitor Name:</h1>
-                <p className='text-xl'>{visitor.name}</p>
+                <h1 className='text-xl'>Visitor Name:</h1>
+                <p className='text-2xl font-semibold line-clamp-2'>{visitor.name}</p>
             </div>
         </div>
-        <div className='flex gap-4 justify-center items-center h-28'>
+        <div className='flex gap-4 justify-center items-center h-2/3'>
             <div className='flex justify-center w-1/3 '>
                 <img src={statusicon} className='w-2/3' alt="" />
             </div>
             <div className='w-2/3 flex flex-col gap-y-2 '>
-                <h1 className='text-2xl font-semibold'>Purpose</h1>
-                <p className='text-xl'>{visitor.purpose}</p>
+                <h1 className='text-xl'>Purpose</h1>
+                <p className='text-2xl font-semibold line-clamp-2'>{visitor.purpose}</p>
             </div>
         </div>
-        <div className='flex gap-4 justify-center items-center h-28'>
+        <div className='flex gap-4 justify-center items-center h-2/3'>
             <div className='flex justify-center w-1/3 '>
                 <img src={departmenticon} className='w-2/3' alt="" />
             </div>
             <div className='w-2/3 flex flex-col gap-y-2 '>
-                <h1 className='text-2xl font-semibold'>Place Visited</h1>
-                <p className='text-xl'>{visitor.place}</p>
+                <h1 className='text-xl'>Place Visited</h1>
+                <p className='text-2xl font-semibold line-clamp-2'>{visitor.place}</p>
             </div>
         </div>
-        <div className='w-full flex gap-3 py-7 text-white text-xl'>
+        <div className='w-full flex gap-3 py-7 text-white text-xl h-2/3'>
                 <button 
                 onClick={() => handleOut(visitor)}
                 className='bg-blue-700 w-full rounded-lg py-4 disabled:bg-red-700' >

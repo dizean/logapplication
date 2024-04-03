@@ -9,20 +9,6 @@ import departmenticon from '../../images/department.png';
 const LogEmployee = () =>{
     const navigate = useNavigate();
     const { user } = useUser();
-    // const [employees, Setemployees] = useState({
-    //   name: '',
-    //   department: '',
-    //   status: ''
-    // });
-    const [employeelog, Setemployeelog] = useState({
-        date: "",
-        name: "",
-        time_in: "",
-        time_out: "",
-        admin_assigned: "",
-        employee_id: "",
-        status: "",
-    });
     const [searchTerm, setSearchTerm] = useState("");
     const [searchResults, setSearchResults] = useState([]);
     const [showEmployees, setshowEmployees] = useState(true);
@@ -203,37 +189,37 @@ const LogEmployee = () =>{
             </Link>
         </log>
    </search>
-   <main className='w-full flex flex-wrap justify-center py-10  gap-x-[4rem] gap-y-8 '>
+   <main className='w-full flex flex-wrap justify-center py-16  gap-x-[.5rem] gap-y-8 '>
    {searchResults.map((employees) => (
-    <div className='bg-slate-200 w-1/5 flex flex-col p-5 gap-2 rounded-xl'>
-        <div className='flex gap-4 justify-center items-center h-36'>
+    <div className='bg-slate-200 w-1/6 flex flex-col p-5 gap-2 rounded-xl'>
+        <div className='flex gap-4  h-2/3 justify-center items-center h '>
             <div className='flex justify-center w-1/3'>
-                <img src={employeeicon} className='w-full' alt="" />
+                <img src={employeeicon} className='w-2/3' alt="" />
             </div>
-            <div className='w-2/3 flex flex-col gap-y-2 '>
-                <h1 className='text-2xl font-semibold'>Employee Name:</h1>
-                <p className='text-xl'>{employees.name}</p>
+            <div className='w-2/3  flex flex-col gap-y-2 '>
+                <h1 className='text-xl  '>Employee Name:</h1>
+                <p className='text-2xl font-semibold line-clamp-2'>{employees.name}</p>
             </div>
         </div>
-        <div className='flex gap-4 justify-center items-center h-28'>
+        <div className='flex gap-4  h-2/3 justify-center items-center'>
             <div className='flex justify-center w-1/3 '>
                 <img src={statusicon} className='w-2/3' alt="" />
             </div>
             <div className='w-2/3 flex flex-col gap-y-2 '>
-                <h1 className='text-2xl font-semibold'>Status:</h1>
-                <p className='text-xl'>{employees.status}</p>
+                <h1 className='text-xl '>Status:</h1>
+                <p className='text-2xl font-semibold'>{employees.status}</p>
             </div>
         </div>
-        <div className='flex gap-4 justify-center items-center h-28'>
+        <div className='flex gap-4  h-2/3 justify-center items-center'>
             <div className='flex justify-center w-1/3 '>
                 <img src={departmenticon} className='w-2/3' alt="" />
             </div>
-            <div className='w-2/3 flex flex-col gap-y-2 '>
-                <h1 className='text-2xl font-semibold'>Department:</h1>
-                <p className='text-xl'>{employees.department}</p>
+            <div className='w-2/3 flex flex-col gap-y-2'>
+                <h1 className='text-xl'>Department:</h1>
+                <p className='text-2xl font-semibold line-clamp-2'>{employees.department}</p>
             </div>
         </div>
-        <div className='w-full flex gap-3 py-7 text-white text-xl'>
+        <div className='w-full h-2/3 flex gap-3 py-7 text-white text-xl '>
                 <button
                 onClick={() => handleIn(employees)}
                 disabled={employees.work_status === "Active"}
@@ -248,7 +234,7 @@ const LogEmployee = () =>{
                 </button>
               </div>
     </div>
-   ))};
+   ))}
    </main>
    </body>
     )

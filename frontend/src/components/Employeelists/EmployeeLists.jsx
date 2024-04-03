@@ -169,46 +169,46 @@ const EmployeeList = () =>{
               <button onClick={openAddEmployee} className='hover:bg-blue-500 text-white px-10 py-4 mx-auto bg-blue-700 rounded-lg text-xl'>Add an employee</button>
         </log>
    </search>
-   <main className='w-full flex flex-wrap justify-center py-10  gap-x-[4rem] gap-y-8 '>
+   <main className='w-full flex flex-wrap justify-center py-16  gap-x-[.5rem] gap-y-8 '>
    {searchResults.map((employees) => (
-    <div className='bg-slate-200 w-1/5 flex flex-col p-5 gap-2 rounded-xl'>
-        <div className='flex gap-4 justify-center items-center h-36' >
+    <div className='bg-slate-200 w-1/6 flex flex-col p-5 gap-2 rounded-xl'>
+        <div className='flex gap-4 justify-center items-center h-2/3' >
             <div className='flex justify-center w-1/3'>
                 <img src={employeeicon} className='w-full' alt="" />
             </div>
             <div className='w-2/3 h-28 flex flex-col gap-y-2 '>
-                <h1 className='text-2xl font-semibold'>Employee Name</h1>
-                <p className='text-xl'>{employees.name}</p>
+                <h1 className='text-xl'>Employee Name</h1>
+                <p className='text-2xl font-semibold line-clamp-2'>{employees.name}</p>
             </div>
         </div>
-        <div className='flex gap-4 justify-center items-center h-28'>
+        <div className='flex gap-4 justify-center items-center h-2/3'>
             <div className='flex justify-center w-1/3 '>
                 <img src={statusicon} className='w-2/3' alt="" />
             </div>
             <div className='w-2/3 flex flex-col gap-y-2 '>
-                <h1 className='text-2xl font-semibold'>Status</h1>
-                <p className='text-xl'>{employees.status}</p>
+                <h1 className='text-xl'>Status</h1>
+                <p className='text-2xl font-semibold line-clamp-2'>{employees.status}</p>
             </div>
         </div>
-        <div className='flex gap-4 justify-center items-center h-28'>
+        <div className='flex gap-4 justify-center items-center h-2/3'>
             <div className='flex justify-center w-1/3 '>
                 <img src={classificationicon} className='w-2/3' alt="" />
             </div>
             <div className='w-2/3 flex flex-col gap-y-2 '>
-                <h1 className='text-2xl font-semibold'>Classification</h1>
-                <p className='text-xl'>{employees.classification}</p>
+                <h1 className='text-xl'>Classification</h1>
+                <p className='text-2xl font-semibold line-clamp-2'>{employees.classification}</p>
             </div>
         </div>
-        <div className='flex gap-4 justify-center items-center h-28'>
+        <div className='flex gap-4 justify-center items-center h-2/3'>
             <div className='flex justify-center w-1/3 '>
                 <img src={departmenticon} className='w-2/3' alt="" />
             </div>
             <div className='w-2/3 flex flex-col gap-y-2 '>
-                <h1 className='text-2xl font-semibold'>Department</h1>
-                <p className='text-xl'>{employees.department}</p>
+                <h1 className='text-xl'>Department</h1>
+                <p className='text-2xl font-semibold line-clamp-2'>{employees.department}</p>
             </div>
         </div>
-        <div className='w-full flex gap-3 py-7 text-white text-xl'>
+        <div className='w-full flex gap-3 py-7 text-white text-xl h-2/3'>
                 <button onClick={() => openUpdateEmployee(employees)} className='bg-blue-700 w-full py-5 rounded-lg'>
                   Update
                 </button>

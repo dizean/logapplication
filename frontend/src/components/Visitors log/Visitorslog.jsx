@@ -43,14 +43,17 @@ const Visitorslog = () =>{
         };
         fetchData();
       }, []);
-      const handleFilterByGate = async () => {
+      const handleFilterByGate = async (selectedGate) => {
         if (!filteredData.length)
         {
           if (selectedGate === '') { 
             setSearchResults(visitorsData); 
             setSearchTerm('');
           } else {
-            setSearchResults(visitorsData.filter((visit) => visit.gate === selectedGate));
+            const filteredgate = visitorsData.filter((visit) => visit.gate === selectedGate);
+            setSearchResults(filteredgate);
+            setUserSelections({...userSelections,
+              selectedGateV: filteredgate,});
             setSearchTerm('');
             console.log('firstconditionni')
           }
@@ -104,55 +107,69 @@ const Visitorslog = () =>{
       };
 
     const handleSearch = async (value) => {
-          console.log(userSelections);
-          try {
-            if (!userSelections.selectedDateV.length || !userSelections.selectedGateV.length){
-            const response = await axios.post(`http://localhost:3002/visits/search`, { searchTerm });
-            const today = new Date().toISOString().split('T')[0];
-            const filteredResults = response.data.filter(visits => {
-              if (searchTerm) {
-                return visits.date === today;
-              } else {
-                return visits.date === today;
-              }
-            });
-            setSearchResults(filteredResults);
-            setshowVisitors(false);
-          }
-          else{
-            const visitorFilter = userSelections.selectedGateV.filter(visits =>
-              visits.name.toUpperCase().includes(searchTerm.toUpperCase())
-            );
-              setSearchResults(visitorFilter);
-              console.log('sa search ni '+ value);
-              console.log(visitorFilter);
-              console.log(searchResults);
-              console.log(userSelections);
-        }
-          } catch (error) {
-            console.error('Error searching users:', error);
-          }
-        };
+    console.log(userSelections);
+    try {
+    let searchResults;
+
+    if (!userSelections.selectedDateV.length && !userSelections.selectedGateV.length) {
+      console.log('No data in both selectedDate and selectedGate');
+      const response = await axios.post(`http://localhost:3002/visits/search`, { searchTerm });
+      const today = new Date().toISOString().split('T')[0];
+      searchResults = response.data.filter(visits => searchTerm ? visits.date === today : true); 
+    } else if (userSelections.selectedDateV.length && !userSelections.selectedGateV.length) {
+      console.log('Data in selectedDate and not selectedGate');
+      searchResults = userSelections.selectedDateV.filter(visits =>
+        visits.name.toUpperCase().includes(searchTerm.toUpperCase())
+      );
+    } else if (!userSelections.selectedDateV.length && userSelections.selectedGateV.length) {
+      console.log('Data in selectedGate and not selectedDate');
+      searchResults = userSelections.selectedGateV.filter(visits =>
+        visits.name.toUpperCase().includes(searchTerm.toUpperCase())
+      );
+    } else { 
+      console.log('Data in both selectedDate and selectedGate');
+      searchResults = userSelections.selectedGateV.filter(visits =>
+        visits.name.toUpperCase().includes(searchTerm.toUpperCase()) 
+        
+      );
+    }
+
+    setSearchResults(searchResults);
+    setshowVisitors(false); 
+  } catch (error) {
+    console.error('Error searching users:', error);
+  }
+};
+
       
       const handleResetSearch = async () => {
         try {
-          if (!userSelections.selectedDateV.length || !userSelections.selectedGateV.length){
+          let searchResults;
+          if (!userSelections.selectedDateV.length && !userSelections.selectedGateV.length){
           const response = await axios.get('http://localhost:3002/visits/');
           const today = new Date().toISOString().split('T')[0];
-          const filteredData = response.data.filter(visits => visits.date === today);
-          setSearchResults(filteredData);
-          setshowVisitors(true);
+          searchResults = response.data.filter(visits => visits.date === today); 
           }
-          else{
-            const visitorFilter = userSelections.selectedGateV.filter(visits =>
+          else if (userSelections.selectedDateV.length && !userSelections.selectedGateV.length) {
+            console.log('Data in selectedDate and not selectedGate');
+            searchResults = userSelections.selectedDateV.filter(visits =>
               visits.name.toUpperCase().includes(searchTerm.toUpperCase())
             );
-            console.log('secondcondition')
-            setSearchResults(visitorFilter);
-            setshowVisitors(false);
-            console.log(visitorFilter);
-            console.log(userSelections);
+          } else if (!userSelections.selectedDateV.length && userSelections.selectedGateV.length) {
+            console.log('Data in selectedGate and not selectedDate');
+            searchResults = userSelections.selectedGateV.filter(visits =>
+              visits.name.toUpperCase().includes(searchTerm.toUpperCase())
+            );
           }
+          else{
+            console.log('Data in both selectedDate and selectedGate');
+            searchResults = userSelections.selectedGateV.filter(visits =>
+              visits.name.toUpperCase().includes(searchTerm.toUpperCase()) 
+              
+            );
+          }
+          setSearchResults(searchResults);
+          setshowVisitors(true); 
         } catch (error) {
           console.error('Error fetching all users:', error);
         }
@@ -164,13 +181,9 @@ const Visitorslog = () =>{
         console.log('sa handle ni  '+ value);
         if (value === '') {
           handleResetSearch();
-          setSearchResults(userSelections.selectedGateV);
         } else {
           handleSearch(value);
         }
-      };
-      const handleChange = (e) => {
-        Setvisits({ ...visits, [e.target.name]: e.target.value });
       };
       
       const today = new Date().toISOString().split('T')[0];
@@ -201,16 +214,16 @@ const Visitorslog = () =>{
       <div className='flex w-2/5 gap-2'>
         <select id="gate"
         className='p-2 text-xl bg-slate-200 w-1/2 rounded-md focus:outline-none'
-         name="gate" required value={selectedGate}  onChange={(e) => setSelectedGate(e.target.value)}>
+         name="gate" required value={selectedGate}  
+         onChange={(e) => {
+          setSelectedGate(e.target.value);
+          handleFilterByGate(e.target.value);
+        }}>
           <option value="">Select Gate</option>
           <option value="Galo Gate">Galo Gate</option>
           <option value="Rizal Gate">Rizal Gate</option>
         </select>
         <button 
-        className='hover:bg-blue-500 text-white px-10 py-4 w-1/2  bg-blue-700 rounded-lg text-xl'
-        onClick={handleFilterByGate}>Filter By Gate</button>
-      </div>
-      <button 
         className='text-white w-2/12 h-16 flex justify-start items-center'
         onClick={toggleDatePicker}>
                    <img src={calendaricon} className='h-full object-contain p-2 bg-blue-400 hover:bg-blue-300 hover:mix-blend-overlay rounded-xl '  alt="" />
@@ -222,6 +235,7 @@ const Visitorslog = () =>{
                     className='z-10 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 '
                   />
                     )}
+      </div>
     </div>
         <log className='w-1/3 gap-4 flex justify-end'>
             <ReactHTMLTableToExcel 

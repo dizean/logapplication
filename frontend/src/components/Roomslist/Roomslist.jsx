@@ -151,19 +151,19 @@ const RoomList = () =>{
               <button onClick={openAddRoom} className='hover:bg-blue-500 text-white px-10 py-4 mx-auto bg-blue-700 rounded-lg text-xl'>Add a room</button>
         </log>
    </search>
-   <main className='w-full flex flex-wrap justify-center p-4 py-16 gap-x-[.5rem] gap-y-8 '>
+   <main className='w-full flex flex-wrap justify-center py-16 gap-x-[.5rem] gap-y-8 '>
    {searchResults.map((room) => (
     <div key={room.id} className='bg-slate-200 w-1/6 flex flex-col p-5 gap-2 rounded-xl'>
-        <div className='flex gap-4 justify-center items-center h-24'>
+        <div className='flex h-2/3 gap-4 justify-center items-center'>
             <div className='flex justify-center w-1/3'>
                 <img src={keyicon} className='w-2/3' alt="" />
             </div>
             <div className='w-2/3 flex flex-col gap-y-2 '>
                 <h1 className='text-xl'>Room</h1>
-                <p className='text-2xl font-semibold'>{room.room}</p>
+                <p className='text-2xl font-semibold line-clamp-2'>{room.room}</p>
             </div>
         </div>
-        <div className='flex gap-4 justify-center items-center h-20'>
+        <div className='flex h-2/3 gap-4 justify-center items-center '>
             <div className='flex justify-center w-1/3 '>
                 <img src={statusicon} className='w-2/3' alt="" />
             </div>
@@ -172,16 +172,16 @@ const RoomList = () =>{
                 <p className='text-2xl font-semibold'>{room.status}</p>
             </div>
         </div>
-        <div className='flex gap-4 justify-center items-center h-32' >
+        <div className='flex h-2/3 gap-4 justify-center items-center ' >
             <div className='flex justify-center w-1/3 '>
                 <img src={locationicon} className='w-2/3' alt="" />
             </div>
             <div className='w-2/3 flex flex-col gap-y-2 '>
                 <h1 className='text-xl'>Location</h1>
-                <p className='text-2xl font-semibold'>{room.location}</p>
+                <p className='text-2xl font-semibold line-clamp-2'>{room.location}</p>
             </div>
         </div>
-        <div className='w-full flex gap-3 py-3 text-white text-xl'>
+        <div className='w-full h-2/3 flex gap-3 py-3 text-white text-xl'>
                 <button 
                 onClick={() => openUpdateRoom(room)}
                 disabled={room.status === "Active"}
