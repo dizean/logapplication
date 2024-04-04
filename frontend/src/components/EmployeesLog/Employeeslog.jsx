@@ -158,14 +158,18 @@ const EmployeesLog = () =>{
                    <img src={calendaricon} className='h-full object-contain p-2 bg-blue-400 hover:bg-blue-300 hover:mix-blend-overlay rounded-xl '  alt="" />
                     </button>
                     {isDatePickerOpen && (
-                      <div className='z-10 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center w-1/3 bg-orange-300 rounded-lg'>
-                        <button 
-                        className='bg-blue-700 hover:bg-blue-500 py-5 text-2xl w-full text-white rounded-tr-lg rounded-tl-lg '
-                        onClick={closeDatepicker}>Close</button>
+                      <div className='z-10 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center w-1/3 bg-blue-700 rounded-lg'>
+                        <h1
+                         className='text-6xl text-white font-semibold py-10'
+                        >Calendar</h1>
+                        
                       <DateRangePicker
                     ranges={[selectionRange]}
+                    className='rounded-lg'
                     onChange={handleSelect}
-                  />
+                  /><button 
+                  className='bg-blue-700 w-full hover:bg-blue-500 py-5 text-2xl text-white rounded-b-lg '
+                  onClick={closeDatepicker}>Close</button>
                       </div>
                     
                     )}

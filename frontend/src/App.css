@@ -1,3 +1,6 @@
 /* body{
     @apply bg-green-400
 } */
+.rdrDateRangePickerWrapper{
+    background-color: purple;
+}
