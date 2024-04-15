@@ -141,8 +141,6 @@ const Visitorslog = () =>{
     console.error('Error searching users:', error);
   }
 };
-
-      
       const handleResetSearch = async () => {
         try {
           let searchResults;
@@ -153,21 +151,14 @@ const Visitorslog = () =>{
           }
           else if (userSelections.selectedDateV.length && !userSelections.selectedGateV.length) {
             console.log('Data in selectedDate and not selectedGate');
-            searchResults = userSelections.selectedDateV.filter(visits =>
-              visits.name.toUpperCase().includes(searchTerm.toUpperCase())
-            );
+            searchResults = userSelections.selectedDateV;
           } else if (!userSelections.selectedDateV.length && userSelections.selectedGateV.length) {
             console.log('Data in selectedGate and not selectedDate');
-            searchResults = userSelections.selectedGateV.filter(visits =>
-              visits.name.toUpperCase().includes(searchTerm.toUpperCase())
-            );
+            searchResults = userSelections.selectedGateV;
           }
           else{
             console.log('Data in both selectedDate and selectedGate');
-            searchResults = userSelections.selectedGateV.filter(visits =>
-              visits.name.toUpperCase().includes(searchTerm.toUpperCase()) 
-              
-            );
+            searchResults = userSelections.selectedGateV;
           }
           setSearchResults(searchResults);
           setshowVisitors(true); 
