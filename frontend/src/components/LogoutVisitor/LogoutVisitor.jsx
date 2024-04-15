@@ -118,8 +118,8 @@ const LogoutVisitor = () =>{
                 onChange={handleInputChange}
         />
         <log>
-            <Link to="/employeelog">
-              <button className='hover:bg-blue-500 text-white px-10 py-4 mx-auto bg-blue-700 rounded-lg text-xl'>View Employees Log</button>
+            <Link to="/visitorslog">
+              <button className='hover:bg-blue-500 text-white px-10 py-4 mx-auto bg-blue-700 rounded-lg text-xl'>View Visitors Log</button>
             </Link>
         </log>
    </search>

@@ -4,7 +4,8 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import { useUser } from '../jsx/userContext';
 import lccb from '../../images/lccb.png';
-import lccp from '../../images/lcc.jpg'
+import lccp from '../../images/lcc.jpg';
+import Alert from '@mui/material/Alert';
 const Signin = () =>{
     const navigate = useNavigate();
     const { loginUser } = useUser(); 
@@ -13,7 +14,10 @@ const Signin = () =>{
         username: '',
         password: '',
     });
-
+    const[isError, setIsError] =useState(false);
+    const ifError = () => {
+      setIsError(true);
+    }
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -23,12 +27,17 @@ const Signin = () =>{
         loginUser(admin.username);
         navigate('/home');
         } catch (error) {
-        alert('Login error');
+        setAdmin({
+          username:'',
+          password:''
+        })
+        ifError();
         console.error('Login failed:', error);
         }
     };
 
-
+   
+    
     const handleChange = (e) => {
         setAdmin({ ...admin, [e.target.name]: e.target.value });
     };
@@ -57,6 +66,14 @@ const Signin = () =>{
           placeholder='Password'
           value={admin.password}
           onChange={handleChange} />
+          {isError &&
+      (
+        <>
+        <Alert severity="error">
+        Username or Password does not exist.
+      </Alert>
+        </>
+      )}
         </div>
         <button className='bg-blue-700 p-3 rounded-lg text-white'>Sign in</button>
         <Link to="/signup"><p className='loginlink-signin'>Don't have an account? <span className='text-blue-700'>Sign up here</span></p></Link>
@@ -64,6 +81,7 @@ const Signin = () =>{
       <div className='right-column-signin object-cover h-screen w-1/2 bg-blue-200'>
         <img src={lccp} className='h-screen w-screen object-cover' alt="lcc" />
       </div>
+      
     </div>
     )
 }
