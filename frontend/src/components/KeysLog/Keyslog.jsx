@@ -125,7 +125,7 @@ const KeysLog = () =>{
         const today = new Date().toISOString().split('T')[0];
     return(
    <body className='h-screen w-screen relative'>
-   <nav className='flex justify-between items-center bg-slate-100'>
+   <nav className='flex justify-between items-center bg-slate-100 drop-shadow-lg'>
     <div className='py-6 pl-5'>
     <img src={lccb} alt="lccb"/>
     </div>
@@ -183,23 +183,23 @@ const KeysLog = () =>{
    <table id="tableemplo" className='text-left w-full border-separate border border-slate-200'>
     <thead className='bg-blue-700 text-left text-white sticky top-0 z-9'>
         <tr className='h-24 text-3xl'>
-        <th>Date Borrowed</th>
-        <th>Room</th>
-        <th>Name of Borrower</th>
-        <th>Time Borrowed</th>
-        <th>Name of Returner</th>
-        <th>Time Returned</th>               
+        <th className='p-4 w-1/6'>Date Borrowed</th>
+        <th className='p-4  w-1/6'>Room</th>
+        <th className='p-4  w-1/6'>Name of Borrower</th>
+        <th className='p-4  w-1/6'>Time Borrowed</th>
+        <th className='p-4  w-1/6'>Name of Returner</th>
+        <th className='p-4  w-1/6'>Time Returned</th>               
         </tr>
     </thead>
     <tbody className='bg-green-300'>
     {searchResults.map((borrow, index) => (
         <tr className='text-2xl h-20'>
-            <td>{borrow.room}</td>
-            <td>{borrow.date}</td>
-            <td>{borrow.name_borrower}</td>
-            <td>{borrow.time_borrowed}</td>
-            <td>{borrow.name_returner}</td>
-            <td>{borrow.time_returned}</td>
+            <td className='p-4'>{borrow.room}</td>
+            <td className='p-4'>{borrow.date}</td>
+            <td className='p-4'>{borrow.name_borrower}</td>
+            <td className='p-4'>{borrow.time_borrowed}</td>
+            <td className='p-4'>{borrow.name_returner}</td>
+            <td className='p-4'>{borrow.time_returned}</td>
         </tr>
     ))}
     </tbody>

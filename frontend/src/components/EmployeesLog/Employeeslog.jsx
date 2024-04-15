@@ -130,7 +130,7 @@ const EmployeesLog = () =>{
       const today = new Date().toISOString().split('T')[0];
     return(
    <body className='h-screen w-screen relative'>
-   <nav className='flex justify-between items-center bg-slate-100'>
+   <nav className='flex justify-between items-center bg-slate-100 drop-shadow-lg'>
     <div className='py-6 pl-5'>
     <img src={lccb} alt="lccb"/>
     </div>
@@ -189,19 +189,19 @@ const EmployeesLog = () =>{
    <table id="tableemplo" className='text-left w-full border-separate border border-slate-200'>
     <thead className='bg-blue-700 text-left text-white sticky top-0 z-9'>
         <tr className='h-24 text-3xl bg-orange-300'>
-        <th className='w-1/4'>Date</th>
-        <th className='w-1/4'>Name</th>
-        <th className='w-1/4'>Logged in</th>
-        <th className='w-1/4'>Logged out</th>               
+        <th className='w-1/4 p-4'>Date</th>
+        <th className='w-1/4 p-4'>Name</th>
+        <th className='w-1/4 p-4'>Logged in</th>
+        <th className='w-1/4 p-4'>Logged out</th>               
         </tr>
     </thead>
     <tbody className='bg-green-300'>
     {searchResults.map((employee, index) => (
         <tr key={index} className='text-2xl h-20'>
-            <td>{employee.date}</td>
-            <td>{employee.name}</td>
-            <td>{employee.time_in}</td>
-            <td>{employee.time_out}</td>
+            <td className='p-4'>{employee.date}</td>
+            <td className='p-4'>{employee.name}</td>
+            <td className='p-4'>{employee.time_in}</td>
+            <td className='p-4'>{employee.time_out}</td>
         </tr>
     ))}
     </tbody>

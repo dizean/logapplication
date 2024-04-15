@@ -96,7 +96,7 @@ const LogoutVisitor = () =>{
     };
     return(
    <body className='h-screen'>
-   <nav className='flex justify-between items-center bg-slate-100'>
+   <nav className='flex justify-between items-center bg-slate-100 drop-shadow-lg'>
     <div className='py-6 pl-5'>
     <img src={lccb} alt="lccb"/>
     </div>

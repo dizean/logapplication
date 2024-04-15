@@ -190,7 +190,7 @@ const Visitorslog = () =>{
       const today = new Date().toISOString().split('T')[0];
     return(
     <body className='h-screen w-screen relative'>
-    <nav className='flex justify-between items-center bg-slate-100'>
+    <nav className='flex justify-between items-center bg-slate-100 drop-shadow-lg'>
       <div className='py-6 pl-5'>
       <img src={lccb} alt="lccb"/>
       </div>
@@ -261,26 +261,26 @@ const Visitorslog = () =>{
    <table id= "tableemplo" className='text-left w-full border-separate border border-slate-200'>
     <thead className='bg-blue-700 text-left text-white sticky top-0 z-9'>
         <tr className='h-24 text-3xl'>
-        <th className='w-1/12'>Date of Visit</th>
-        <th className='w-3/12'>Name</th>
-        <th className='w-3/12'>Purpose</th>
-        <th className='w-2/12'>Place of Visit</th>
-        <th className='w-1/12'>Time In</th>
-        <th className='w-1/12'>Time Out</th>
-        <th className='w-2/12'>Gate</th>              
+        <th className='w-1/12 p-4'>Date of Visit</th>
+        <th className='w-3/12 p-4'>Name</th>
+        <th className='w-3/12 p-4'>Purpose</th>
+        <th className='w-2/12 p-4'>Place of Visit</th>
+        <th className='w-1/12 p-4'>Time In</th>
+        <th className='w-1/12 p-4'>Time Out</th>
+        <th className='w-2/12 p-4'>Gate</th>              
         </tr>
     </thead>
     <tbody className='bg-green-300'>
     {searchResults.map((visits,index)=>{
       return(
         <tr className='text-2xl h-20' key={index}>
-            <td>{visits.date}</td>
-            <td>{visits.name}</td>
-            <td>{visits.purpose}</td>
-            <td>{visits.place}</td>
-            <td>{visits.time_in}</td>
-            <td>{visits.time_out}</td>
-            <td>{visits.gate}</td>
+            <td className='p-4'>{visits.date}</td>
+            <td className='p-4'>{visits.name}</td>
+            <td className='p-4'>{visits.purpose}</td>
+            <td className='p-4'>{visits.place}</td>
+            <td className='p-4'>{visits.time_in}</td>
+            <td className='p-4'>{visits.time_out}</td>
+            <td className='p-4'>{visits.gate}</td>
         </tr>
     );
     })}
