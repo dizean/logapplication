@@ -151,7 +151,7 @@ const RoomList = () =>{
               <button onClick={openAddRoom} className='hover:bg-blue-500 text-white px-10 py-4 mx-auto bg-blue-700 rounded-lg text-xl'>Add a room</button>
         </log>
    </search>
-   <main className='w-full flex flex-wrap justify-center py-16 gap-x-[.5rem] gap-y-8 '>
+   <main className='w-full flex flex-wrap justify-center py-16 gap-x-[2rem] gap-y-8 '>
    {searchResults.map((room) => (
     <div key={room.id} className='bg-slate-200 w-1/6 flex flex-col p-5 gap-2 rounded-xl'>
         <div className='flex h-2/3 gap-4 justify-center items-center'>

@@ -123,7 +123,7 @@ const LogoutVisitor = () =>{
             </Link>
         </log>
    </search>
-   <main className='w-full flex flex-wrap justify-center py-16  gap-x-[.5rem] gap-y-8 '>
+   <main className='w-full flex flex-wrap justify-center py-16  gap-x-[2rem] gap-y-8 '>
    {searchResults.map((visitor) => (
     <div className='bg-slate-200 w-1/6 flex flex-col p-5 gap-2 rounded-xl'>
         <div className='flex gap-4 justify-center items-center h-2/3'>
