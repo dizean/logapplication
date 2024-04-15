@@ -7,6 +7,10 @@ import keyicon from '../../images/doorway.png';
 import statusicon from '../../images/time-management.png';
 import locationicon from '../../images/pin.png';
 import borrowicon from '../../images/deal.png';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
+import Button from '@mui/material/Button';
+
 const BorrowReturnKey = () =>{
     const navigate = useNavigate();
     const { user } = useUser();
@@ -21,13 +25,24 @@ const BorrowReturnKey = () =>{
         status: '',
     });
     const resetBorrowState = () => {
-        setBorrow(borrow);
-    };
+        setBorrow({
+          room_id: '',
+          room: '',
+          date: '',
+          name_borrower: '', // Clear borrower name after success
+          time_borrowed: '',
+          name_returner: '',
+          time_returned: '',
+          status: '',
+        });
+      };
     const [roomData, setRoomData] = useState([]);
     const [borrowData, setBorrowData] = useState([]);
     const [selectedRoom, setSelectedRoom] = useState(null);
     const [isBorrowOpen, setIsBorrowOpen] = useState(false);
     const [isReturnOpen, setIsReturnOpen] = useState(false);
+    const [isSuccessBorrow, setIsSuccessBorrow] = useState(false);
+    const [isSuccessReturn, setIsSuccessReturn] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -51,7 +66,13 @@ const BorrowReturnKey = () =>{
         };
         fetchData();
     }, [selectedRoom]);
-
+   
+    const SuccessBorrow = () =>{
+        setIsSuccessBorrow(true);
+    }
+    const SuccessReturn = () =>{
+        setIsSuccessReturn(true);
+    }
     const handleBorrowOpen = (room) => {
         setSelectedRoom(room);
         setIsBorrowOpen(true);
@@ -92,12 +113,14 @@ const BorrowReturnKey = () =>{
             status: 'Pending',
             admin_assigned: user.username,
         };
-        
         const borrowRes = await axios.post('http://localhost:3002/borrow/', recordBorrow);
-        alert('Key borrowed.')
         resetBorrowState();
         closeModal();
-        navigate(0);
+        SuccessBorrow();
+        setTimeout(() => {
+            
+            setIsSuccessBorrow(false);
+        }, 5000);
         } catch (error) {
         console.error('Error handling borrowing:', error);
         }
@@ -125,10 +148,13 @@ const BorrowReturnKey = () =>{
             
         };
         await axios.put(`http://localhost:3002/borrow/${selectedBorrow.id}`, updatedBorrow);
-        alert('Key returned.');
         resetBorrowState();
         closeModal();
-        navigate(0);
+        SuccessReturn();
+        setTimeout(() => {
+           
+            setIsSuccessReturn(false);
+        }, 5000);
         } catch (error) {
         console.error('Error handling return:', error);
         }
@@ -169,6 +195,7 @@ const BorrowReturnKey = () =>{
     const handleChange = (e) => {
         setBorrow({ ...borrow, [e.target.name]: e.target.value });
     };
+   
     return(
    <body className='h-screen'>
    <nav className='flex justify-between items-center bg-slate-100 drop-shadow-lg'>
@@ -283,7 +310,7 @@ const BorrowReturnKey = () =>{
             </div>
                 </>
             )}
-{isReturnOpen && selectedBorrow &&
+    {isReturnOpen && selectedBorrow &&
             (
                 <>
                 <div className='w-full h-full fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white bg-opacity-80 '>
@@ -321,6 +348,26 @@ const BorrowReturnKey = () =>{
             </div>
                 </>
             )}
+    {isSuccessBorrow && 
+    (
+        <>
+        <Snackbar open={true} anchorOrigin={{vertical: 'top', horizontal: 'center'}}>
+        <Alert severity="success">
+        Borrowing Key Successful.
+        </Alert>
+        </Snackbar>
+        </>
+    )}
+    {isSuccessReturn && 
+    (
+        <>
+        <Snackbar open={true} anchorOrigin={{vertical: 'top', horizontal: 'center'}}>
+        <Alert severity="success">
+       Returning Key Successful.
+        </Alert>
+        </Snackbar>
+        </>
+    )}
    </body>
     )
 }
