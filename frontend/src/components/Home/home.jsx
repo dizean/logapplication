@@ -90,7 +90,7 @@ const Home = () =>{
     </div>
    </nav>
    <main className='w-full flex px-10 py-16 gap-14 justify-center'>
-        <div className='bg-slate-100 w-1/3 rounded-xl py-7'>
+        <div className='bg-slate-100 w-1/3 rounded-xl py-7 drop-shadow-lg'>
             <div className='flex p-5 gap-4'>
                 <div className='w-1/3 flex items-center'>
                     <img src={employeepic} className='w-full' alt="" />
@@ -118,7 +118,7 @@ const Home = () =>{
             </Link>
             </div>
         </div>
-        <div className='bg-slate-100 w-1/3 rounded-xl py-7'>
+        <div className='bg-slate-100 w-1/3 rounded-xl py-7 drop-shadow-lg'>
             <div className='flex p-5 gap-4'>
                 <div className='w-1/3 flex items-center'>
                     <img src={keypic} className='w-full' alt="" />
@@ -144,7 +144,7 @@ const Home = () =>{
             </Link>
             </div>
         </div>
-        <div className='bg-slate-100 w-1/3 rounded-xl py-7'>
+        <div className='bg-slate-100 w-1/3 rounded-xl py-7 drop-shadow-lg'>
             <div className='flex p-5 gap-4'>
                 <div className='w-1/3 flex items-center'>
                     <img src={visitorpic} className='w-full' alt="" />
