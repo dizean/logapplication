@@ -192,9 +192,10 @@ const KeysLog = () =>{
         <th className='p-4  w-1/6'>Time Returned</th>               
         </tr>
     </thead>
-    <tbody className='bg-green-300'>
+    <tbody className=''>
     {searchResults.map((borrow, index) => (
-        <tr className='text-2xl h-20'>
+        <tr 
+        className={`text-2xl h-20 ${index % 2 === 0 ? 'bg-blue-100 text-black' : 'bg-blue-700 text-white'}`}>
             <td className='p-4'>{borrow.room}</td>
             <td className='p-4'>{borrow.date}</td>
             <td className='p-4'>{borrow.name_borrower}</td>

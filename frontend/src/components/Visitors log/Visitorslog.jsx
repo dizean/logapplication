@@ -274,7 +274,8 @@ const Visitorslog = () =>{
     <tbody className='bg-green-300'>
     {searchResults.map((visits,index)=>{
       return(
-        <tr className='text-2xl h-20' key={index}>
+        <tr  key={index}
+        className={`text-2xl h-20 ${index % 2 === 0 ? 'bg-blue-100 text-black' : 'bg-blue-700 text-white'}`}>
             <td className='p-4'>{visits.date}</td>
             <td className='p-4'>{visits.name}</td>
             <td className='p-4'>{visits.purpose}</td>

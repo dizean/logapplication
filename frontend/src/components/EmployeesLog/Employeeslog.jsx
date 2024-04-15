@@ -189,16 +189,17 @@ const EmployeesLog = () =>{
    <main className='w-full px-5 my-5 overflow-scroll h-[60vh]'>
    <table id="tableemplo" className='text-left w-full border-separate border border-slate-200'>
     <thead className='bg-blue-700 text-left text-white sticky top-0 z-9'>
-        <tr className='h-24 text-3xl bg-orange-300'>
+        <tr className='h-24 text-3xl bg-blue-700'>
         <th className='w-1/4 p-4'>Date</th>
         <th className='w-1/4 p-4'>Name</th>
         <th className='w-1/4 p-4'>Logged in</th>
         <th className='w-1/4 p-4'>Logged out</th>               
         </tr>
     </thead>
-    <tbody className='bg-green-300'>
+    <tbody className=''>
     {searchResults.map((employee, index) => (
-        <tr key={index} className='text-2xl h-20'>
+        <tr key={index} 
+        className={`text-2xl h-20 ${index % 2 === 0 ? 'bg-blue-100 text-black' : 'bg-blue-700 text-white'}`}>
             <td className='p-4'>{employee.date}</td>
             <td className='p-4'>{employee.name}</td>
             <td className='p-4'>{employee.time_in}</td>
