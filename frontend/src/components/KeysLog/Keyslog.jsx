@@ -142,15 +142,16 @@ const KeysLog = () =>{
     <div className='w-2/3 flex flex-wrap gap-2'>
     <input
                 type="text"
-                className='bg-slate-100 w-2/5 py-4 px-5 rounded-lg focus:outline-none '
+                className='bg-slate-100 w-2/5 py-4 px-5 rounded-lg focus:outline-none border-2 '
                 placeholder="Search by room name or number"
                 value={searchTerm}
                 onChange={handleInputChange}
         />
         <button 
-        className='text-white w-2/12 h-16 flex justify-start items-center'
+        className=' w-2/12 h-16 flex justify-start items-center bg-blue-700 hover:bg-blue-500 hover:mix-blend-multiply text-white border-2 pl-2 rounded-lg '
         onClick={toggleDatePicker}>
-                   <img src={calendaricon} className='h-full object-contain p-2 bg-blue-400 hover:bg-blue-300 hover:mix-blend-overlay rounded-xl '  alt="" />
+          Filter by Date
+                   <img src={calendaricon} className='h-3/4 object-contain pl-12 py-2rounded-xl  '  alt="" />
                     </button>
                     {isDatePickerOpen && (
                      <div className='z-10 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center w-1/3 bg-blue-700 rounded-lg'>
@@ -175,7 +176,7 @@ const KeysLog = () =>{
             table="tableemplo"
             filename={"Key Borrowers/Returners Log, Date - " + today}
             sheet="tablexls"
-            buttonText="Download as Log Record"
+            buttonText="Download Log Record"
             className='hover:bg-blue-500 text-white px-10 py-4  bg-blue-700 rounded-lg text-xl'/>
         </log>
    </search>

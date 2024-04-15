@@ -225,9 +225,10 @@ const Visitorslog = () =>{
           <option value="Rizal Gate">Rizal Gate</option>
         </select>
         <button 
-        className='text-white w-2/12 h-16 flex justify-start items-center'
+        className=' w-5/12 h-16 flex justify-start items-center bg-blue-700 hover:bg-blue-500 hover:mix-blend-multiply text-white border-2 pl-2 rounded-lg'
         onClick={toggleDatePicker}>
-                   <img src={calendaricon} className='h-full object-contain p-2 bg-blue-400 hover:bg-blue-300 hover:mix-blend-overlay rounded-xl '  alt="" />
+          Filter by Date
+                   <img src={calendaricon} className='h-3/4 object-contain pl-12 py-2rounded-xl '  alt="" />
                     </button>
                     {isDatePickerOpen && (
                       <div className='z-10 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center w-1/3 bg-blue-700 rounded-lg'>
@@ -254,7 +255,7 @@ const Visitorslog = () =>{
             table="tableemplo"
             filename={"Visitors Log, Date - " + today}
             sheet="tablexls"
-            buttonText="Download as XLS"/>
+            buttonText="Download Log Record"/>
         </log>
    </search>
    <main className='w-full px-5 my-5 overflow-scroll h-[60vh]'>
