@@ -251,15 +251,15 @@ const Visitorslog = () =>{
    </search>
    <main className='w-full px-5 my-5 overflow-scroll h-[60vh]'>
    <table id= "tableemplo" className='text-left w-full border-separate border border-slate-200'>
-    <thead className='bg-blue-700 text-left text-white sticky top-0 z-9'>
-        <tr className='h-24 text-3xl'>
-        <th className='w-1/12 p-4'>Date of Visit</th>
-        <th className='w-3/12 p-4'>Name</th>
-        <th className='w-3/12 p-4'>Purpose</th>
-        <th className='w-2/12 p-4'>Place of Visit</th>
-        <th className='w-1/12 p-4'>Time In</th>
-        <th className='w-1/12 p-4'>Time Out</th>
-        <th className='w-2/12 p-4'>Gate</th>              
+    <thead className='bg-blue-700 text-left text-white sticky top-0 z-9 '>
+        <tr className='h-24 text-2xl'>
+        <th className='w-2/12 p-2'>Date of Visit</th>
+        <th className='w-2/12 p-2'>Name</th>
+        <th className='w-2/12 p-2'>Purpose</th>
+        <th className='w-2/12 p-2'>Place of Visit</th>
+        <th className='w-1/12 p-2'>Time In</th>
+        <th className='w-1/12 p-2'>Time Out</th>
+        <th className='w-1/12 p-2'>Gate</th>              
         </tr>
     </thead>
     <tbody className='bg-green-300'>

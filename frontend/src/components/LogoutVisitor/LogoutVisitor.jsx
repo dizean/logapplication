@@ -30,7 +30,8 @@ const LogoutVisitor = () =>{
             const employeesresponse = await axios.get(
             "http://localhost:3002/visits/"
             );
-            const filteredData = employeesresponse.data.filter(visits => visits.time_out === "");
+            const today = new Date().toISOString().split('T')[0];
+            const filteredData = employeesresponse.data.filter(visits => visits.time_out === "" && visits.date === today);
             setvisitorsData(filteredData);
             setSearchResults(filteredData);
         } catch (error) {
@@ -113,7 +114,7 @@ const LogoutVisitor = () =>{
     <input
                 type="text"
                 className='bg-slate-100 w-1/4 py-4 px-5 rounded-lg focus:outline-none '
-                placeholder="Search by name of employee"
+                placeholder="Search by name of visitor"
                 value={searchTerm}
                 onChange={handleInputChange}
         />

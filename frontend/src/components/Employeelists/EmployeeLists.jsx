@@ -171,45 +171,45 @@ const EmployeeList = () =>{
    </search>
    <main className='w-full flex flex-wrap justify-center py-16  gap-x-[2rem] gap-y-8 '>
    {searchResults.map((employees) => (
-    <div className='bg-slate-200 w-1/6 flex flex-col p-5 gap-2 rounded-xl'>
-        <div className='flex gap-4 justify-center items-center h-2/3' >
-            <div className='flex justify-center w-1/3'>
-                <img src={employeeicon} className='w-full' alt="" />
+    <div className='bg-slate-200 w-1/6 flex flex-col p-3 gap-1 rounded-xl'>
+        <div className='flex gap-4  h-[150px] '>
+            <div className='flex'>
+                 <img src={employeeicon} className='w-[40px] h-[40px]' alt="" />
             </div>
-            <div className='w-2/3 h-28 flex flex-col gap-y-2 '>
-                <h1 className='text-xl'>Employee Name</h1>
-                <p className='text-2xl font-semibold line-clamp-2'>{employees.name}</p>
-            </div>
-        </div>
-        <div className='flex gap-4 justify-center items-center h-2/3'>
-            <div className='flex justify-center w-1/3 '>
-                <img src={statusicon} className='w-2/3' alt="" />
-            </div>
-            <div className='w-2/3 flex flex-col gap-y-2 '>
-                <h1 className='text-xl'>Status</h1>
-                <p className='text-2xl font-semibold line-clamp-2'>{employees.status}</p>
+            <div className='w-2/3 h-full  flex flex-col '>
+                <h1 className='text-xl h-[30px] leading-5 '>Name:</h1>
+                <p className='text-xl  font-bold leading-5 '>{employees.name}</p>
             </div>
         </div>
-        <div className='flex gap-4 justify-center items-center h-2/3'>
-            <div className='flex justify-center w-1/3 '>
-                <img src={classificationicon} className='w-2/3' alt="" />
+        <div className='flex gap-4   h-[150px] '>
+            <div className='flex justify-center  '>
+                <img src={departmenticon} className='w-[40px] h-[40px]' alt="" />
             </div>
-            <div className='w-2/3 flex flex-col gap-y-2 '>
-                <h1 className='text-xl'>Classification</h1>
-                <p className='text-2xl font-semibold line-clamp-2'>{employees.classification}</p>
-            </div>
-        </div>
-        <div className='flex gap-4 justify-center items-center h-2/3'>
-            <div className='flex justify-center w-1/3 '>
-                <img src={departmenticon} className='w-2/3' alt="" />
-            </div>
-            <div className='w-2/3 flex flex-col gap-y-2 '>
-                <h1 className='text-xl'>Department</h1>
-                <p className='text-2xl font-semibold line-clamp-2'>{employees.department}</p>
+            <div className='w-2/3 flex flex-col '>
+                <h1 className='text-l h-[25px]'>Department:</h1>
+                <p className='text-l h-[110px] font-bold leading-5'>{employees.department}</p>
             </div>
         </div>
-        <div className='w-full flex gap-3 py-7 text-white text-xl h-2/3'>
-                <button onClick={() => openUpdateEmployee(employees)} className='bg-blue-700 w-full py-5 rounded-lg'>
+        <div className='flex gap-4 h-[50px] '>
+            <div className='flex '>
+                <img src={statusicon} className='w-[40px] h-[40px]' alt="" />
+            </div>
+            <div className='w-2/3 flex flex-col'>
+                <h1 className='text-l'>Status</h1>
+                <p className='text-l font-bold leading-5'>{employees.status}</p>
+            </div>
+        </div>
+        <div className='flex gap-4 h-[100px] '>
+            <div className='flex'>
+                <img src={classificationicon} className='w-[40px] h-[40px]' alt="" />
+            </div>
+            <div className='w-2/3 flex flex-col'>
+                <h1 className='text-l'>Classification</h1>
+                <p className='text-l font-bold leading-5'>{employees.classification}</p>
+            </div>
+        </div>
+        <div className='w-full flex text-white text-xl h-[50px]'>
+                <button onClick={() => openUpdateEmployee(employees)} className='bg-blue-700 w-full rounded-lg'>
                   Update
                 </button>
               </div>

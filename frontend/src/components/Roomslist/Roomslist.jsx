@@ -7,6 +7,8 @@ import statusicon from '../../images/time-management.png';
 import locationicon from '../../images/pin.png';
 import updateicon from '../../images/refresh.png';
 import addicon from '../../images/key-room.png';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 const RoomList = () =>{
     const navigate = useNavigate();
     const [room, Setroom] = useState({
@@ -19,7 +21,8 @@ const RoomList = () =>{
     const [showRooms, setshowRooms] = useState(true);
     const [roomData, setRoomData] = useState([]);
     const [selectedRoom, setselectedRoom] = useState(null);
-    const [openModal, setOpenModal] = useState(false);
+    const [isUpdateSucces, setIsUpdateSucces] = useState(false);
+    const [isAddSuccess, setIsAddSuccess] = useState(false);
     useEffect(() => {
         const fetchData = async () => {
         try {
@@ -50,7 +53,12 @@ const RoomList = () =>{
         console.error("Error searching users:", error);
         }
     };
-
+    const updateSuccess = () =>{
+        setIsUpdateSucces(true);
+    };
+    const addSuccess = () =>{
+        setIsAddSuccess(true);
+    };
     const handleResetSearch = async () => {
         try {
         const response = await axios.get("http://localhost:3002/room/");
@@ -81,9 +89,11 @@ const RoomList = () =>{
             status: "Available",
         };
         const response = await axios.post("http://localhost:3002/room/", addRoom);
-        console.log(response.data);
         closeModal();
-        navigate(0);
+        updateSuccess();
+        setTimeout(() => {
+            setIsUpdateSucces(false);
+        }, 5000);
         } catch (error) {
         console.error("data data:", room);
         console.error("data data:", error);
@@ -99,9 +109,14 @@ const RoomList = () =>{
             `http://localhost:3002/room/${selectedRoom.id}`,
             room
         );
-        alert("Successfully updated!");
         closeModal();
         navigate(0);
+        addSuccess();
+        setTimeout(() => {
+            setIsAddSuccess(false);
+        }, 1000);
+        
+        
         } catch (error) {
         alert("Error updating employee:", error);
         }
@@ -122,8 +137,7 @@ const RoomList = () =>{
     };
     const closeModal = () => {
         setisUpdateRoom(false);
-        setisAddRoom(false);
-    }
+        setisAddRoom(false);}
     return(
    <body className='h-screen'>
    <nav className='flex justify-between items-center bg-slate-100 drop-shadow-lg'>
@@ -342,6 +356,26 @@ const RoomList = () =>{
    </div>
   </div>
    )}
+   {isAddSuccess && 
+    (
+        <>
+        <Snackbar open={true}  anchorOrigin={{vertical: 'top', horizontal: 'center'}}>
+        <Alert severity="success">
+        Adding Room Successful.
+        </Alert>
+        </Snackbar>
+        </>
+    )}
+    {isUpdateSucces && 
+    (
+        <>
+        <Snackbar open={true} anchorOrigin={{vertical: 'top', horizontal: 'center'}}>
+        <Alert severity="success">
+       Updating Room Successful.
+        </Alert>
+        </Snackbar>
+        </>
+    )}
    </body>
     )
 }

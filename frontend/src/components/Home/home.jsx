@@ -91,12 +91,12 @@ const Home = () =>{
    </nav>
    <main className='w-full flex px-10 py-16 gap-14 justify-center'>
         <div className='bg-slate-100 w-1/3 rounded-xl py-7 drop-shadow-lg'>
-            <div className='flex p-5 gap-4'>
+        <div className='flex px-2 py-3  gap-4 h-80 '>
                 <div className='w-1/3 flex items-center'>
                     <img src={employeepic} className='w-full' alt="" />
                 </div>
                 <div className='w-2/3 flex flex-col gap-y-3 '>
-                <p className='text-5xl font-semibold tracking-wider'>
+                <p className='text-4xl font-semibold tracking-wider'>
                     Employee Management
                 </p>
                 <p className='text-xl'>
@@ -119,12 +119,12 @@ const Home = () =>{
             </div>
         </div>
         <div className='bg-slate-100 w-1/3 rounded-xl py-7 drop-shadow-lg'>
-            <div className='flex p-5 gap-4'>
+        <div className='flex px-2 py-3  gap-4 h-80 '>
                 <div className='w-1/3 flex items-center'>
                     <img src={keypic} className='w-full' alt="" />
                 </div>
                 <div className='w-2/3 flex flex-col gap-y-3 '>
-                <p className='text-5xl font-semibold tracking-wider'>
+                <p className='text-4xl font-semibold tracking-wider'>
                     Keys Management
                 </p>
                 <p className='text-xl'>
@@ -145,12 +145,12 @@ const Home = () =>{
             </div>
         </div>
         <div className='bg-slate-100 w-1/3 rounded-xl py-7 drop-shadow-lg'>
-            <div className='flex p-5 gap-4'>
+            <div className='flex px-2 py-3  gap-4 h-80 '>
                 <div className='w-1/3 flex items-center'>
                     <img src={visitorpic} className='w-full' alt="" />
                 </div>
                 <div className='w-2/3 flex flex-col gap-y-3 '>
-                <p className='text-5xl font-semibold tracking-wider'>
+                <p className='text-4xl font-semibold tracking-wider'>
                     Visitor Management
                 </p>
                 <p className='text-xl'>

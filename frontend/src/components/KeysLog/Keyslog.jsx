@@ -183,13 +183,13 @@ const KeysLog = () =>{
    <main className='w-full px-5 my-5 overflow-scroll h-[60vh]'>
    <table id="tableemplo" className='text-left w-full border-separate border border-slate-200'>
     <thead className='bg-blue-700 text-left text-white sticky top-0 z-9'>
-        <tr className='h-24 text-3xl'>
-        <th className='p-4 w-1/6'>Date Borrowed</th>
-        <th className='p-4  w-1/6'>Room</th>
-        <th className='p-4  w-1/6'>Name of Borrower</th>
-        <th className='p-4  w-1/6'>Time Borrowed</th>
-        <th className='p-4  w-1/6'>Name of Returner</th>
-        <th className='p-4  w-1/6'>Time Returned</th>               
+        <tr className='h-24 text-2xl'>
+        <th className='p-2 w-1/6'>Date Borrowed</th>
+        <th className='p-2  w-1/6'>Room</th>
+        <th className='p-2  w-1/6'>Name of Borrower</th>
+        <th className='p-2 w-1/6'>Time Borrowed</th>
+        <th className='p-2  w-1/6'>Name of Returner</th>
+        <th className='p-2  w-1/6'>Time Returned</th>               
         </tr>
     </thead>
     <tbody className=''>
