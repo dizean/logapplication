@@ -172,22 +172,27 @@ const EmployeeList = () =>{
    <main className='w-full flex flex-wrap justify-center py-16  gap-x-[2rem] gap-y-8 '>
    {searchResults.map((employees) => (
     <div className='bg-slate-200 w-1/6 flex flex-col p-3 gap-1 rounded-xl'>
-        <div className='flex gap-4  h-[150px] '>
+        <div className='flex gap-4  h-[80px] '>
             <div className='flex'>
                  <img src={employeeicon} className='w-[40px] h-[40px]' alt="" />
             </div>
             <div className='w-2/3 h-full  flex flex-col '>
                 <h1 className='text-xl h-[30px] leading-5 '>Name:</h1>
-                <p className='text-xl  font-bold leading-5 '>{employees.name}</p>
+                <p className='text-xl  font-bold leading-5 line-clamp-2 '>{employees.name}</p>
             </div>
         </div>
-        <div className='flex gap-4   h-[150px] '>
+        <div className='flex gap-4   h-[50px] '>
             <div className='flex justify-center  '>
                 <img src={departmenticon} className='w-[40px] h-[40px]' alt="" />
             </div>
             <div className='w-2/3 flex flex-col '>
                 <h1 className='text-l h-[25px]'>Department:</h1>
-                <p className='text-l h-[110px] font-bold leading-5'>{employees.department}</p>
+                <p className='text-l h-[110px] font-bold leading-5'>
+                    {employees.department === "School of Fine Arts, Architecture and Interior Design" ? "SARFAID" : 
+                    (employees.department === "School of Business and Information Technology" ? "SBIT" : 
+                    (employees.department === "School of Sciences, Liberal Arts and Teacher Education" ? "SSLATE" : 
+                    (employees.department === "School of Hospitality and Tourism Management" ? "SHTM" : employees.department)))}
+                </p>
             </div>
         </div>
         <div className='flex gap-4 h-[50px] '>
@@ -199,7 +204,7 @@ const EmployeeList = () =>{
                 <p className='text-l font-bold leading-5'>{employees.status}</p>
             </div>
         </div>
-        <div className='flex gap-4 h-[100px] '>
+        <div className='flex gap-4 h-[90px]'>
             <div className='flex'>
                 <img src={classificationicon} className='w-[40px] h-[40px]' alt="" />
             </div>
@@ -218,18 +223,18 @@ const EmployeeList = () =>{
    </main>
    {( isUpdateEmployee && selectedEmployee &&
    <div className='w-full h-full fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white bg-opacity-80 '>
-    <div className='w-1/3 bg-blue-400 p-10 rounded-lg fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 '>
-        <div>
-            <div className='w-1/4 mx-auto pb-5'>
-                <img src={updateicon} className="" alt="" />
+    <div className='w-1/3 h-[500px] bg-blue-400 p-5 rounded-lg fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 '>
+        <div className='pb-2'>
+            <div className='w-1/4 mx-auto'>
+                <img src={updateicon} className='w-[65px] h-[65px]' alt="" />
             </div>
-            <h1 className='text-5xl pb-10 font-semibold text-center leading-tight'>
+            <h1 className='text-3xl font-semibold text-center leading-tight'>
             Employee Information
             </h1> 
         </div>
-        <div className='flex pb-5 gap-4'>
-            <div className='w-1/2'>
-                <div className='text-2xl pb-2'>
+        <div className='gap-4'>
+            <div className='w-full'>
+                <div className='text-xl font-semibold'>
                     Name
                 </div>
                 <div className='w-full'>
@@ -241,8 +246,8 @@ const EmployeeList = () =>{
                     onChange={handleChange}  />
                 </div>
             </div>
-            <div className='w-1/2'>
-                <div className='text-2xl pb-2'>
+            <div className='w-full'>
+                <div className='text-xl font-semibold'>
                     Employee Classification
                 </div>
                 <div>
@@ -265,9 +270,9 @@ const EmployeeList = () =>{
                 </div>
             </div>
         </div>
-        <div className='flex pb-5 gap-4'>
+        <div className='flex gap-4'>
             <div className='w-1/2'>
-                <div className='text-2xl pb-2'>
+                <div className='text-xl font-semibold'>
                     Status
                 </div>
                 <div className='w-11/12'>
@@ -286,7 +291,7 @@ const EmployeeList = () =>{
                 </div>
             </div>
             <div className='w-1/2'>
-                <div className='text-2xl pb-2'>
+                <div className='text-xl font-semibold'>
                     Work Status
                 </div>
                 <div>
@@ -305,9 +310,9 @@ const EmployeeList = () =>{
                 </div>
             </div>
         </div>
-        <div className='flex pb-5 '>
+        <div className='flex'>
             <div className='w-full'>
-                <div className='text-2xl pb-2'>
+                <div className='text-xl font-semibold'>
                     Department
                 </div>
                 <div>
@@ -329,13 +334,13 @@ const EmployeeList = () =>{
                 </div>
             </div>
         </div>
-        <div className='w-full flex gap-3 py-7 text-white text-xl'>
+        <div className='w-full flex gap-3 py-2 text-white  text-sm  font-semibold'>
                 <button 
                 onClick={() => updateEmployee(selectedEmployee)}
-                className='bg-blue-700 w-1/2 py-5 rounded-lg'>
+                className='bg-blue-700 py-2 w-1/2 rounded-lg'>
                   Update Employee Information
                 </button>
-                <button onClick={closeModal} className='bg-red-700 w-1/2 rounded-lg disabled:bg-red-700'>
+                <button onClick={closeModal} className='bg-red-700 w-1/2 rounded-lg '>
                   Cancel
                 </button>
               </div>
@@ -344,18 +349,18 @@ const EmployeeList = () =>{
    )}
    {( isAddEmployee &&
    <div className='w-full h-full fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white bg-opacity-80 '>
-    <div className='w-1/3 bg-blue-400 p-10 rounded-lg fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 '>
-    <div>
-            <div className='w-1/4 mx-auto pb-5'>
-                <img src={addicon} className="" alt="" />
+    <div className='w-1/3 h-[530px] bg-blue-400 p-5 rounded-lg fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 '>
+    <div className='pb-2'>
+            <div className='w-1/4 mx-auto'>
+                <img src={addicon} className='w-[65px] h-[65px]' alt="" />
             </div>
-            <h1 className='text-5xl pb-10 font-semibold text-center leading-tight'>
+            <h1 className='text-3xl font-semibold text-center leading-tight'>
         Fill Up Employee Information    
         </h1> 
         </div>
-        <div className='flex pb-5 gap-4'>
-            <div className='w-1/2'>
-                <div className='text-2xl pb-2'>
+        <div className='gap-4'>
+            <div className='w-full'>
+            <div className='text-xl font-semibold'>
                     Name
                 </div>
                 <div className='w-full'>
@@ -367,8 +372,8 @@ const EmployeeList = () =>{
                     onChange={handleChange}  />
                 </div>
             </div>
-            <div className='w-1/2'>
-                <div className='text-2xl pb-2'>
+            <div className='w-full'>
+            <div className='text-xl font-semibold'>
                     Employee Classification
                 </div>
                 <div>
@@ -390,12 +395,12 @@ const EmployeeList = () =>{
                 </div>
             </div>
         </div>
-        <div className='flex pb-5 '>
-            <div className='w-1/2'>
-                <div className='text-2xl pb-2'>
+        <div className='flex'>
+            <div className='w-full'>
+                <div className='text-xl font-semibold'>
                     Status
                 </div>
-                <div className='w-11/12'>
+                <div className='w-full'>
                 <select
                     id="status"
                     className='p-2 text-xl bg-slate-200 rounded-md w-full focus:outline-none'
@@ -411,9 +416,9 @@ const EmployeeList = () =>{
                 </div>
             </div>
         </div>
-        <div className='flex pb-5 '>
+        <div className='flex'>
             <div className='w-full'>
-                <div className='text-2xl pb-2'>
+                <div className='text-xl font-semibold'>
                     Department
                 </div>
                 <div>
@@ -435,10 +440,10 @@ const EmployeeList = () =>{
                 </div>
             </div>
         </div>
-        <div className='w-full flex gap-3 py-7 text-white text-xl'>
+        <div className='w-full flex gap-3 py-3 text-white  text-sm  font-semibold'>
                 <button 
                 onClick={handleSubmit}
-                className='bg-blue-700 w-1/2 py-5 rounded-lg'>
+                className='bg-blue-700 py-3 w-1/2 rounded-lg'>
                   Add Employee
                 </button>
                 <button onClick={closeModal} className='bg-red-700 w-1/2 rounded-lg disabled:bg-red-700'>

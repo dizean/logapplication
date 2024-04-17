@@ -9,19 +9,19 @@ import departmenticon from '../../images/department.png';
 const LogoutVisitor = () =>{
     const navigate = useNavigate();
     const { user } = useUser();
-    const [visits, Setvisits] = useState({
-        date: "",
-        name: "",
-        purpose: "",
-        place: "",
-        time_out:"",
-        gate:""
-      });
+    // const [visits, Setvisits] = useState({
+    //     date: "",
+    //     name: "",
+    //     purpose: "",
+    //     place: "",
+    //     time_out:"",
+    //     gate:""
+    //   });
     const [searchTerm, setSearchTerm] = useState("");
     const [searchResults, setSearchResults] = useState([]);
     const [showVisitors, setshowVisitors] = useState(true);
     const [visitorsData, setvisitorsData] = useState([]);
-    const [visitorData, setvisitorData] = useState([]);
+    // const [visitorData, setvisitorData] = useState([]);
     const [selectedVisitor, setselectedVisitor] = useState(null);
 
     useEffect(() => {
@@ -70,7 +70,9 @@ const LogoutVisitor = () =>{
             `http://localhost:3002/visits/search`,
             { searchTerm }
         );
-        setSearchResults(response.data);
+        const today = new Date().toISOString().split('T')[0];
+        const filteredData = response.data.filter(visits => visits.time_out === "" && visits.date === today);
+        setSearchResults(filteredData);
         setshowVisitors(false);
         } catch (error) {
         console.error("Error searching users:", error);
@@ -79,7 +81,9 @@ const LogoutVisitor = () =>{
     const handleResetSearch = async () => {
         try {
         const response = await axios.get("http://localhost:3002/visits/");
-        setSearchResults(response.data);
+        const today = new Date().toISOString().split('T')[0];
+        const filteredData = response.data.filter(visits => visits.time_out === "" && visits.date === today);
+        setSearchResults(filteredData);
         setshowVisitors(true);
         } catch (error) {
         console.error("Error fetching all users:", error);

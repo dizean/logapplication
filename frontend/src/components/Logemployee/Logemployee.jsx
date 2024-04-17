@@ -192,31 +192,36 @@ const LogEmployee = () =>{
    <main className='w-full flex flex-wrap justify-center py-16  gap-x-[2rem] gap-y-8 '>
    {searchResults.map((employees) => (
     <div className='bg-slate-200 w-1/6 flex flex-col p-4 gap-1 rounded-xl'>
-        <div className='flex gap-4  h-[150px] '>
+        <div className='flex gap-4  h-[80px] '>
             <div className='flex '>
                 <img src={employeeicon} className='w-[40px] h-[40px]' alt="" />
             </div>
             <div className='w-2/3 h-full  flex flex-col '>
                 <h1 className='text-xl h-[30px] leading-5 '>Name:</h1>
-                <p className='text-xl  font-bold leading-5 '>{employees.name}</p>
+                <p className='text-xl  font-bold leading-5 line-clamp-2'>{employees.name}</p>
             </div>
         </div>
-        <div className='flex gap-4   h-[150px] '>
+        <div className='flex gap-4   h-[50px] '>
             <div className='flex justify-center  '>
-                <img src={departmenticon} className='w-[40px] h-[40px]' alt="" />
+                <img src={departmenticon} className='w-[35px] h-[35px]' alt="" />
             </div>
             <div className='w-2/3 flex flex-col '>
                 <h1 className='text-l h-[25px]'>Department:</h1>
-                <p className='text-l h-[110px] font-bold leading-5'>{employees.department}</p>
+                <p className='text-l h-[110px] font-bold leading-5'>
+                    {employees.department === "School of Fine Arts, Architecture and Interior Design" ? "SARFAID" : 
+                    (employees.department === "School of Business and Information Technology" ? "SBIT" : 
+                    (employees.department === "School of Sciences, Liberal Arts and Teacher Education" ? "SSLATE" : 
+                    (employees.department === "School of Hospitality and Tourism Management" ? "SHTM" : employees.department)))}
+                </p>
             </div>
         </div>
         <div className='flex gap-4  h-[40px] items-center  '>
             <div className='flex justify-center'>
-                <img src={statusicon} className='w-[40px] h-[40px]' alt="" />
+                <img src={statusicon} className='w-[35px] h-[35px]' alt="" />
             </div>
             <div className='w-2/3 flex flex-col'>
                 {/* <h1 className='text-base h-[20px] leading-5 '>Status:</h1> */}
-                <p className='text-xl font-bold leading-5'>{employees.status}</p>
+                <p className='text-l font-bold leading-5'>{employees.status}</p>
             </div>
         </div>
         <div className='w-full h-[50px] flex gap-3 text-white text-base font-semibold '>
