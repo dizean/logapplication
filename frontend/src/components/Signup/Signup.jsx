@@ -33,7 +33,7 @@ const Signup = () =>{
   };
     return(
     <div className='flex w-full h-screen'>
-      <form onSubmit={handleSubmit} className='w-1/2 flex flex-col justify-center px-52 gap-3 bg-slate-100' autoComplete="off">
+      <form onSubmit={handleSubmit} className='w-1/2 flex flex-col justify-center px-32 gap-3 bg-slate-100' autoComplete="off">
         <div className="logo-container-signin ">
             <img src={lccb} alt="lccb" />
         </div>

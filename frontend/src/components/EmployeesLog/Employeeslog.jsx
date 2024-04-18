@@ -32,6 +32,10 @@ const EmployeesLog = () =>{
         };
         fetchData();
       }, []);
+      const [dateSelections, setDateSelections] = useState({
+        selectedStartData: '',
+        selectedEndDate:'',
+      });
     const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
     const handleSelect = async (date) => {
         const response = await axios.get('http://localhost:3002/employee/');
@@ -40,12 +44,16 @@ const EmployeesLog = () =>{
         visitDate.setHours(0, 0, 0, 0); 
         const selectedStartDate = new Date(date.selection.startDate);
         selectedStartDate.setHours(0, 0, 0, 0); 
+        const adjustedStartDate = new Date(selectedStartDate);
+        adjustedStartDate.setDate(selectedStartDate.getDate() + 1);
         const selectedEndDate = new Date(date.selection.endDate);
         selectedEndDate.setHours(23, 59, 59, 999); 
+        setDateSelections({selectedStartData: adjustedStartDate.toISOString().split('T')[0], selectedEndDate: selectedEndDate.toISOString().split('T')[0]})
         return visitDate >= selectedStartDate && visitDate <= selectedEndDate;
       });
       setStartDate(date.selection.startDate);
       setEndDate(date.selection.endDate);
+      console.log(dateSelections);
       setSearchResults(filtered);
       setFilteredData(filtered);
       setSearchTerm('');
@@ -153,10 +161,10 @@ const EmployeesLog = () =>{
                 onChange={handleInputChange}
         />
         <button 
-        className='w-3/12 h-16 flex text-l justify-start items-center bg-blue-700 hover:bg-blue-500 hover:mix-blend-multiply text-white border-2 pl-2 rounded-lg'
+        className='w-2/12 h-16 flex text-xl justify-start items-center bg-blue-700 hover:bg-blue-500 hover:mix-blend-multiply text-white border-2 pl-2 rounded-lg'
         onClick={toggleDatePicker}>
           Filter by Date
-                   <img src={calendaricon} className='h-3/4 object-contain pl-14 py-2rounded-xl'  alt="" />
+                   {/* <img src={calendaricon} className='h-3/4 object-contain pl-14 py-2 rounded-xl'  alt="" /> */}
                     </button>
                     {isDatePickerOpen && (
                       <div className='z-10 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center w-6/12 bg-blue-700 rounded-lg'>
@@ -180,7 +188,7 @@ const EmployeesLog = () =>{
             className='hover:bg-blue-500 text-white px-10 py-4  bg-blue-700 rounded-lg text-xl'
             id="download-table-button"
             table="tableemplo"
-            filename={"Employee Log, Date - " + today}
+            filename={"Employee Log, Date - " + dateSelections.selectedStartData + " to " + dateSelections.selectedEndDate }
             sheet="tablexls"
             buttonText="Download Log Record"
             />

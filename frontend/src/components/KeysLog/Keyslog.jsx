@@ -31,6 +31,10 @@ const KeysLog = () =>{
           };
           fetchData();
         }, []);
+        const [dateSelections, setDateSelections] = useState({
+          selectedStartData: '',
+          selectedEndDate:'',
+        });
     const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
     const handleSelect = async (date) =>{
           const response = await axios.get('http://localhost:3002/borrow/');
@@ -39,8 +43,11 @@ const KeysLog = () =>{
             borrowDate.setHours(0, 0, 0, 0); 
             const selectedStartDate = new Date(date.selection.startDate);
             selectedStartDate.setHours(0, 0, 0, 0); 
+            const adjustedStartDate = new Date(selectedStartDate);
+          adjustedStartDate.setDate(selectedStartDate.getDate() + 1);
             const selectedEndDate = new Date(date.selection.endDate);
             selectedEndDate.setHours(23, 59, 59, 999);
+            setDateSelections({selectedStartData: adjustedStartDate.toISOString().split('T')[0], selectedEndDate: selectedEndDate.toISOString().split('T')[0]})
             return borrowDate >= selectedStartDate && borrowDate <= selectedEndDate;
           });
           setStartDate(date.selection.startDate);
@@ -148,33 +155,33 @@ const KeysLog = () =>{
                 onChange={handleInputChange}
         />
         <button 
-        className=' w-2/12 h-16 flex justify-start items-center bg-blue-700 hover:bg-blue-500 hover:mix-blend-multiply text-white border-2 pl-2 rounded-lg '
+        className='w-2/12 h-16 flex text-xl justify-start items-center bg-blue-700 hover:bg-blue-500 hover:mix-blend-multiply text-white border-2 pl-2 rounded-lg'
         onClick={toggleDatePicker}>
           Filter by Date
-                   <img src={calendaricon} className='h-3/4 object-contain pl-12 py-2rounded-xl  '  alt="" />
+                   {/* <img src={calendaricon} className='h-3/4 object-contain pl-14 py-2 rounded-xl'  alt="" /> */}
                     </button>
                     {isDatePickerOpen && (
-                     <div className='z-10 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center w-1/3 bg-blue-700 rounded-lg'>
-                     <h1
-                      className='text-6xl text-white font-semibold py-10'
-                     >Calendar</h1>
-                     
-                   <DateRangePicker
-                 ranges={[selectionRange]}
-                 className='rounded-lg'
-                 onChange={handleSelect}
-               /><button 
-               className='bg-blue-700 w-full hover:bg-blue-500 py-5 text-2xl text-white rounded-b-lg '
-               onClick={closeDatepicker}>Close</button>
-                   </div>
-                 
-                 )}
+                      <div className='z-10 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center w-6/12 bg-blue-700 rounded-lg'>
+                        <h1
+                         className='text-6xl text-white font-semibold py-10'
+                        >Calendar</h1>
+                        
+                      <DateRangePicker
+                    ranges={[selectionRange]}
+                    className='rounded-lg'
+                    onChange={handleSelect}
+                  /><button 
+                  className='bg-blue-700 w-full hover:bg-blue-500 py-5 text-2xl text-white rounded-b-lg '
+                  onClick={closeDatepicker}>Close</button>
+                      </div>
+                    
+                    )}
     </div>
         <log className='w-1/3 gap-4 flex justify-end'>
             <ReactHTMLTableToExcel 
             id="download-table-button"
             table="tableemplo"
-            filename={"Key Borrowers/Returners Log, Date - " + today}
+            filename={"Key Borrowers/Returners Log, Date - " + dateSelections.selectedStartData + " to " + dateSelections.selectedEndDate}
             sheet="tablexls"
             buttonText="Download Log Record"
             className='hover:bg-blue-500 text-white px-10 py-4  bg-blue-700 rounded-lg text-xl'/>
@@ -183,7 +190,7 @@ const KeysLog = () =>{
    <main className='w-full px-5 my-5 overflow-scroll h-[60vh]'>
    <table id="tableemplo" className='text-left w-full border-separate border border-slate-200'>
     <thead className='bg-blue-700 text-left text-white sticky top-0 z-9'>
-        <tr className='h-24 text-2xl'>
+        <tr className='h-24 text-xl'>
         <th className='p-2 w-1/6'>Date Borrowed</th>
         <th className='p-2  w-1/6'>Room</th>
         <th className='p-2  w-1/6'>Name of Borrower</th>
@@ -195,7 +202,7 @@ const KeysLog = () =>{
     <tbody className=''>
     {searchResults.map((borrow, index) => (
         <tr 
-        className={`text-2xl h-20 ${index % 2 === 0 ? 'bg-blue-100 text-black' : 'bg-blue-700 text-white'}`}>
+        className={`text-xl h-20 ${index % 2 === 0 ? 'bg-blue-100 text-black' : 'bg-blue-700 text-white'}`}>
             <td className='p-4'>{borrow.room}</td>
             <td className='p-4'>{borrow.date}</td>
             <td className='p-4'>{borrow.name_borrower}</td>

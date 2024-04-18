@@ -117,9 +117,11 @@ const BorrowReturnKey = () =>{
         closeModal();
         SuccessBorrow();
         setTimeout(() => {
-            
             setIsSuccessBorrow(false);
-        }, 5000);
+        }, 3000);
+        setTimeout(() => {
+            navigate(0);
+        }, 1000);
         } catch (error) {
         console.error('Error handling borrowing:', error);
         }
@@ -151,9 +153,11 @@ const BorrowReturnKey = () =>{
         closeModal();
         SuccessReturn();
         setTimeout(() => {
-           
             setIsSuccessReturn(false);
-        }, 5000);
+        }, 3000);
+        setTimeout(() => {
+            navigate(0);
+        }, 1000);
         } catch (error) {
         console.error('Error handling return:', error);
         }
@@ -213,7 +217,7 @@ const BorrowReturnKey = () =>{
    <search className='w-full px-5 flex gap-3 justify-between'>
     <input
                 type="text"
-                className='bg-slate-100 w-1/4 py-4 px-5 rounded-lg focus:outline-none '
+                className='bg-slate-100 w-1/4 py-4 px-5 rounded-lg focus:outline-none border-2 '
                 placeholder="Search by room name or number"
                 value={searchTerm}
                 onChange={handleInputChange}
@@ -224,28 +228,20 @@ const BorrowReturnKey = () =>{
             </Link>
         </log>
    </search>
-   <main className='w-full flex flex-wrap justify-center items-center py-16 gap-x-[2rem] gap-y-8 '>
+   <main className='w-full flex flex-wrap justify-center py-16  gap-x-[2rem] gap-y-3 '>
    {searchResults.map((room) => (
-    <div key={room.id} className='bg-slate-200 w-1/6 flex flex-col justify-center p-5 gap-2 rounded-xl'>
-        <div  className='flex gap-4 justify-center items-center h-2/3'>
-            <div className='flex justify-center w-1/3'>
-                <img src={keyicon} className='w-2/3' alt="" />
+    <div className='bg-slate-200 w-1/6 flex flex-col p-3 gap-1 rounded-xl'>
+        <div  className='flex gap-4 h-[70px] '>
+            <div className='flex'>
+                <img src={keyicon} className='w-[40px] h-[40px]' alt="" />
             </div>
-            <div className='w-2/3 flex flex-col gap-y-2 '>
-                <h1 className='text-xl'>Room</h1>
-                <p className='text-2xl font-semibold line-clamp-2'>{room.room}</p>
-            </div>
-        </div>
-        <div className='flex gap-4 justify-center items-center h-2/3'>
-            <div className='flex justify-center w-1/3 '>
-                <img src={statusicon} className='w-2/3' alt="" />
-            </div>
-            <div className='w-2/3 flex flex-col gap-y-2 '>
-                <h1 className='text-xl'>Status</h1>
-                <p className='text-2xl font-semibold line-clamp-2'>{room.status}</p>
+            <div className='w-2/3 h-full  flex flex-col '>
+                <h1 className='text-xl h-[30px] leading-5'>Room</h1>
+                <p className='text-xl font-bold line-clamp-2 leading-5'>{room.room}</p>
             </div>
         </div>
-        <div className='flex gap-4 justify-center items-center h-2/3'>
+       
+        {/* <div className='flex gap-4 justify-center items-center h-2/3'>
             <div className='flex justify-center w-1/3 '>
                 <img src={locationicon} className='w-2/3' alt="" />
             </div>
@@ -253,19 +249,28 @@ const BorrowReturnKey = () =>{
                 <h1 className='text-xl'>Location</h1>
                 <p className='text-2xl font-semibold line-clamp-2'>{room.location}</p>
             </div>
+        </div> */}
+        <div className='flex gap-4 h-[40px] items-center'>
+            <div className='flex justify-center '>
+                <img src={statusicon} className='w-[40px] h-[40px]' alt="" />
+            </div>
+            <div className='w-2/3 flex flex-col'>
+                {/* <h1 className='text-l'>Status</h1> */}
+                <p className='text-l font-bold leading-5'>{room.status}</p>
+            </div>
         </div>
-        <div className='w-full flex gap-3 py-4 text-white text-xl h-2/3'>
+        <div className='w-full h-[50px] flex gap-3 pt-2 text-white text-base font-semibold '>
                 <button 
                 onClick={() => handleBorrowOpen(room)}
                 disabled={room.status === 'Unavailable'}
-                className='bg-blue-700 w-1/2 py-4 rounded-lg disabled:bg-red-700'>
-                  Borrow Key
+                className='bg-blue-700 w-1/2 rounded-lg disabled:bg-red-700'>
+                  Borrow 
                 </button>
                 <button 
                  onClick={() => handleReturnOpen(room)}
                  disabled={room.status === 'Available'}
                 className='bg-blue-700 w-1/2 rounded-lg disabled:bg-red-700'>
-                  Return Key
+                  Return 
                 </button>
               </div>
     </div>

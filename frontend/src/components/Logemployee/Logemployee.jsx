@@ -6,6 +6,8 @@ import { useUser } from "../jsx/userContext";
 import employeeicon from '../../images/employee.png';
 import statusicon from '../../images/time-management.png';
 import departmenticon from '../../images/department.png';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 const LogEmployee = () =>{
     const navigate = useNavigate();
     const { user } = useUser();
@@ -68,8 +70,13 @@ const LogEmployee = () =>{
             updateEmployee
         );
 
-        alert("Logged in.");
-        navigate(0);
+        SuccessLogin();
+        setTimeout(() => {
+            setIsSuccessLogin(false);
+        }, 3000);
+        setTimeout(() => {
+            navigate(0);
+        }, 1000);
         console.log(response.data);
         } catch (error) {
         console.error("Error logging employee:", error);
@@ -120,8 +127,13 @@ const LogEmployee = () =>{
             employee.id === employeeToUpdate.id ? updatedEmployeeLog : employee
         );
 
-        alert("Logged out.");
-        navigate(0);
+        SuccessLogout();
+        setTimeout(() => {
+            setIsSuccessLogout(false);
+        }, 3000);
+        setTimeout(() => {
+            navigate(0);
+        }, 1000);
         } catch (error) {
         console.error("Error handling sign out:", error);
         }
@@ -157,6 +169,14 @@ const LogEmployee = () =>{
         handleSearch();
         }
     };
+    const [isSuccessLogin, setIsSuccessLogin] = useState(false);
+    const [isSuccesLogout, setIsSuccessLogout] = useState(false);
+    const SuccessLogin = () =>{
+        setIsSuccessLogin(true);
+    }
+    const SuccessLogout = () =>{
+        setIsSuccessLogout(true);
+    }
     // const handleChange = (e) => {
     //   Setemployees({ ...employees, [e.target.name]: e.target.value });
     // };
@@ -178,7 +198,7 @@ const LogEmployee = () =>{
    <search className='w-full px-5 flex gap-3 justify-between'>
     <input
                 type="text"
-                className='bg-slate-100 w-1/4 py-4 px-5 rounded-lg focus:outline-none '
+                className='bg-slate-100 w-1/4 py-4 px-5 rounded-lg focus:outline-none border-2' 
                 placeholder="Search by name of employee"
                 value={searchTerm}
                 onChange={handleInputChange}
@@ -240,6 +260,26 @@ const LogEmployee = () =>{
         </div>
     </div>
    ))}
+      {isSuccessLogin && 
+    (
+        <>
+        <Snackbar open={true} anchorOrigin={{vertical: 'top', horizontal: 'center'}}>
+        <Alert severity="success">
+        Employee Logged In.
+        </Alert>
+        </Snackbar>
+        </>
+    )}
+    {isSuccesLogout && 
+    (
+        <>
+        <Snackbar open={true} anchorOrigin={{vertical: 'top', horizontal: 'center'}}>
+        <Alert severity="success">
+        Employee Logged Out.
+        </Alert>
+        </Snackbar>
+        </>
+    )}
    </main>
    </body>
     )

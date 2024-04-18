@@ -73,6 +73,10 @@ const Visitorslog = () =>{
         }
        
       };
+      const [dateSelections, setDateSelections] = useState({
+        selectedStartData: '',
+        selectedEndDate:'',
+      });
     const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
     const handleSelect = async (date) => {
         const response = await axios.get('http://localhost:3002/visits/');
@@ -81,8 +85,11 @@ const Visitorslog = () =>{
         visitDate.setHours(0, 0, 0, 0);
         const selectedStartDate = new Date(date.selection.startDate);
         selectedStartDate.setHours(0, 0, 0, 0); 
+        const adjustedStartDate = new Date(selectedStartDate);
+        adjustedStartDate.setDate(selectedStartDate.getDate() + 1);
         const selectedEndDate = new Date(date.selection.endDate);
         selectedEndDate.setHours(23, 59, 59, 999); 
+        setDateSelections({selectedStartData: adjustedStartDate.toISOString().split('T')[0], selectedEndDate: selectedEndDate.toISOString().split('T')[0]})
         return visitDate >= selectedStartDate && visitDate <= selectedEndDate;
     });
     setStartDate(date.selection.startDate);
@@ -194,18 +201,18 @@ const Visitorslog = () =>{
     <header className='py-8 pl-5 text-5xl font-semibold'>
       Visitors Log
     </header>
-    <search className='w-full px-5 flex gap-3 '>
-      <div className='w-2/3 flex flex-wrap gap-2 '>
+    <search className='w-full px-2 flex gap-2 '>
+      <div className='w-9/12 flex flex-wrap gap-1 '>
       <input
                   type="text"
-                  className='bg-slate-100 w-2/5 py-4 px-5 rounded-lg focus:outline-none '
+                  className='bg-slate-100 w-2/5 py-4 px-5 rounded-lg focus:outline-none border-2 '
                   placeholder="Search by name of visitor"
                   value={searchTerm}
                   onChange={handleInputChange}
           />
       <div className='flex w-2/5 gap-2'>
         <select id="gate"
-        className='p-2 text-xl bg-slate-200 w-1/2 rounded-md focus:outline-none'
+        className='p-2 text-xl bg-slate-200 w-10/12 rounded-md focus:outline-none'
          name="gate" required value={selectedGate}  
          onChange={(e) => {
           setSelectedGate(e.target.value);
@@ -216,13 +223,13 @@ const Visitorslog = () =>{
           <option value="Rizal Gate">Rizal Gate</option>
         </select>
         <button 
-        className=' w-5/12 h-16 flex justify-start items-center bg-blue-700 hover:bg-blue-500 hover:mix-blend-multiply text-white border-2 pl-2 rounded-lg'
+        className=' w-9/12 h-16 flex text-xl justify-start items-center bg-blue-700 hover:bg-blue-500 hover:mix-blend-multiply text-white border-2 pl-2 rounded-lg'
         onClick={toggleDatePicker}>
           Filter by Date
-                   <img src={calendaricon} className='h-3/4 object-contain pl-12 py-2rounded-xl '  alt="" />
+                   {/* <img src={calendaricon} className='h-3/4 object-contain pl-14 py-1  rounded-xl '  alt="" /> */}
                     </button>
                     {isDatePickerOpen && (
-                      <div className='z-10 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center w-1/3 bg-blue-700 rounded-lg'>
+                      <div className='z-10 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center w-6/12 bg-blue-700 rounded-lg'>
                         <h1
                          className='text-6xl text-white font-semibold py-10'
                         >Calendar</h1>
@@ -239,12 +246,12 @@ const Visitorslog = () =>{
                     )}
       </div>
     </div>
-        <log className='w-1/3 gap-4 flex justify-end'>
+        <log className='w-3/12 gap-4 flex justify-end '>
             <ReactHTMLTableToExcel 
             id="download-table-button"
             className='hover:bg-blue-500 text-white px-10 py-4  bg-blue-700 rounded-lg text-xl'
             table="tableemplo"
-            filename={"Visitors Log, Date - " + today}
+            filename={"Visitors Log, Date - " + dateSelections.selectedStartData + " to " + dateSelections.selectedEndDate}
             sheet="tablexls"
             buttonText="Download Log Record"/>
         </log>
@@ -252,7 +259,7 @@ const Visitorslog = () =>{
    <main className='w-full px-5 my-5 overflow-scroll h-[60vh]'>
    <table id= "tableemplo" className='text-left w-full border-separate border border-slate-200'>
     <thead className='bg-blue-700 text-left text-white sticky top-0 z-9 '>
-        <tr className='h-24 text-2xl'>
+        <tr className='h-24 text-xl'>
         <th className='w-2/12 p-2'>Date of Visit</th>
         <th className='w-2/12 p-2'>Name</th>
         <th className='w-2/12 p-2'>Purpose</th>
@@ -266,7 +273,7 @@ const Visitorslog = () =>{
     {searchResults.map((visits,index)=>{
       return(
         <tr  key={index}
-        className={`text-2xl h-20 ${index % 2 === 0 ? 'bg-blue-100 text-black' : 'bg-blue-700 text-white'}`}>
+        className={`text-xl h-20 ${index % 2 === 0 ? 'bg-blue-100 text-black' : 'bg-blue-200 text-black'}`}>
             <td className='p-4'>{visits.date}</td>
             <td className='p-4'>{visits.name}</td>
             <td className='p-4'>{visits.purpose}</td>

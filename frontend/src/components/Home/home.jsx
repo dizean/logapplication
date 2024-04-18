@@ -171,18 +171,18 @@ const Home = () =>{
    </main>
    {( isLoginVisitor &&
    <div className='w-full h-full fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white bg-opacity-80 '>
-    <div className='w-1/3 bg-blue-400 p-10 rounded-lg fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 '>
+    <div className='w-1/3 h-[530px] bg-blue-400 p-5 rounded-lg fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 '>
         <div>
             <div className='w-1/4 mx-auto'>
-                <img src={addvisicion} className="" alt="" />
+                <img src={addvisicion} className='w-[65px] h-[65px]' alt="" />
             </div>
-            <h1 className='text-5xl pb-10 font-semibold text-center leading-tight'>
+            <h1 className='text-3xl font-semibold text-center leading-tight'>
             Fill Up Visitor Information
             </h1> 
         </div>
-        <div className='flex pb-5 gap-4'>
-            <div className='w-1/2'>
-                <div className='text-2xl pb-2'>
+        <div className='gap-4'>
+            <div className='w-full'>
+                <div className='text-xl font-semibold py-1'>
                     Name
                 </div>
                 <div className='w-full'>
@@ -195,8 +195,8 @@ const Home = () =>{
                     required  autoComplete="off"/>
                 </div>
             </div>
-            <div className='w-1/2'>
-                <div className='text-2xl pb-2'>
+            <div className='w-full'>
+                <div className='text-xl font-semibold py-1'>
                     Purpose
                 </div>
                 <div className='w-full'>
@@ -210,9 +210,9 @@ const Home = () =>{
                 </div>
             </div>
         </div>
-        <div className='flex pb-5 gap-4'>
-            <div className='w-1/2'>
-                <div className='text-2xl pb-2'>
+        <div className='gap-4'>
+            <div className='w-full'>
+                <div className='text-xl font-semibold py-1'>
                     Place of Visit
                 </div>
                 <div className='w-full'>
@@ -225,8 +225,8 @@ const Home = () =>{
                     required autoComplete="off"  />
                 </div>
             </div>
-            <div className='w-1/2'>
-                <div className='text-2xl pb-2'>
+            <div className='w-full'>
+                <div className='text-xl font-semibold py-1'>
                     Gate
                 </div>
                 <div>
@@ -245,8 +245,8 @@ const Home = () =>{
             </div>
         </div>
         
-        <div className='w-full flex gap-3 py-7 text-white text-xl'>
-                <button onClick={handleLoginVisitor} className='bg-blue-700 w-1/2 py-5 rounded-lg'>
+        <div className='w-full flex gap-3 py-3 text-white text-l font-semibold'>
+                <button onClick={handleLoginVisitor} className='bg-blue-700 w-1/2 p-4 rounded-lg'>
                  Log Visitor
                 </button>
                 <button onClick={closeModal} className='bg-red-700 w-1/2 rounded-lg disabled:bg-red-700'>

@@ -8,6 +8,8 @@ import departmenticon from '../../images/department.png';
 import statusicon from '../../images/time-management.png';
 import updateicon from '../../images/refresh.png';
 import addicon from '../../images/add-user.png';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 const EmployeeList = () =>{
     const navigate = useNavigate();
     const [employee, Setemployee] = useState({
@@ -40,10 +42,15 @@ const EmployeeList = () =>{
         work_status: 'Inactive'
       }
       const response = await axios.post('http://localhost:3002/employees/', recordemployee);
-      alert("Employee added.");
       console.log(response.data);
       closeModal();
-      navigate(0);  
+      SuccessAdd();
+        setTimeout(() => {
+            setIsSuccessAdded(false);
+        }, 3000);
+        setTimeout(() => {
+            navigate(0);
+        }, 1000);
     } catch (error) {
       console.error('data data:', employee);
     }
@@ -54,9 +61,14 @@ const EmployeeList = () =>{
     }
     try {
       const response = await axios.put(`http://localhost:3002/employees/${selectedEmployee.id}`, employee);
-      alert("Updated Successfully.");
       closeModal();
-      navigate(0);  
+      SuccessUpdate();
+        setTimeout(() => {
+            setIsSuccessUpdate(false);
+        }, 3000);
+        setTimeout(() => {
+            navigate(0);
+        }, 1000);
     } catch (error) {
       alert('Error updating employee:', error);
     }
@@ -142,6 +154,14 @@ const EmployeeList = () =>{
         setisUpdateEmployee(false);
         setisAddEmployee(false);
     }
+    const [isSuccessAdded, setIsSuccessAdded] = useState(false);
+    const [isSuccesUpdate, setIsSuccessUpdate] = useState(false);
+    const SuccessAdd = () =>{
+        setIsSuccessAdded(true);
+    }
+    const SuccessUpdate = () =>{
+        setIsSuccessUpdate(true);
+    }
     return(
    <body className='h-screen'>
    <nav className='flex justify-between items-center bg-slate-100 drop-shadow-lg'>
@@ -160,7 +180,7 @@ const EmployeeList = () =>{
    <search className='w-full px-5 flex gap-3 justify-between'>
     <input
                 type="text"
-                className='bg-slate-100 w-1/4 py-4 px-5 rounded-lg focus:outline-none '
+                className='bg-slate-100 w-1/4 py-4 px-5 rounded-lg focus:outline-none border-2 '
                 placeholder="Search by name of employee"
                 value={searchTerm}
                 onChange={handleInputChange}
@@ -169,7 +189,7 @@ const EmployeeList = () =>{
               <button onClick={openAddEmployee} className='hover:bg-blue-500 text-white px-10 py-4 mx-auto bg-blue-700 rounded-lg text-xl'>Add an employee</button>
         </log>
    </search>
-   <main className='w-full flex flex-wrap justify-center py-16  gap-x-[2rem] gap-y-8 '>
+   <main className='w-full flex flex-wrap justify-center py-4  gap-x-[2rem] gap-y-4 '>
    {searchResults.map((employees) => (
     <div className='bg-slate-200 w-1/6 flex flex-col p-3 gap-1 rounded-xl'>
         <div className='flex gap-4  h-[80px] '>
@@ -223,8 +243,8 @@ const EmployeeList = () =>{
    </main>
    {( isUpdateEmployee && selectedEmployee &&
    <div className='w-full h-full fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white bg-opacity-80 '>
-    <div className='w-1/3 h-[500px] bg-blue-400 p-5 rounded-lg fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 '>
-        <div className='pb-2'>
+    <div className='w-1/3 h-[530px] bg-blue-400 p-5 rounded-lg fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 '>
+        <div >
             <div className='w-1/4 mx-auto'>
                 <img src={updateicon} className='w-[65px] h-[65px]' alt="" />
             </div>
@@ -234,7 +254,7 @@ const EmployeeList = () =>{
         </div>
         <div className='gap-4'>
             <div className='w-full'>
-                <div className='text-xl font-semibold'>
+                <div className='text-xl font-semibold py-1'>
                     Name
                 </div>
                 <div className='w-full'>
@@ -247,7 +267,7 @@ const EmployeeList = () =>{
                 </div>
             </div>
             <div className='w-full'>
-                <div className='text-xl font-semibold'>
+                <div className='text-xl font-semibold py-1'>
                     Employee Classification
                 </div>
                 <div>
@@ -272,7 +292,7 @@ const EmployeeList = () =>{
         </div>
         <div className='flex gap-4'>
             <div className='w-1/2'>
-                <div className='text-xl font-semibold'>
+                <div className='text-xl font-semibold py-1'>
                     Status
                 </div>
                 <div className='w-11/12'>
@@ -291,7 +311,7 @@ const EmployeeList = () =>{
                 </div>
             </div>
             <div className='w-1/2'>
-                <div className='text-xl font-semibold'>
+                <div className='text-xl font-semibold py-1'>
                     Work Status
                 </div>
                 <div>
@@ -334,11 +354,11 @@ const EmployeeList = () =>{
                 </div>
             </div>
         </div>
-        <div className='w-full flex gap-3 py-2 text-white  text-sm  font-semibold'>
+        <div className='w-full flex gap-3 py-4 text-white  text-l  font-semibold'>
                 <button 
                 onClick={() => updateEmployee(selectedEmployee)}
-                className='bg-blue-700 py-2 w-1/2 rounded-lg'>
-                  Update Employee Information
+                className='bg-blue-700 py-4 w-1/2 rounded-lg'>
+                  Update
                 </button>
                 <button onClick={closeModal} className='bg-red-700 w-1/2 rounded-lg '>
                   Cancel
@@ -350,7 +370,7 @@ const EmployeeList = () =>{
    {( isAddEmployee &&
    <div className='w-full h-full fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white bg-opacity-80 '>
     <div className='w-1/3 h-[530px] bg-blue-400 p-5 rounded-lg fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 '>
-    <div className='pb-2'>
+    <div >
             <div className='w-1/4 mx-auto'>
                 <img src={addicon} className='w-[65px] h-[65px]' alt="" />
             </div>
@@ -360,7 +380,7 @@ const EmployeeList = () =>{
         </div>
         <div className='gap-4'>
             <div className='w-full'>
-            <div className='text-xl font-semibold'>
+            <div className='text-xl font-semibold py-1'>
                     Name
                 </div>
                 <div className='w-full'>
@@ -373,7 +393,7 @@ const EmployeeList = () =>{
                 </div>
             </div>
             <div className='w-full'>
-            <div className='text-xl font-semibold'>
+            <div className='text-xl font-semibold py-1'>
                     Employee Classification
                 </div>
                 <div>
@@ -397,7 +417,7 @@ const EmployeeList = () =>{
         </div>
         <div className='flex'>
             <div className='w-full'>
-                <div className='text-xl font-semibold'>
+                <div className='text-xl font-semibold py-1'>
                     Status
                 </div>
                 <div className='w-full'>
@@ -418,7 +438,7 @@ const EmployeeList = () =>{
         </div>
         <div className='flex'>
             <div className='w-full'>
-                <div className='text-xl font-semibold'>
+                <div className='text-xl font-semibold py-1'>
                     Department
                 </div>
                 <div>
@@ -440,11 +460,11 @@ const EmployeeList = () =>{
                 </div>
             </div>
         </div>
-        <div className='w-full flex gap-3 py-3 text-white  text-sm  font-semibold'>
+        <div className='w-full flex gap-3 py-4 text-white  text-l  font-semibold'>
                 <button 
                 onClick={handleSubmit}
-                className='bg-blue-700 py-3 w-1/2 rounded-lg'>
-                  Add Employee
+                className='bg-blue-700 py-4 w-1/2 rounded-lg'>
+                  Add
                 </button>
                 <button onClick={closeModal} className='bg-red-700 w-1/2 rounded-lg disabled:bg-red-700'>
                   Cancel
@@ -453,6 +473,26 @@ const EmployeeList = () =>{
     </div>
    </div>
    )}
+    {isSuccessAdded && 
+    (
+        <>
+        <Snackbar open={true} anchorOrigin={{vertical: 'top', horizontal: 'center'}}>
+        <Alert severity="success">
+        New Employee Added Successfully.
+        </Alert>
+        </Snackbar>
+        </>
+    )}
+    {isSuccesUpdate && 
+    (
+        <>
+        <Snackbar open={true} anchorOrigin={{vertical: 'top', horizontal: 'center'}}>
+        <Alert severity="success">
+        Employee Information Updated Successfully.
+        </Alert>
+        </Snackbar>
+        </>
+    )}
    </body>
     )
 }

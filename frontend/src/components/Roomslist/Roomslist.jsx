@@ -90,10 +90,13 @@ const RoomList = () =>{
         };
         const response = await axios.post("http://localhost:3002/room/", addRoom);
         closeModal();
-        updateSuccess();
+        addSuccess();
         setTimeout(() => {
-            setIsUpdateSucces(false);
-        }, 5000);
+            setIsAddSuccess(false);
+        }, 3000);
+        setTimeout(() => {
+            navigate(0);
+        }, 1000);
         } catch (error) {
         console.error("data data:", room);
         console.error("data data:", error);
@@ -110,12 +113,13 @@ const RoomList = () =>{
             room
         );
         closeModal();
-        navigate(0);
-        addSuccess();
+        updateSuccess();
         setTimeout(() => {
-            setIsAddSuccess(false);
+            setIsUpdateSucces(false);
+        }, 3000);
+        setTimeout(() => {
+            navigate(0);
         }, 1000);
-        
         
         } catch (error) {
         alert("Error updating employee:", error);
@@ -156,7 +160,7 @@ const RoomList = () =>{
    <search className='w-full px-5 flex gap-3 justify-between'>
     <input
                 type="text"
-                className='bg-slate-100 w-1/4 py-4 px-5 rounded-lg focus:outline-none '
+                className='bg-slate-100 w-1/4 py-4 px-5 rounded-lg focus:outline-none border-2 '
                 placeholder="Search by room name or number"
                 value={searchTerm}
                 onChange={handleInputChange}
@@ -165,61 +169,61 @@ const RoomList = () =>{
               <button onClick={openAddRoom} className='hover:bg-blue-500 text-white px-10 py-4 mx-auto bg-blue-700 rounded-lg text-xl'>Add a room</button>
         </log>
    </search>
-   <main className='w-full flex flex-wrap justify-center py-16 gap-x-[2rem] gap-y-8 '>
+   <main className='w-full flex flex-wrap justify-center py-4  gap-x-[2rem] gap-y-4 '>
    {searchResults.map((room) => (
-    <div key={room.id} className='bg-slate-200 w-1/6 flex flex-col p-5 gap-2 rounded-xl'>
-        <div className='flex h-2/3 gap-4 justify-center items-center'>
-            <div className='flex justify-center w-1/3'>
-                <img src={keyicon} className='w-2/3' alt="" />
+   <div className='bg-slate-200 w-1/6 flex flex-col p-3 gap-1 rounded-xl'>
+       <div className='flex gap-4  h-[50px] '>
+            <div className='flex h-full'>
+                <img src={keyicon} className='w-[40px] h-[40px]' alt="" />
             </div>
-            <div className='w-2/3 flex flex-col gap-y-2 '>
+            <div className='w-2/3 flex flex-col h-full '>
                 <h1 className='text-xl'>Room</h1>
-                <p className='text-2xl font-semibold line-clamp-2'>{room.room}</p>
+                <p className='text-xl font-bold leading-5 line-clamp-2'>{room.room}</p>
             </div>
         </div>
-        <div className='flex h-2/3 gap-4 justify-center items-center '>
-            <div className='flex justify-center w-1/3 '>
-                <img src={statusicon} className='w-2/3' alt="" />
+        <div className='flex gap-4   h-[50px] '>
+            <div className='flex justify-center  '>
+                <img src={statusicon} className='w-[40px] h-[40px]' alt="" />
             </div>
-            <div className='w-2/3 flex flex-col gap-y-2 '>
-                <h1 className='text-xl'>Status</h1>
-                <p className='text-2xl font-semibold'>{room.status}</p>
-            </div>
-        </div>
-        <div className='flex h-2/3 gap-4 justify-center items-center ' >
-            <div className='flex justify-center w-1/3 '>
-                <img src={locationicon} className='w-2/3' alt="" />
-            </div>
-            <div className='w-2/3 flex flex-col gap-y-2 '>
-                <h1 className='text-xl'>Location</h1>
-                <p className='text-2xl font-semibold line-clamp-2'>{room.location}</p>
+            <div className='w-2/3 flex flex-col'>
+                <h1 className='text-l'>Status</h1>
+                <p className='text-l font-bold leading-5'>{room.status}</p>
             </div>
         </div>
-        <div className='w-full h-2/3 flex gap-3 py-3 text-white text-xl'>
+        <div className='flex gap-4 h-[70px]'>
+            <div className='flex'>
+                <img src={locationicon} className='w-[40px] h-[40px]' alt="" />
+            </div>
+            <div className='w-2/3 flex flex-col'>
+                <h1 className='text-l'>Location</h1>
+                <p className='text-l font-bold leading-5 line-clamp-2'>{room.location}</p>
+            </div>
+        </div>
+        <div className='w-full flex text-white text-xl h-[50px]'>
                 <button 
                 onClick={() => openUpdateRoom(room)}
                 disabled={room.status === "Active"}
-                className='bg-blue-700 w-full py-4 rounded-lg'>
+                className='bg-blue-700 w-full rounded-lg'>
                   Update
                 </button>
         </div>
     </div>
    ))}
    </main>
-   {( isUpdateRoom &&
+   {( isUpdateRoom && selectedRoom &&
    <div className='w-full h-full fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white bg-opacity-80 '>
-    <div className='w-1/3 bg-blue-400 p-10 rounded-lg fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 '>
-    <div>
+    <div className='w-1/3 h-[480px] bg-blue-400 p-5 rounded-lg fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 '>
+    <div >
             <div className='w-1/4 mx-auto'>
-                <img src={updateicon} className="" alt="" />
+                <img src={updateicon} className='w-[65px] h-[65px]' alt="" />
             </div>
-            <h1 className='text-5xl pb-10 font-semibold text-center leading-tight'>
+            <h1 className='text-3xl font-semibold text-center leading-tight'>
             Room Information
             </h1> 
         </div>
-        <div className='flex pb-5 gap-4 '>
-            <div className='w-1/2'>
-                <div className='text-2xl pb-2'>
+        <div className='gap-4 '>
+            <div className='w-full'>
+                <div className='text-xl font-semibold py-2'>
                     Room name / number
                 </div>
                 <div className='w-full'>
@@ -232,13 +236,13 @@ const RoomList = () =>{
                     autoComplete="off"  />
                 </div>
             </div>
-            <div className='w-1/2'>
-                <div className='text-2xl pb-2'>
+            <div className='w-full'>
+                <div className='text-xl font-semibold py-2'>
                     Status
                 </div>
                 <div className='w-full'>
                 <select
-                    id="classification"
+                    id="status"
                     className='p-2 text-xl bg-slate-200 rounded-md w-full focus:outline-none'
                     name="status"
                     required
@@ -246,15 +250,15 @@ const RoomList = () =>{
                     onChange={handleChange}
                 >
                     <option value="">Select Status</option>
-                    <option value="Academic Non Teaching Personnel">Available</option>
-                    <option value="Non Teaching Personnel">Unavailable</option>
+                    <option value="Available">Available</option>
+                    <option value="Unavailable">Unavailable</option>
                 </select>
                 </div>
             </div>
         </div>
-        <div className='flex pb-5 '>
+        <div className='flex'>
             <div className='w-full'>
-                <div className='text-2xl pb-2'>
+                <div className='text-xl font-semibold py-2'>
                     Location
                 </div>
                 <div>
@@ -268,11 +272,11 @@ const RoomList = () =>{
                 </div>
             </div>
         </div>
-        <div className='w-full flex gap-3 py-7 text-white text-xl'>
+        <div className='w-full flex gap-3 py-4 text-white text-l font-sem'>
                 <button 
                  onClick={() => updateRoom(selectedRoom)}
-                className='bg-blue-700 w-1/2 py-5 rounded-lg'>
-                  Update Room Information
+                className='bg-blue-700 w-1/2 p-4 rounded-lg'>
+                  Update
                 </button>
                 <button onClick={closeModal} className='bg-red-700 w-1/2 rounded-lg disabled:bg-red-700'>
                   Cancel
@@ -283,18 +287,18 @@ const RoomList = () =>{
    )}
    {( isAddRoom &&
    <div className='w-full h-full fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white bg-opacity-80 '>
-   <div className='w-1/3 bg-blue-400 p-10 rounded-lg fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 '>
+    <div className='w-1/3 h-[480px] bg-blue-400 p-5 rounded-lg fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 '>
    <div>
-            <div className='w-1/4 mx-auto pb-5'>
-                <img src={addicon} className="" alt="" />
+            <div className='w-1/4 mx-auto'>
+                <img src={addicon} className='w-[65px] h-[65px]' alt="" />
             </div>
-            <h1 className='text-5xl pb-10 font-semibold text-center leading-tight'>
+            <h1 className='text-3xl font-semibold text-center leading-tight'>
             Fill Up Room Information    
             </h1> 
         </div>
-       <div className='flex pb-5 gap-4 '>
-           <div className='w-1/2'>
-               <div className='text-2xl pb-2'>
+       <div className='gap-4 '>
+           <div className='w-full'>
+               <div className='text-xl font-semibold py-2'>
                    Room name / number
                </div>
                <div className='w-full'>
@@ -307,8 +311,8 @@ const RoomList = () =>{
                    autoComplete="off" />
                </div>
            </div>
-           <div className='w-1/2'>
-               <div className='text-2xl pb-2'>
+           <div className='w-full'>
+               <div className='text-xl font-semibold py-2'>
                    Status
                </div>
                <div className='w-full'>
@@ -327,9 +331,9 @@ const RoomList = () =>{
                </div>
            </div>
        </div>
-       <div className='flex pb-5 '>
+       <div className='flex '>
            <div className='w-full'>
-               <div className='text-2xl pb-2'>
+               <div className='text-xl font-semibold py-2'>
                    Location
                </div>
                <div>
@@ -343,11 +347,11 @@ const RoomList = () =>{
                </div>
            </div>
        </div>
-       <div className='w-full flex gap-3 py-7 text-white text-xl'>
+       <div className='w-full flex gap-3 py-4 text-white text-l font-sem'>
                <button
                onClick={handleSubmit}
-               className='bg-blue-700 w-1/2 py-5 rounded-lg'>
-                 Add Room 
+               className='bg-blue-700 w-1/2 p-4 rounded-lg'>
+                 Add
                </button>
                <button onClick={closeModal} className='bg-red-700 w-1/2 rounded-lg disabled:bg-red-700'>
                  Cancel
