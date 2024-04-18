@@ -52,6 +52,7 @@ const Visitorslog = () =>{
           } else {
             const filteredgate = visitorsData.filter((visit) => visit.gate === selectedGate);
             setSearchResults(filteredgate);
+            
             setUserSelections({...userSelections,
               selectedGateV: filteredgate,});
             setSearchTerm('');
@@ -61,7 +62,7 @@ const Visitorslog = () =>{
         else{
           const filteredGate = filteredData.filter(visits => visits.gate === selectedGate);
           if (selectedGate === '') { 
-            setSearchResults(visitorsData); 
+            setSearchResults(userSelections.selectedDateV); 
             setSearchTerm('');
           } else {
             console.log('secondcondition')
