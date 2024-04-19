@@ -138,6 +138,18 @@ const LogEmployee = () =>{
         console.error("Error handling sign out:", error);
         }
     };
+    const [selectedLogged, setSelectedLogged] = useState("all");
+
+    const filterLoggedin= (value) => {
+        setSelectedLogged(value);
+    
+      if (value === "all") {
+        setSearchResults(employeesData);
+      } else {
+        const filteredData = employeesData.filter((employee) => employee.work_status === value);
+        setSearchResults(filteredData);
+      }
+    }
     const handleSearch = async () => {
         try {
         const response = await axios.post(
@@ -196,18 +208,41 @@ const LogEmployee = () =>{
     Employees
    </header>
    <search className='w-full px-5 flex gap-3 justify-between'>
+   <div className='flex w-2/3 gap-x-5  '>
     <input
                 type="text"
-                className='bg-slate-100 w-1/4 py-4 px-5 rounded-lg focus:outline-none border-2' 
+                className='bg-slate-100 w-2/3 py-4 px-5 rounded-lg focus:outline-none border-2'
                 placeholder="Search by name of employee"
                 value={searchTerm}
                 onChange={handleInputChange}
         />
-        <log>
+        <div className='flex items-center w-2/3 gap-x-3 '>
+  <input
+    type="radio"
+    id="all"
+    name="borrowed"
+    value="all"
+    className='size-6 '
+    onChange={(e) => filterLoggedin(e.target.value)}
+  />
+  <label for="all">Display All</label>
+
+  <input
+    type="radio"
+    id="borrowed"
+    name="borrowed"
+    value="Active"
+    className='size-6'
+    onChange={(e) => filterLoggedin(e.target.value)}
+  />
+  <label for="Borrowed">Display Logged in Employees</label>
+</div>
+    </div>
+        <div>
             <Link to="/employeelog">
               <button className='hover:bg-blue-500 text-white px-10 py-4 mx-auto bg-blue-700 rounded-lg text-xl'>View Employees Log</button>
             </Link>
-        </log>
+        </div>
    </search>
    <main className='w-full flex flex-wrap justify-center py-16  gap-x-[2rem] gap-y-8 '>
    {searchResults.map((employees) => (

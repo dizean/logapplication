@@ -28,7 +28,7 @@ const BorrowReturnKey = () =>{
           room_id: '',
           room: '',
           date: '',
-          name_borrower: '', // Clear borrower name after success
+          name_borrower: '', 
           time_borrowed: '',
           name_returner: '',
           time_returned: '',
@@ -42,7 +42,6 @@ const BorrowReturnKey = () =>{
     const [isReturnOpen, setIsReturnOpen] = useState(false);
     const [isSuccessBorrow, setIsSuccessBorrow] = useState(false);
     const [isSuccessReturn, setIsSuccessReturn] = useState(false);
-
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -96,7 +95,7 @@ const BorrowReturnKey = () =>{
         try {
         const updatedRoom = {
             ...selectedRoom,
-            status: 'Unavailable',
+            status: 'Borrowed',
             admin_assigned: 'null',
         };
         await axios.put(`http://localhost:3002/room/${selectedRoom.id}`, updatedRoom);
@@ -162,6 +161,19 @@ const BorrowReturnKey = () =>{
         console.error('Error handling return:', error);
         }
     };
+
+    const [selectedBorrowed, setSelectedBorrowed] = useState("all");
+
+    const filterBorrowed = (value) => {
+        setSelectedBorrowed(value);
+    
+      if (value === "all") {
+        setSearchResults(roomData);
+      } else {
+        const filteredData = roomData.filter((room) => room.status === value);
+        setSearchResults(filteredData);
+      }
+    };
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState([]);
     const [showRooms, setshowRooms] = useState(true);
@@ -188,7 +200,6 @@ const BorrowReturnKey = () =>{
     const handleInputChange = (e) => {
     const value = e.target.value;
     setSearchTerm(value);
-
     if (value === '') {
         handleResetSearch();
     } else {
@@ -215,18 +226,42 @@ const BorrowReturnKey = () =>{
     Rooms
    </header>
    <search className='w-full px-5 flex gap-3 justify-between'>
+    <div className='flex w-2/3 gap-x-5  '>
     <input
                 type="text"
-                className='bg-slate-100 w-1/4 py-4 px-5 rounded-lg focus:outline-none border-2 '
+                className='bg-slate-100 w-2/3 py-4 px-5 rounded-lg focus:outline-none border-2'
                 placeholder="Search by room name or number"
                 value={searchTerm}
                 onChange={handleInputChange}
         />
-        <log>
+        <div className='flex items-center w-2/3 gap-x-3 '>
+  <input
+    type="radio"
+    id="all"
+    name="borrowed"
+    value="all"
+    className='size-6 '
+    onChange={(e) => filterBorrowed(e.target.value)}
+  />
+  <label for="all">Display All</label>
+
+  <input
+    type="radio"
+    id="borrowed"
+    name="borrowed"
+    value="Borrowed"
+    className='size-6'
+    onChange={(e) => filterBorrowed(e.target.value)}
+  />
+  <label for="Borrowed">Display Borrowed Keys</label>
+</div>
+    </div>
+       
+        <div className=' w-1/3 flex justify-end'>
             <Link to="/keyslog">
               <button className='hover:bg-blue-500 text-white px-10 py-4 mx-auto bg-blue-700 rounded-lg text-xl'>View Keys Log</button>
             </Link>
-        </log>
+        </div>
    </search>
    <main className='w-full flex flex-wrap justify-center py-16  gap-x-[2rem] gap-y-3 '>
    {searchResults.map((room) => (
@@ -262,14 +297,14 @@ const BorrowReturnKey = () =>{
         <div className='w-full h-[50px] flex gap-3 pt-2 text-white text-base font-semibold '>
                 <button 
                 onClick={() => handleBorrowOpen(room)}
-                disabled={room.status === 'Unavailable'}
-                className='bg-blue-700 w-1/2 rounded-lg disabled:bg-red-700'>
+                disabled={room.status === 'Borrowed'}
+                className='bg-blue-700 w-1/2 rounded-lg disabled:bg-blue-200'>
                   Borrow 
                 </button>
                 <button 
                  onClick={() => handleReturnOpen(room)}
                  disabled={room.status === 'Available'}
-                className='bg-blue-700 w-1/2 rounded-lg disabled:bg-red-700'>
+                className='bg-blue-700 w-1/2 rounded-lg disabled:bg-blue-200'>
                   Return 
                 </button>
               </div>

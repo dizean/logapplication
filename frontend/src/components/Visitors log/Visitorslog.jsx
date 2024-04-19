@@ -8,6 +8,7 @@ import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 import { DateRangePicker } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
+import Moment from "react-moment";
 const Visitorslog = () =>{
     const { user } = useUser(); 
     const [visits, Setvisits] = useState({
@@ -260,28 +261,32 @@ const Visitorslog = () =>{
    <main className='w-full px-5 my-5 overflow-scroll h-[60vh]'>
    <table id= "tableemplo" className='text-left w-full border-separate border border-slate-200'>
     <thead className='bg-blue-700 text-left text-white sticky top-0 z-9 '>
-        <tr className='h-24 text-xl'>
-        <th className='w-2/12 p-2'>Date of Visit</th>
-        <th className='w-2/12 p-2'>Name</th>
-        <th className='w-2/12 p-2'>Purpose</th>
-        <th className='w-2/12 p-2'>Place of Visit</th>
-        <th className='w-1/12 p-2'>Time In</th>
-        <th className='w-1/12 p-2'>Time Out</th>
-        <th className='w-1/12 p-2'>Gate</th>              
+        <tr className='h-16 text-xl'>
+        <th className='w-1/12 '>Date of Visit</th>
+        <th className='w-2/12'>Name</th>
+        <th className='w-3/12'>Purpose</th>
+        <th className='w-2/12 '>Place of Visit</th>
+        <th className='w-1/12 '>Time In</th>
+        <th className='w-1/12 '>Time Out</th>
+        <th className='w-1/12 '>Gate</th>              
         </tr>
     </thead>
     <tbody className='bg-green-300'>
     {searchResults.map((visits,index)=>{
       return(
         <tr  key={index}
-        className={`text-xl h-20 ${index % 2 === 0 ? 'bg-blue-100 text-black' : 'bg-blue-200 text-black'}`}>
-            <td className='p-4'>{visits.date}</td>
-            <td className='p-4'>{visits.name}</td>
-            <td className='p-4'>{visits.purpose}</td>
-            <td className='p-4'>{visits.place}</td>
-            <td className='p-4'>{visits.time_in}</td>
-            <td className='p-4'>{visits.time_out}</td>
-            <td className='p-4'>{visits.gate}</td>
+        className={`text-xl h-10 ${index % 2 === 0 ? 'bg-blue-100 text-black' : 'bg-blue-300 text-black'}`}>
+            <td className=''>
+            <Moment format="MMMM DD, YYYY">
+                {visits.date}
+            </Moment>
+              </td>
+            <td className=''>{visits.name}</td>
+            <td className=''>{visits.purpose}</td>
+            <td className=''>{visits.place}</td>
+            <td className=''>{visits.time_in}</td>
+            <td className=''>{visits.time_out}</td>
+            <td className=''>{visits.gate}</td>
         </tr>
     );
     })}

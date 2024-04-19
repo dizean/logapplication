@@ -7,6 +7,7 @@ import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 import { DateRangePicker } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
+import Moment from "react-moment";
 const KeysLog = () =>{
         // const { user } = useUser();
         const [searchTerm, setSearchTerm] = useState('');
@@ -190,25 +191,31 @@ const KeysLog = () =>{
    <main className='w-full px-5 my-5 overflow-scroll h-[60vh]'>
    <table id="tableemplo" className='text-left w-full border-separate border border-slate-200'>
     <thead className='bg-blue-700 text-left text-white sticky top-0 z-9'>
-        <tr className='h-24 text-xl'>
-        <th className='p-2 w-1/6'>Date Borrowed</th>
-        <th className='p-2  w-1/6'>Room</th>
-        <th className='p-2  w-1/6'>Name of Borrower</th>
-        <th className='p-2 w-1/6'>Time Borrowed</th>
-        <th className='p-2  w-1/6'>Name of Returner</th>
-        <th className='p-2  w-1/6'>Time Returned</th>               
+        <tr className='h-16 text-xl'>
+        
+        <th className='  w-1/12'>Date Borrowed</th>
+        <th className='  w-1/12'>Room</th>
+        <th className='w-2/12'>Name of Borrower</th>
+        <th className=' w-1/12'>Time Borrowed</th> 
+        <th className=' w-2/12'>Name of Returner</th>
+        <th className=' w-1/12'>Time Returned</th>               
         </tr>
     </thead>
     <tbody className=''>
     {searchResults.map((borrow, index) => (
         <tr 
-        className={`text-xl h-20 ${index % 2 === 0 ? 'bg-blue-100 text-black' : 'bg-blue-700 text-white'}`}>
-            <td className='p-4'>{borrow.room}</td>
-            <td className='p-4'>{borrow.date}</td>
-            <td className='p-4'>{borrow.name_borrower}</td>
-            <td className='p-4'>{borrow.time_borrowed}</td>
-            <td className='p-4'>{borrow.name_returner}</td>
-            <td className='p-4'>{borrow.time_returned}</td>
+        className={`text-xl h-10 ${index % 2 === 0 ? 'bg-blue-100 text-black' : 'bg-blue-300 text-black'}`}>
+           
+            <td className=''>
+            <Moment format="MMMM DD, YYYY">
+                {borrow.date}
+            </Moment>
+              </td>
+              <td className=''>{borrow.room}</td>
+            <td className=''>{borrow.name_borrower}</td>
+            <td className=''>{borrow.time_borrowed}</td>
+            <td className=''>{borrow.name_returner}</td>
+            <td className=''>{borrow.time_returned}</td>
         </tr>
     ))}
     </tbody>

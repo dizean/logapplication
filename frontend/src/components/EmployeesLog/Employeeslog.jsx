@@ -8,6 +8,9 @@ import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 import { DateRangePicker } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
+import Moment from 'react-moment';
+import { differenceInHours } from 'date-fns';
+import moment from "moment";
 const EmployeesLog = () =>{
     const { user } = useUser(); 
       const [searchTerm, setSearchTerm] = useState('');
@@ -134,8 +137,39 @@ const EmployeesLog = () =>{
         } else {
           handleSearch(value);
         }
-      };
-      const today = new Date().toISOString().split('T')[0];
+      
+      }
+      const getDifference = (time1, time2)  =>{
+        const format = "HH:mm:ss"; 
+        const momentTime1 = moment(time1, format);  
+        const momentTime2 = moment(time2, format);  
+        if (time2 === ''){
+          return ''
+        }
+        const duration = moment.duration(momentTime2.diff(momentTime1));
+      
+        const hours = Math.floor(duration.asHours()); 
+        const minutes = Math.floor(duration.asMinutes() % 60);
+        const seconds = Math.floor(duration.asSeconds() % 60);
+      
+        
+        let formattedTime;
+        if (hours === 0 && minutes === 0) {
+         
+          formattedTime = `${seconds}s`;
+        } else if (hours === 0) {
+        
+          formattedTime = `${minutes}m`;
+        } else {
+         
+          formattedTime = `${hours}h ${minutes}m`;
+        }
+      
+        return formattedTime;
+      }
+      
+      
+
     return(
    <body className='h-screen w-screen relative'>
    <nav className='flex justify-between items-center bg-slate-100 drop-shadow-lg'>
@@ -197,21 +231,30 @@ const EmployeesLog = () =>{
    <main className='w-full px-5 my-5 overflow-scroll h-[60vh]'>
    <table id="tableemplo" className='text-left w-full border-separate border border-slate-200'>
     <thead className='bg-blue-700 text-left text-white sticky top-0 z-9'>
-        <tr className='h-20 text-xl bg-blue-700'>
-        <th className='w-1/4 p-2'>Date</th>
-        <th className='w-1/4 p-2'>Name</th>
-        <th className='w-1/4 p-2'>Logged in</th>
-        <th className='w-1/4 p-2'>Logged out</th>               
+        <tr className='h-16 text-xl bg-blue-700'>
+        <th className='w-1/6 '>Date</th>
+        <th className='w-2/6 '>Name</th>
+        <th className='w-1/6 '>Logged in</th>
+        <th className='w-1/6 '>Logged out</th>
+        <th className='w-1/6 '>Work Hours</th>
         </tr>
     </thead>
     <tbody className=''>
     {searchResults.map((employee, index) => (
         <tr key={index} 
-        className={`text-xl h-20 ${index % 2 === 0 ? 'bg-blue-100 text-black' : 'bg-blue-700 text-white'}`}>
-            <td className='p-4'>{employee.date}</td>
-            <td className='p-4'>{employee.name}</td>
-            <td className='p-4'>{employee.time_in}</td>
-            <td className='p-4'>{employee.time_out}</td>
+        className={`text-xl h-10 ${index % 2 === 0 ? 'bg-blue-100 text-black' : 'bg-blue-300 text-black'}`}>
+            <td className=''>
+            <Moment format="MMMM DD, YYYY">
+                {employee.date}
+            </Moment>
+              </td>
+            <td className=''>{employee.name}</td>
+            <td className=''>{employee.time_in}</td>
+            <td className=''>{employee.time_out}</td>
+            <td className=''>
+  {getDifference(employee.time_in, employee.time_out)}
+</td>
+
         </tr>
     ))}
     </tbody>
