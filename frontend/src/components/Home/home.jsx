@@ -7,11 +7,17 @@ import employeepic from '../../images/icon-employ.png';
 import visitorpic from '../../images/Visitor.png';
 import keypic from '../../images/ph_key.png';
 import addvisicion from '../../images/employees.png';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 const Home = () =>{
     const { user } = useUser();
     const navigate = useNavigate();
     const [isLoginVisitor, setisLoginVisitor] = useState(false);
     const [isLogoutVisitor, setiisLogoutVisitor] = useState(false);
+    const [isSuccessBorrow, setIsSuccessBorrow] = useState(false);
+    const SuccessBorrow = () =>{
+        setIsSuccessBorrow(true);
+    }
     const openLoginVisitor= () => {
         setisLoginVisitor(true);
     };
@@ -47,8 +53,15 @@ const Home = () =>{
             place: "",
             gate:"",
         });
-        alert("Visitor log recorded.")
         closeModal();
+        SuccessBorrow();
+        setTimeout(() => {
+            setIsSuccessBorrow(false);
+        }, 3000);
+        setTimeout(() => {
+            navigate(0);
+        }, 1000);
+        
         } catch (error) {
         alert("error");
         console.error("data data:", error);
@@ -256,6 +269,16 @@ const Home = () =>{
     </div>
    </div>
    )}
+    {isSuccessBorrow && 
+    (
+        <>
+        <Snackbar open={true} anchorOrigin={{vertical: 'top', horizontal: 'center'}}>
+        <Alert severity="success">
+        Visitor Logged in.
+        </Alert>
+        </Snackbar>
+        </>
+    )}
    </body>
     )
 }

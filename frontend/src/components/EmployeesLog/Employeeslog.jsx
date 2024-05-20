@@ -154,8 +154,10 @@ const EmployeesLog = () =>{
       
         
         let formattedTime;
+        if(duration < 0) {
+          return "Employee did not log out."
+        }
         if (hours === 0 && minutes === 0) {
-         
           formattedTime = `${seconds}s`;
         } else if (hours === 0) {
         
@@ -164,7 +166,7 @@ const EmployeesLog = () =>{
          
           formattedTime = `${hours}h ${minutes}m`;
         }
-      
+        
         return formattedTime;
       }
       

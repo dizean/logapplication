@@ -6,6 +6,8 @@ import { useUser } from "../jsx/userContext";
 import employeeicon from '../../images/employee.png';
 import statusicon from '../../images/time-management.png';
 import departmenticon from '../../images/department.png';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 const LogoutVisitor = () =>{
     const navigate = useNavigate();
     const { user } = useUser();
@@ -23,7 +25,11 @@ const LogoutVisitor = () =>{
     const [visitorsData, setvisitorsData] = useState([]);
     // const [visitorData, setvisitorData] = useState([]);
     const [selectedVisitor, setselectedVisitor] = useState(null);
-
+    const [isSuccessReturn, setIsSuccessReturn] = useState(false);
+    
+    const SuccessReturn = () =>{
+        setIsSuccessReturn(true);
+    }
     useEffect(() => {
         const fetchData = async () => {
         try {
@@ -58,8 +64,13 @@ const LogoutVisitor = () =>{
             `http://localhost:3002/visits/${selectedVisitor.id}`,
             updateVisitor
         );
-        alert("Logged out.");
-        navigate(0);
+        SuccessReturn();
+        setTimeout(() => {
+            setIsSuccessReturn(false);
+        }, 3000);
+        setTimeout(() => {
+            navigate(0);
+        }, 1000);
         } catch (error) {
         console.error("Error handling sign out:", error);
         }
@@ -167,6 +178,16 @@ const LogoutVisitor = () =>{
         </div>
     </div>
    ))}
+    {isSuccessReturn && 
+    (
+        <>
+        <Snackbar open={true} anchorOrigin={{vertical: 'top', horizontal: 'center'}}>
+        <Alert severity="success">
+        Visitor Logged out.
+        </Alert>
+        </Snackbar>
+        </>
+    )}
    </main>
    </body>
     )
